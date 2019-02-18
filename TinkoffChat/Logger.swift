@@ -34,5 +34,5 @@ class Logger {
         }
     }
     
-    static var logMode: Bool = true
+    static var logMode: Bool = false
 }
