@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 
 enum State: String {
     case not_running = "NOT_RUNNING"
@@ -31,6 +32,12 @@ class Logger {
     static func printVCLogMsg(methodName: String = #function) {
         if logMode {
             print("VCMethod: \(methodName)")
+        }
+    }
+    
+    static func printFrame(for button: UIButton) {
+        if logMode {
+            print(button.frame)
         }
     }
     
