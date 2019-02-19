@@ -23,23 +23,30 @@ enum State: String {
  You can also change it's value during the life cycle in code somewhere in methods (in order to start/stop logging for some of them)
  */
 class Logger {
-    static func printAppLogMsg(from fromState: State, to toState: State, methodName: String = #function) {
+    
+    static let shared = Logger()
+    
+    private init(logMode: Bool = true) {
+        self.logMode = logMode
+    }
+    
+    func printAppLogMsg(from fromState: State, to toState: State, methodName: String = #function) {
         if logMode {
             print("Application moved from \(fromState.rawValue) to \(toState.rawValue): \(methodName)")
         }
     }
     
-    static func printVCLogMsg(methodName: String = #function) {
+    func printVCLogMsg(methodName: String = #function) {
         if logMode {
             print("VCMethod: \(methodName)")
         }
     }
     
-    static func printFrame(for button: UIButton) {
+    func printFrame(for button: UIButton) {
         if logMode {
             print(button.frame)
         }
     }
     
-    static var logMode: Bool = false
+    var logMode: Bool
 }

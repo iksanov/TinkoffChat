@@ -36,11 +36,7 @@ class ProfileViewController: UIViewController {
         editProfileButton.layer.masksToBounds = true
         editProfileButton.layer.cornerRadius = editButtonCornerRadius
         
-        logEditProfileButtonFrame()
-    }
-    
-    private func logEditProfileButtonFrame() {
-        print(editProfileButton.frame)
+        Logger.shared.printFrame(for: editProfileButton)
     }
     
     /*
@@ -49,7 +45,7 @@ class ProfileViewController: UIViewController {
      */
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        // logEditProfileButtonFrame()
+        // Logger.shared.printFrame(for: editProfileButton)
     }
     
     /*
@@ -59,7 +55,7 @@ class ProfileViewController: UIViewController {
      */
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        logEditProfileButtonFrame()
+        Logger.shared.printFrame(for: editProfileButton)
     }
 }
 
