@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ProfileViewController: UIViewController {
+class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     @IBOutlet weak var photoChooser: UIButton!
     
@@ -18,6 +18,30 @@ class ProfileViewController: UIViewController {
     
     @IBAction func choosePhoto(_ sender: Any) {
         print("Выбери изображение профиля")
+        
+        let actionSheet = UIAlertController.init(title: "Choose source", message: nil, preferredStyle: .actionSheet)
+        
+        actionSheet.addAction(UIAlertAction(title: "Open Camera", style: .default, handler: { action in
+            if UIImagePickerController.isSourceTypeAvailable(.camera) {
+                let imagePicker = UIImagePickerController()
+                imagePicker.delegate = self
+                imagePicker.sourceType = .camera
+                imagePicker.allowsEditing = true
+                self.present(imagePicker, animated: true, completion: nil)
+            }
+        }))
+        actionSheet.addAction(UIAlertAction(title: "Open Photo Library", style: .default, handler: { action in
+            if UIImagePickerController.isSourceTypeAvailable(.photoLibrary) {
+                let imagePicker = UIImagePickerController()
+                imagePicker.delegate = self
+                imagePicker.sourceType = .photoLibrary
+                imagePicker.allowsEditing = true
+                self.present(imagePicker, animated: true, completion: nil)
+            }
+        }))
+        actionSheet.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        
+        self.present(actionSheet, animated: true, completion: nil)
     }
     
     override func viewDidLoad() {
@@ -30,6 +54,7 @@ class ProfileViewController: UIViewController {
         
         photoImage.layer.masksToBounds = true
         photoImage.layer.cornerRadius = photoChooser.layer.cornerRadius
+        photoImage.contentMode = .scaleAspectFill
         
         editProfileButton.layer.borderWidth = SizeRatio.editButtonBorderWidth
         editProfileButton.layer.borderColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
@@ -60,8 +85,20 @@ class ProfileViewController: UIViewController {
 }
 
 extension ProfileViewController {
+    @objc func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        if let image = info[.editedImage] as? UIImage {
+            photoImage.image = image
+            if picker.sourceType == .camera {
+                UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil)
+            }
+        }
+        dismiss(animated: true, completion: nil)
+    }
+}
+
+extension ProfileViewController {
     private struct SizeRatio {
-        static let chooserCornerRadiusToChooserWidth: CGFloat = 0.65
+        static let chooserCornerRadiusToChooserWidth: CGFloat = 0.60
         static let chooserImageInsetToChooserWidth: CGFloat = 0.3
         static let editButtonCornerRadiusToEditButtonWidth: CGFloat = 0.05
         static let editButtonBorderWidth: CGFloat = 2.0
@@ -76,4 +113,3 @@ extension ProfileViewController {
         return editProfileButton.bounds.width * SizeRatio.editButtonCornerRadiusToEditButtonWidth
     }
 }
-
