@@ -17,7 +17,23 @@ protocol ConversationCellConfiguration: class {
 }
 
 class ConversationCell: UITableViewCell {
-
+//    var name: String?
+//    
+//    var message: String?
+//    
+//    var date: Date?
+//    
+//    var online: Bool
+//    
+//    var hasUnreadMessages: Bool
+    
+    
+    @IBOutlet weak var nameLabel: UILabel!
+    
+    @IBOutlet weak var messageLabel: UILabel!
+    
+    @IBOutlet weak var dateLabel: UILabel!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
