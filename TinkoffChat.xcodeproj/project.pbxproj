@@ -12,6 +12,7 @@
 		2023A811222474E700FCCAEB /* ConversationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2023A810222474E700FCCAEB /* ConversationCell.swift */; };
 		20505D7E22256B9D00E7729D /* ConversationsList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20505D7D22256B9D00E7729D /* ConversationsList.swift */; };
 		20505D8022256CFD00E7729D /* ConversationPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20505D7F22256CFD00E7729D /* ConversationPreview.swift */; };
+		2077BDAC2227F4E900B1CDB2 /* ConversationCellConfigurationProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2077BDAB2227F4E900B1CDB2 /* ConversationCellConfigurationProtocol.swift */; };
 		20EEAB2B2211CC6F007EE26A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20EEAB2A2211CC6F007EE26A /* AppDelegate.swift */; };
 		20EEAB2D2211CC6F007EE26A /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20EEAB2C2211CC6F007EE26A /* ProfileViewController.swift */; };
 		20EEAB302211CC6F007EE26A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 20EEAB2E2211CC6F007EE26A /* Main.storyboard */; };
@@ -26,6 +27,7 @@
 		2023A810222474E700FCCAEB /* ConversationCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationCell.swift; sourceTree = "<group>"; };
 		20505D7D22256B9D00E7729D /* ConversationsList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationsList.swift; sourceTree = "<group>"; };
 		20505D7F22256CFD00E7729D /* ConversationPreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationPreview.swift; sourceTree = "<group>"; };
+		2077BDAB2227F4E900B1CDB2 /* ConversationCellConfigurationProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationCellConfigurationProtocol.swift; sourceTree = "<group>"; };
 		20EEAB272211CC6F007EE26A /* TinkoffChat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TinkoffChat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		20EEAB2A2211CC6F007EE26A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		20EEAB2C2211CC6F007EE26A /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
@@ -82,6 +84,14 @@
 			path = "Conversation Cell";
 			sourceTree = "<group>";
 		};
+		2077BDAA2227F4B300B1CDB2 /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				2077BDAB2227F4E900B1CDB2 /* ConversationCellConfigurationProtocol.swift */,
+			);
+			path = Protocols;
+			sourceTree = "<group>";
+		};
 		20EEAB1E2211CC6F007EE26A = {
 			isa = PBXGroup;
 			children = (
@@ -101,6 +111,7 @@
 		20EEAB292211CC6F007EE26A /* TinkoffChat */ = {
 			isa = PBXGroup;
 			children = (
+				2077BDAA2227F4B300B1CDB2 /* Protocols */,
 				2077BDA92227F41B00B1CDB2 /* Conversation Cell */,
 				2077BDA62227F3CE00B1CDB2 /* Model */,
 				2077BDA82227F3E800B1CDB2 /* Utils */,
@@ -189,6 +200,7 @@
 				20EEAB2D2211CC6F007EE26A /* ProfileViewController.swift in Sources */,
 				2023A8072224647600FCCAEB /* ConversationsListViewController.swift in Sources */,
 				20EEAB3D2211F642007EE26A /* Logger.swift in Sources */,
+				2077BDAC2227F4E900B1CDB2 /* ConversationCellConfigurationProtocol.swift in Sources */,
 				20505D8022256CFD00E7729D /* ConversationPreview.swift in Sources */,
 				2023A811222474E700FCCAEB /* ConversationCell.swift in Sources */,
 				20EEAB2B2211CC6F007EE26A /* AppDelegate.swift in Sources */,

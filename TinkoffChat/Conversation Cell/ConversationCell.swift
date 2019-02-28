@@ -8,14 +8,6 @@
 
 import UIKit
 
-protocol ConversationCellConfiguration: class {
-    var name: String? { get set }
-    var message: String? { get set }
-    var date: Date? { get set }
-    var online: Bool { get set }
-    var hasUnreadMessages: Bool { get set }
-}
-
 class ConversationCell: UITableViewCell, ConversationCellConfiguration {
     
     @IBOutlet weak var nameLabel: UILabel!
@@ -28,6 +20,21 @@ class ConversationCell: UITableViewCell, ConversationCellConfiguration {
     var online: Bool = false
     var hasUnreadMessages: Bool = false
     
+    func configureCell(from convPreview: ConversationPreview) {
+        self.name = convPreview.name
+        self.message = convPreview.message
+        self.date = convPreview.date
+        self.online = convPreview.online
+        self.hasUnreadMessages = convPreview.hasUnreadMessages
+        
+        drawCell()
+    }
+    
+    private func drawCell() {
+        
+    }
+    
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -38,6 +45,4 @@ class ConversationCell: UITableViewCell, ConversationCellConfiguration {
 
         // Configure the view for the selected state
     }
-
-    
 }
