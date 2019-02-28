@@ -31,7 +31,27 @@ class ConversationCell: UITableViewCell, ConversationCellConfiguration {
     }
     
     private func drawCell() {
+        let dateFormatter = DateFormatter()  // TODO: set correct timeStyle
+        dateFormatter.timeStyle = .short
         
+        nameLabel.text = name
+        
+        if let textOfMessage = message {
+            if hasUnreadMessages {
+                messageLabel.font = UIFont.boldSystemFont(ofSize: messageLabel.font.pointSize)
+            } else {
+                messageLabel.font = UIFont.preferredFont(forTextStyle: .body)
+            }
+            messageLabel.text = textOfMessage
+        } else {
+            messageLabel.font = UIFont.italicSystemFont(ofSize: messageLabel.font.pointSize)
+            messageLabel.text = "No messages yet"
+        }
+        
+        dateLabel.font = UIFont.preferredFont(forTextStyle: .body)
+        dateLabel.text = dateFormatter.string(from: date!)
+
+        backgroundColor = online ? #colorLiteral(red: 0.9882352941, green: 0.9058823529, blue: 0.3176470588, alpha: 0.5471693065) : #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
     }
     
     

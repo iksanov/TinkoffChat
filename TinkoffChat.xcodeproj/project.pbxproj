@@ -111,11 +111,11 @@
 		20EEAB292211CC6F007EE26A /* TinkoffChat */ = {
 			isa = PBXGroup;
 			children = (
-				2077BDAA2227F4B300B1CDB2 /* Protocols */,
+				2077BDA72227F3DB00B1CDB2 /* View Controllers */,
 				2077BDA92227F41B00B1CDB2 /* Conversation Cell */,
 				2077BDA62227F3CE00B1CDB2 /* Model */,
+				2077BDAA2227F4B300B1CDB2 /* Protocols */,
 				2077BDA82227F3E800B1CDB2 /* Utils */,
-				2077BDA72227F3DB00B1CDB2 /* View Controllers */,
 				20EEAB2A2211CC6F007EE26A /* AppDelegate.swift */,
 				20EEAB2E2211CC6F007EE26A /* Main.storyboard */,
 				20EEAB332211CC70007EE26A /* LaunchScreen.storyboard */,
