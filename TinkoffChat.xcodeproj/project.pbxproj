@@ -13,6 +13,11 @@
 		20505D7E22256B9D00E7729D /* ConversationsList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20505D7D22256B9D00E7729D /* ConversationsList.swift */; };
 		20505D8022256CFD00E7729D /* ConversationPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20505D7F22256CFD00E7729D /* ConversationPreview.swift */; };
 		2077BDAC2227F4E900B1CDB2 /* ConversationCellConfigurationProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2077BDAB2227F4E900B1CDB2 /* ConversationCellConfigurationProtocol.swift */; };
+		20B8759222281BD200EE1DD6 /* ConversationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20B8759122281BD200EE1DD6 /* ConversationViewController.swift */; };
+		20B8759422281CDC00EE1DD6 /* MessageCellConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20B8759322281CDC00EE1DD6 /* MessageCellConfiguration.swift */; };
+		20B8759722281DA700EE1DD6 /* inMessageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 20B8759622281DA700EE1DD6 /* inMessageCell.xib */; };
+		20B8759922281DC700EE1DD6 /* outMessageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 20B8759822281DC700EE1DD6 /* outMessageCell.xib */; };
+		20B8759B22281E0800EE1DD6 /* MessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20B8759A22281E0800EE1DD6 /* MessageCell.swift */; };
 		20EEAB2B2211CC6F007EE26A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20EEAB2A2211CC6F007EE26A /* AppDelegate.swift */; };
 		20EEAB2D2211CC6F007EE26A /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20EEAB2C2211CC6F007EE26A /* ProfileViewController.swift */; };
 		20EEAB302211CC6F007EE26A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 20EEAB2E2211CC6F007EE26A /* Main.storyboard */; };
@@ -28,6 +33,11 @@
 		20505D7D22256B9D00E7729D /* ConversationsList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationsList.swift; sourceTree = "<group>"; };
 		20505D7F22256CFD00E7729D /* ConversationPreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationPreview.swift; sourceTree = "<group>"; };
 		2077BDAB2227F4E900B1CDB2 /* ConversationCellConfigurationProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationCellConfigurationProtocol.swift; sourceTree = "<group>"; };
+		20B8759122281BD200EE1DD6 /* ConversationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationViewController.swift; sourceTree = "<group>"; };
+		20B8759322281CDC00EE1DD6 /* MessageCellConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageCellConfiguration.swift; sourceTree = "<group>"; };
+		20B8759622281DA700EE1DD6 /* inMessageCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = inMessageCell.xib; sourceTree = "<group>"; };
+		20B8759822281DC700EE1DD6 /* outMessageCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = outMessageCell.xib; sourceTree = "<group>"; };
+		20B8759A22281E0800EE1DD6 /* MessageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageCell.swift; sourceTree = "<group>"; };
 		20EEAB272211CC6F007EE26A /* TinkoffChat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TinkoffChat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		20EEAB2A2211CC6F007EE26A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		20EEAB2C2211CC6F007EE26A /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
@@ -63,6 +73,7 @@
 			children = (
 				2023A8062224647600FCCAEB /* ConversationsListViewController.swift */,
 				20EEAB2C2211CC6F007EE26A /* ProfileViewController.swift */,
+				20B8759122281BD200EE1DD6 /* ConversationViewController.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -88,8 +99,19 @@
 			isa = PBXGroup;
 			children = (
 				2077BDAB2227F4E900B1CDB2 /* ConversationCellConfigurationProtocol.swift */,
+				20B8759322281CDC00EE1DD6 /* MessageCellConfiguration.swift */,
 			);
 			path = Protocols;
+			sourceTree = "<group>";
+		};
+		20B8759522281D3A00EE1DD6 /* Message Cell */ = {
+			isa = PBXGroup;
+			children = (
+				20B8759622281DA700EE1DD6 /* inMessageCell.xib */,
+				20B8759822281DC700EE1DD6 /* outMessageCell.xib */,
+				20B8759A22281E0800EE1DD6 /* MessageCell.swift */,
+			);
+			path = "Message Cell";
 			sourceTree = "<group>";
 		};
 		20EEAB1E2211CC6F007EE26A = {
@@ -111,6 +133,7 @@
 		20EEAB292211CC6F007EE26A /* TinkoffChat */ = {
 			isa = PBXGroup;
 			children = (
+				20B8759522281D3A00EE1DD6 /* Message Cell */,
 				2077BDA72227F3DB00B1CDB2 /* View Controllers */,
 				2077BDA92227F41B00B1CDB2 /* Conversation Cell */,
 				2077BDA62227F3CE00B1CDB2 /* Model */,
@@ -186,6 +209,8 @@
 				2023A80D22246D8900FCCAEB /* ConversationCell.xib in Resources */,
 				20EEAB352211CC70007EE26A /* LaunchScreen.storyboard in Resources */,
 				20EEAB322211CC70007EE26A /* Assets.xcassets in Resources */,
+				20B8759722281DA700EE1DD6 /* inMessageCell.xib in Resources */,
+				20B8759922281DC700EE1DD6 /* outMessageCell.xib in Resources */,
 				20EEAB302211CC6F007EE26A /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -197,9 +222,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				20B8759B22281E0800EE1DD6 /* MessageCell.swift in Sources */,
 				20EEAB2D2211CC6F007EE26A /* ProfileViewController.swift in Sources */,
 				2023A8072224647600FCCAEB /* ConversationsListViewController.swift in Sources */,
+				20B8759222281BD200EE1DD6 /* ConversationViewController.swift in Sources */,
 				20EEAB3D2211F642007EE26A /* Logger.swift in Sources */,
+				20B8759422281CDC00EE1DD6 /* MessageCellConfiguration.swift in Sources */,
 				2077BDAC2227F4E900B1CDB2 /* ConversationCellConfigurationProtocol.swift in Sources */,
 				20505D8022256CFD00E7729D /* ConversationPreview.swift in Sources */,
 				2023A811222474E700FCCAEB /* ConversationCell.swift in Sources */,
