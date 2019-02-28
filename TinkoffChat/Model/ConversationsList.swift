@@ -13,11 +13,29 @@ class ConversationsList {
     let conversations: [ConversationPreview]
     
     init() {
-        conversations = [ConversationPreview].init(arrayLiteral: ConversationPreview(name: "James Smith",
-                                                                                     message: ConversationPreview.messageText,
-                                                                                     date: Date.init(timeIntervalSinceNow: 0),
-                                                                                     online: true,
-                                                                                     hasUnreadMessages: true))
+        conversations = [ConversationPreview].init([ConversationPreview(name: "James Smith",
+                                                                       message: ConversationPreview.messageText,
+                                                                       date: Date.init(timeIntervalSinceNow: 0),
+                                                                       online: true,
+                                                                       hasUnreadMessages: true),
+                                                    
+                                                    ConversationPreview(name: "Maria Garcia",
+                                                                        message: ConversationPreview.messageText,
+                                                                        date: Date.init(timeIntervalSinceNow: 0),
+                                                                        online: true,
+                                                                        hasUnreadMessages: false),
+                                                    
+                                                    ConversationPreview(name: "Sam Rodriguez",
+                                                                        message: nil,
+                                                                        date: Date.init(timeIntervalSinceNow: 0),
+                                                                        online: true,
+                                                                        hasUnreadMessages: true),
+                                                    
+                                                    ConversationPreview(name: "David Johnson",
+                                                                        message: "Hello!",
+                                                                        date: Date.init(timeIntervalSinceNow: 0),
+                                                                        online: false,
+                                                                        hasUnreadMessages: true)])
     }
     
     var onlineConversations: [ConversationPreview] {

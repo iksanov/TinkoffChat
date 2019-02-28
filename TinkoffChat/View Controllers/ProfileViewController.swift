@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  ProfileViewController.swift
 //  TinkoffChat
 //
 //  Created by MacBookPro on 11/02/2019.
