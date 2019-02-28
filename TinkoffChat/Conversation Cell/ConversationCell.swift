@@ -16,23 +16,17 @@ protocol ConversationCellConfiguration: class {
     var hasUnreadMessages: Bool { get set }
 }
 
-class ConversationCell: UITableViewCell {
-//    var name: String?
-//    
-//    var message: String?
-//    
-//    var date: Date?
-//    
-//    var online: Bool
-//    
-//    var hasUnreadMessages: Bool
-    
+class ConversationCell: UITableViewCell, ConversationCellConfiguration {
     
     @IBOutlet weak var nameLabel: UILabel!
-    
     @IBOutlet weak var messageLabel: UILabel!
-    
     @IBOutlet weak var dateLabel: UILabel!
+    
+    var name: String? = nil
+    var message: String? = nil
+    var date: Date? = nil
+    var online: Bool = false
+    var hasUnreadMessages: Bool = false
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -45,4 +39,5 @@ class ConversationCell: UITableViewCell {
         // Configure the view for the selected state
     }
 
+    
 }

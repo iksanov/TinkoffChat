@@ -8,7 +8,7 @@
 
 import Foundation
 
-class ConversationPreview {
+class ConversationPreview: ConversationCellConfiguration {
     
     var name: String?
     var message: String?
