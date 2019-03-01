@@ -51,7 +51,7 @@ extension ConversationsListViewController: UITableViewDataSource {
             return Int()
         }
     }
-    
+
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {  // TODO: type of table (plain/grouped)
         switch section {
         case 0:

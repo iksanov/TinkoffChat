@@ -9,11 +9,14 @@
 import UIKit
 
 class ConversationViewController: UIViewController {
-
+    
+    @IBOutlet weak var messagesTV: UITableView!
+    
+    let messagesList = MessagesList()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        messagesTV.dataSource = self
     }
     
 
@@ -26,5 +29,25 @@ class ConversationViewController: UIViewController {
         // Pass the selected object to the new view controller.
     }
     */
+
+}
+
+extension ConversationViewController: UITableViewDataSource {
+
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return messagesList.messages.count
+    }
+
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let message = messagesList.messages[indexPath.row]
+        let messageCellIdentifier = message.ifIncoming ? "in"
+        let cell = tableView.dequeueReusableCell(withIdentifier: "", for: indexPath)
+        let convCell = cell as! ConversationCell  // TODO: try to downcast to the protocol instead
+    }
+
 
 }

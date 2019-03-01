@@ -41,6 +41,36 @@
             </objects>
             <point key="canvasLocation" x="306.39999999999998" y="-78.325123152709367"/>
         </scene>
+        <!--Conversation View Controller-->
+        <scene sceneID="Zul-UZ-x70">
+            <objects>
+                <viewController id="J5X-UM-YHS" customClass="ConversationViewController" customModule="TinkoffChat" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Gha-ug-dfc">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="ZMN-jt-d7T">
+                                <rect key="frame" x="16" y="44" width="343" height="734"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="ZMN-jt-d7T" firstAttribute="leading" secondItem="t0v-oO-t6z" secondAttribute="leading" constant="16" id="HrP-YM-mC8"/>
+                            <constraint firstItem="t0v-oO-t6z" firstAttribute="trailing" secondItem="ZMN-jt-d7T" secondAttribute="trailing" constant="16" id="TG9-kw-RBT"/>
+                            <constraint firstItem="ZMN-jt-d7T" firstAttribute="top" secondItem="t0v-oO-t6z" secondAttribute="top" id="ldz-1X-sY4"/>
+                            <constraint firstItem="t0v-oO-t6z" firstAttribute="bottom" secondItem="ZMN-jt-d7T" secondAttribute="bottom" id="w3I-7q-Caf"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="t0v-oO-t6z"/>
+                    </view>
+                    <connections>
+                        <outlet property="messagesTV" destination="ZMN-jt-d7T" id="Tkd-Jo-AWn"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Hlv-K6-rMA" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1277.5999999999999" y="-78.325123152709367"/>
+        </scene>
         <!--Profile View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
@@ -122,7 +152,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1873" y="-146"/>
+            <point key="canvasLocation" x="2262" y="-78"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="B6R-RY-zAW">

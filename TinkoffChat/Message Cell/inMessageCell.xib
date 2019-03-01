@@ -32,6 +32,9 @@
                     <constraint firstAttribute="bottom" secondItem="Vt7-ia-Nq5" secondAttribute="bottom" constant="20" symbolic="YES" id="wfl-eo-NQW"/>
                 </constraints>
             </tableViewCellContentView>
+            <connections>
+                <outlet property="messageLabel" destination="Vt7-ia-Nq5" id="F9u-u5-mYG"/>
+            </connections>
             <point key="canvasLocation" x="-741.60000000000002" y="-229.38530734632684"/>
         </tableViewCell>
     </objects>
