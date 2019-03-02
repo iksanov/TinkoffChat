@@ -21,7 +21,7 @@ class MessageCell: UITableViewCell, MessageCellConfiguration {  // TODO: regulat
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+        layer.cornerRadius = 30  // TODO: add internal background view instead
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

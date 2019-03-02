@@ -25,6 +25,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                 </subviews>
+                <color key="backgroundColor" red="0.90196078431372551" green="0.89803921568627454" blue="0.92156862745098034" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                 <constraints>
                     <constraint firstItem="Vt7-ia-Nq5" firstAttribute="top" secondItem="K71-1v-1jE" secondAttribute="top" constant="20" symbolic="YES" id="70g-7r-9HB"/>
                     <constraint firstItem="Vt7-ia-Nq5" firstAttribute="leading" secondItem="K71-1v-1jE" secondAttribute="leading" constant="20" symbolic="YES" id="H90-KF-YKF"/>
@@ -35,7 +36,7 @@
             <connections>
                 <outlet property="messageLabel" destination="Vt7-ia-Nq5" id="F9u-u5-mYG"/>
             </connections>
-            <point key="canvasLocation" x="-846" y="-253"/>
+            <point key="canvasLocation" x="-847.20000000000005" y="-253.67316341829087"/>
         </tableViewCell>
     </objects>
 </document>

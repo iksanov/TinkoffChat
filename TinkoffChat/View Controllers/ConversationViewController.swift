@@ -20,6 +20,10 @@ class ConversationViewController: UIViewController {
         messagesTV.register(UINib(nibName: "InMessageCell", bundle: Bundle.main), forCellReuseIdentifier: "InMessageCell")
         messagesTV.register(UINib(nibName: "OutMessageCell", bundle: Bundle.main), forCellReuseIdentifier: "OutMessageCell")
         messagesTV.allowsSelection = false
+        messagesTV.rowHeight = UITableView.automaticDimension
+        messagesTV.estimatedRowHeight = 150
+        messagesTV.separatorStyle = .none
+        // TODO: add spacing between cells
     }
     
 
