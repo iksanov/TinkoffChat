@@ -31,10 +31,6 @@ class ConversationCell: UITableViewCell, ConversationCellConfiguration {  // TOD
     }
     
     private func drawCell() {
-        let dateFormatter = DateFormatter()  // TODO: set correct timeStyle
-        dateFormatter.timeStyle = .short
-        dateFormatter.dateStyle = .short
-        
         nameLabel.text = name
         
         if let textOfMessage = message {
@@ -51,6 +47,7 @@ class ConversationCell: UITableViewCell, ConversationCellConfiguration {  // TOD
         
         dateLabel.font = UIFont.preferredFont(forTextStyle: .body)
         let currentCalendar = Calendar.current
+        let dateFormatter = DateFormatter()
         let isToday = currentCalendar.isDateInToday(date!)
         if isToday {
             dateFormatter.setLocalizedDateFormatFromTemplate("HH:mm")

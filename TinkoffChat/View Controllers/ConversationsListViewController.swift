@@ -24,7 +24,11 @@ class ConversationsListViewController: UIViewController {
     
     let convList = ConversationsList()
     
-    // TODO: check how to create segue from code
+    @IBAction func openProfile(_ sender: Any) {  // create segue from code
+        let storyBoard = UIStoryboard.init(name: "Main", bundle: nil)
+        let profileVC = storyBoard.instantiateViewController(withIdentifier: "ProfileVC (inside NavigationVC)")
+        present(profileVC, animated: true, completion: nil)
+    }
     
     private func conversationAt(_ indexPath: IndexPath) -> ConversationPreview? {
         switch indexPath.section {
@@ -66,7 +70,7 @@ extension ConversationsListViewController: UITableViewDataSource {
         }
     }
 
-    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {  // TODO: type of table (plain/grouped)
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         switch section {
         case 0:
             return "Online"
@@ -80,7 +84,7 @@ extension ConversationsListViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ConvCell", for: indexPath)
-        let convCell = cell as! ConversationCell  // TODO: try to downcast to the protocol instead
+        let convCell = cell as! ConversationCell
         
         guard let conversation = conversationAt(indexPath) else { assert(false); return convCell }
         convCell.configureCell(from: conversation)

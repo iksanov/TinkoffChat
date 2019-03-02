@@ -8,13 +8,13 @@
 
 import UIKit
 
-class MessageCell: UITableViewCell, MessageCellConfiguration {  // TODO: regulate cell's height
+class MessageCell: UITableViewCell, MessageCellConfiguration {
     
     var textOfMessage: String? = nil
 
     @IBOutlet weak var messageLabel: UILabel!
     
-    func configureCell(from message: Message) {  // TODO: realign for a single line message
+    func configureCell(from message: Message) {  // TODO: realign in case of single-line message (how?)
         self.textOfMessage = message.textOfMessage
         messageLabel.text = self.textOfMessage
     }

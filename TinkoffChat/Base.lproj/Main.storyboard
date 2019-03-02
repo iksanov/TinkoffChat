@@ -37,7 +37,7 @@
                             <inset key="largeContentSizeImageInsets" minX="107" minY="0.0" maxX="0.0" maxY="0.0"/>
                             <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                             <connections>
-                                <segue destination="tO3-28-zTD" kind="presentation" modalTransitionStyle="coverVertical" id="f6e-Kp-S2p"/>
+                                <action selector="openProfile:" destination="82P-nM-GBu" id="bGJ-Ec-IBZ"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -83,7 +83,7 @@
         <!--Profile View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ProfileViewController" customModule="TinkoffChat" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ProfileVC (without NavigationVC)" id="BYZ-38-t0r" customClass="ProfileViewController" customModule="TinkoffChat" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -192,7 +192,7 @@
         <!--Navigation Controller-->
         <scene sceneID="lsN-0x-2gQ">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="tO3-28-zTD" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="ProfileVC (inside NavigationVC)" automaticallyAdjustsScrollViewInsets="NO" id="tO3-28-zTD" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="ZTD-8T-SQQ">
                         <rect key="frame" x="0.0" y="44" width="375" height="44"/>

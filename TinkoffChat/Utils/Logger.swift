@@ -22,7 +22,7 @@ enum State: String {
  To do this: set logMode variable to 'false'.
  You can also change it's value during the life cycle in code somewhere in methods (in order to start/stop logging for some of them)
  */
-class Logger {  // TODO: improve Logger
+class Logger {  // TODO: improve Logger (from presentation)
     
     static let shared = Logger()
     
