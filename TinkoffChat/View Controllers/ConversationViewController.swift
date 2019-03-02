@@ -19,6 +19,7 @@ class ConversationViewController: UIViewController {
         messagesTV.dataSource = self
         messagesTV.register(UINib(nibName: "InMessageCell", bundle: Bundle.main), forCellReuseIdentifier: "InMessageCell")
         messagesTV.register(UINib(nibName: "OutMessageCell", bundle: Bundle.main), forCellReuseIdentifier: "OutMessageCell")
+        messagesTV.allowsSelection = false
     }
     
 

@@ -42,7 +42,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="conversationListTV" destination="hFE-Mo-CeV" id="lVn-uY-Woo"/>
+                        <outlet property="conversationsListTV" destination="hFE-Mo-CeV" id="lVn-uY-Woo"/>
                         <segue destination="J5X-UM-YHS" kind="show" identifier="OpenConversation" id="Tgx-1x-b92"/>
                     </connections>
                 </viewController>
@@ -104,17 +104,17 @@
                                     <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Александр Федоров" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jTb-Uq-A3e">
-                                <rect key="frame" x="16" y="455" width="343" height="32.666666666666686"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Александр Федоров" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jTb-Uq-A3e">
+                                <rect key="frame" x="16" y="455" width="343" height="32.333333333333314"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="27"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="249" verticalCompressionResistancePriority="751" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QcZ-jR-Txz">
-                                <rect key="frame" x="16" y="495.66666666666669" width="343" height="57.333333333333314"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="249" verticalCompressionResistancePriority="749" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QcZ-jR-Txz">
+                                <rect key="frame" x="16" y="495.33333333333331" width="343" height="57.333333333333314"/>
                                 <string key="text">👨‍💻Люблю программировать под iOS
 👨‍🎓Изучать новые технологии
-👨‍🏫Помогаю развиваться другим </string>
+👨‍🏫Помогаю развиваться другим</string>
                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>

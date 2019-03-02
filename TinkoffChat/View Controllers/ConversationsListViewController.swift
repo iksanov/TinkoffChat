@@ -10,13 +10,13 @@ import UIKit
 
 class ConversationsListViewController: UIViewController {
     
-    @IBOutlet weak var conversationListTV: UITableView!
+    @IBOutlet weak var conversationsListTV: UITableView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        conversationListTV.dataSource = self
-        conversationListTV.delegate = self
-        conversationListTV.register(UINib(nibName: "ConversationCell", bundle: Bundle.main), forCellReuseIdentifier: "ConvCell")
+        conversationsListTV.dataSource = self
+        conversationsListTV.delegate = self
+        conversationsListTV.register(UINib(nibName: "ConversationCell", bundle: Bundle.main), forCellReuseIdentifier: "ConvCell")
         title = "Tinkoff Chat"
     }
     

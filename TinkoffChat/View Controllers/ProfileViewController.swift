@@ -16,6 +16,26 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     
     @IBOutlet weak var editProfileButton: UIButton!
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        // TODO: change font size according to screen width (how?)
+        // TODO: remove taps on button corners
+        photoChooser.layer.cornerRadius = chooserCornerRadius
+        let imageEdgeInset = chooserImageInset
+        photoChooser.imageEdgeInsets = UIEdgeInsets(top: imageEdgeInset, left: imageEdgeInset, bottom: imageEdgeInset, right: imageEdgeInset)
+        
+        photoImage.layer.masksToBounds = true
+        photoImage.layer.cornerRadius = photoChooser.layer.cornerRadius
+        photoImage.contentMode = .scaleAspectFill
+        
+        editProfileButton.layer.borderWidth = SizeRatio.editButtonBorderWidth
+        editProfileButton.layer.borderColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+        editProfileButton.layer.masksToBounds = true
+        editProfileButton.layer.cornerRadius = editButtonCornerRadius
+        
+        Logger.shared.printFrame(for: editProfileButton)
+    }
+    
     @IBAction func closeProfile(_ sender: Any) {
         dismiss(animated: true, completion: nil)
     }
@@ -46,26 +66,6 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         actionSheet.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         
         self.present(actionSheet, animated: true, completion: nil)
-    }
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        // TODO: change font size according to screen width (how?)
-        // TODO: remove taps on button corners
-        photoChooser.layer.cornerRadius = chooserCornerRadius
-        let imageEdgeInset = chooserImageInset
-        photoChooser.imageEdgeInsets = UIEdgeInsets(top: imageEdgeInset, left: imageEdgeInset, bottom: imageEdgeInset, right: imageEdgeInset)
-        
-        photoImage.layer.masksToBounds = true
-        photoImage.layer.cornerRadius = photoChooser.layer.cornerRadius
-        photoImage.contentMode = .scaleAspectFill
-        
-        editProfileButton.layer.borderWidth = SizeRatio.editButtonBorderWidth
-        editProfileButton.layer.borderColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
-        editProfileButton.layer.masksToBounds = true
-        editProfileButton.layer.cornerRadius = editButtonCornerRadius
-        
-        Logger.shared.printFrame(for: editProfileButton)
     }
     
     /*
