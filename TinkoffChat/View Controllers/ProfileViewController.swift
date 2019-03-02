@@ -18,8 +18,12 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        Logger.shared.printFrame(for: editProfileButton)
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
         // TODO: change font size according to screen width (how?)
-        // TODO: remove taps on button corners
         photoChooser.layer.cornerRadius = chooserCornerRadius
         let imageEdgeInset = chooserImageInset
         photoChooser.imageEdgeInsets = UIEdgeInsets(top: imageEdgeInset, left: imageEdgeInset, bottom: imageEdgeInset, right: imageEdgeInset)
@@ -32,8 +36,6 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         editProfileButton.layer.borderColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
         editProfileButton.layer.masksToBounds = true
         editProfileButton.layer.cornerRadius = editButtonCornerRadius
-        
-        Logger.shared.printFrame(for: editProfileButton)
     }
     
     @IBAction func closeProfile(_ sender: Any) {
@@ -102,7 +104,7 @@ extension ProfileViewController {
 
 extension ProfileViewController {
     private struct SizeRatio {
-        static let chooserCornerRadiusToChooserWidth: CGFloat = 0.60
+        static let chooserCornerRadiusToChooserWidth: CGFloat = 0.5
         static let chooserImageInsetToChooserWidth: CGFloat = 0.3
         static let editButtonCornerRadiusToEditButtonWidth: CGFloat = 0.05
         static let editButtonBorderWidth: CGFloat = 2.0

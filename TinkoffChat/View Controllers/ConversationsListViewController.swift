@@ -17,6 +17,8 @@ class ConversationsListViewController: UIViewController {
         conversationsListTV.dataSource = self
         conversationsListTV.delegate = self
         conversationsListTV.register(UINib(nibName: "ConversationCell", bundle: Bundle.main), forCellReuseIdentifier: "ConvCell")
+        conversationsListTV.rowHeight = UITableView.automaticDimension
+        conversationsListTV.estimatedRowHeight = 88
         title = "Tinkoff Chat"
     }
     
