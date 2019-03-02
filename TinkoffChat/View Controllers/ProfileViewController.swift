@@ -16,6 +16,10 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     
     @IBOutlet weak var editProfileButton: UIButton!
     
+    @IBAction func closeProfile(_ sender: Any) {
+        dismiss(animated: true, completion: nil)
+    }
+    
     @IBAction func choosePhoto(_ sender: Any) {
         print("Выбери изображение профиля")
         

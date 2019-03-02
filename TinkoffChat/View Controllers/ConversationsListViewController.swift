@@ -22,6 +22,8 @@ class ConversationsListViewController: UIViewController {
     
     let convList = ConversationsList()
     
+    // TODO: check how to create segue from code
+    
     private func conversationAt(_ indexPath: IndexPath) -> ConversationPreview? {
         switch indexPath.section {
         case 0:
@@ -37,7 +39,6 @@ class ConversationsListViewController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "OpenConversation", let conversation = sender as? ConversationPreview {
             segue.destination.title = conversation.name
-            print("preparing for segue")
         } else {
             super.prepare(for: segue, sender: sender)
         }
@@ -88,7 +89,7 @@ extension ConversationsListViewController: UITableViewDataSource {
 extension ConversationsListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let conversation = conversationAt(indexPath) else { assert(false) }
-        print("ask to perfom a segue")
         performSegue(withIdentifier: "OpenConversation", sender: conversation)
+        tableView.deselectRow(at: indexPath, animated: true)
     }
 }
