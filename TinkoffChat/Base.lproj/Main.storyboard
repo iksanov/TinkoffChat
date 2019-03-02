@@ -18,9 +18,9 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="hFE-Mo-CeV">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" separatorInsetReference="fromAutomaticInsets" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="hFE-Mo-CeV">
                                 <rect key="frame" x="16" y="88" width="343" height="690"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -37,7 +37,7 @@
                             <inset key="largeContentSizeImageInsets" minX="107" minY="0.0" maxX="0.0" maxY="0.0"/>
                             <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                             <connections>
-                                <segue destination="tO3-28-zTD" kind="presentation" id="f6e-Kp-S2p"/>
+                                <segue destination="tO3-28-zTD" kind="presentation" modalTransitionStyle="coverVertical" id="f6e-Kp-S2p"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -155,7 +155,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="Jug-5F-VPt">
                         <barButtonItem key="backBarButtonItem" title="Back" id="m7B-Z4-F4Y"/>
-                        <barButtonItem key="rightBarButtonItem" systemItem="stop" id="6xD-vf-EJ2">
+                        <barButtonItem key="leftBarButtonItem" systemItem="stop" id="6xD-vf-EJ2">
                             <connections>
                                 <action selector="closeProfile:" destination="BYZ-38-t0r" id="Wif-BZ-KTx"/>
                             </connections>

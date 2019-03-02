@@ -82,7 +82,7 @@ extension ConversationsListViewController: UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ConvCell", for: indexPath)
         let convCell = cell as! ConversationCell  // TODO: try to downcast to the protocol instead
         
-        guard let conversation = conversationAt(indexPath) else { assert(false) }
+        guard let conversation = conversationAt(indexPath) else { assert(false); return convCell }
         convCell.configureCell(from: conversation)
         return convCell
     }
@@ -90,7 +90,7 @@ extension ConversationsListViewController: UITableViewDataSource {
 
 extension ConversationsListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard let conversation = conversationAt(indexPath) else { assert(false) }
+        guard let conversation = conversationAt(indexPath) else { assert(false); return }
         performSegue(withIdentifier: "OpenConversation", sender: conversation)
         tableView.deselectRow(at: indexPath, animated: true)
     }
