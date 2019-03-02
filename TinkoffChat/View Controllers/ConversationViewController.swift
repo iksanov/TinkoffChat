@@ -17,6 +17,8 @@ class ConversationViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         messagesTV.dataSource = self
+        messagesTV.register(UINib(nibName: "InMessageCell", bundle: Bundle.main), forCellReuseIdentifier: "InMessageCell")
+        messagesTV.register(UINib(nibName: "OutMessageCell", bundle: Bundle.main), forCellReuseIdentifier: "OutMessageCell")
     }
     
 
@@ -44,10 +46,10 @@ extension ConversationViewController: UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let message = messagesList.messages[indexPath.row]
-        let messageCellIdentifier = message.ifIncoming ? "in"
-        let cell = tableView.dequeueReusableCell(withIdentifier: "", for: indexPath)
-        let convCell = cell as! ConversationCell  // TODO: try to downcast to the protocol instead
+        let messageCellIdentifier = message.isIncoming ? "InMessageCell" : "OutMessageCell"
+        let cell = tableView.dequeueReusableCell(withIdentifier: messageCellIdentifier, for: indexPath)
+        let messageCell = cell as! MessageCell  // TODO: try to downcast to the protocol instead
+        messageCell.configureCell(from: message)
+        return messageCell
     }
-
-
 }

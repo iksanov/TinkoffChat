@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ConversationCell: UITableViewCell, ConversationCellConfiguration {
+class ConversationCell: UITableViewCell, ConversationCellConfiguration {  // TODO: properties can store nothing
     
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var messageLabel: UILabel!

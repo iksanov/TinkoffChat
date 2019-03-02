@@ -9,18 +9,34 @@
 import Foundation
 
 class MessagesList {
-    let messages: [Message]
+    lazy var messages = getMessagesFromPlainText(MessagesList.plainText)
     
-    init() {
-        messages = [Message].init(MessagesList.listOfMessages)
+    private func getMessagesFromPlainText(_ text: String) -> [Message] {
+        var listOfMessages = [Message]()
+        let listOfWords = text.split(separator: " ")
+        
+        var startIndex = 0
+        var endIndex = 10
+        while endIndex < listOfWords.count {
+            let isIncoming = (Int.random(in: 0...1) == 0) ? false : true
+            let messageText = listOfWords[startIndex..<endIndex].joined(separator: " ")
+            listOfMessages.append(Message(text: messageText, isIncoming: isIncoming))
+            startIndex += 10
+            endIndex += 10
+        }
+        return listOfMessages
     }
 }
 
 extension MessagesList {
-    static let listOfMessages = [Message(text: "Hello", ifIncoming: true),
-                                 Message(text: "How", ifIncoming: true),
-                                 Message(text: "Are", ifIncoming: false),
-                                 Message(text: "You", ifIncoming: true),
-                                 Message(text: "I am okay", ifIncoming: false),
-                                 Message(text: ConversationPreview.messageText, ifIncoming: false)]
+    static let plainText = "lorem dolor sed viverra ipsum nunc aliquet bibendum enim facilisis gravida neque convallis a cras semper auctor neque vitae tempus quam pellentesque nec nam aliquam sem et tortor consequat id porta nibh venenatis cras sed felis eget velit aliquet sagittis id consectetur purus ut faucibus pulvinar elementum integer enim neque volutpat ac tincidunt vitae semper quis lectus nulla at volutpat diam ut venenatis tellus in metus vulputate eu scelerisque felis imperdiet proin fermentum leo vel orci porta non pulvinar neque laoreet suspendisse interdum consectetur libero id faucibus nisl tincidunt eget nullam non nisi est sit amet facilisis magna etiam tempor orci eu lobortis elementum nibh tellus molestie nunc non blandit massa enim nec dui nunc mattis enim ut tellus elementum sagittis vitae et leo duis ut diam quam nulla porttitor massa id neque aliquam vestibulum morbi blandit cursus risus at ultrices mi tempus imperdiet nulla malesuada pellentesque elit eget gravida"
 }
+
+
+
+//[Message(text: "Hello", isIncoming: true),
+// Message(text: "How", isIncoming: true),
+// Message(text: "Are", isIncoming: false),
+// Message(text: "You", isIncoming: true),
+// Message(text: "I am okay", isIncoming: false),
+// Message(text: ConversationPreview.messageText, isIncoming: false)]

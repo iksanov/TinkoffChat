@@ -9,11 +9,11 @@
 import Foundation
 
 class Message: MessageCellConfiguration {
-    var text: String?
-    var ifIncoming: Bool
+    var textOfMessage: String?
+    var isIncoming: Bool
     
-    init(text: String?, ifIncoming: Bool) {
-        self.text = text
-        self.ifIncoming = ifIncoming
+    init(text: String?, isIncoming: Bool) {
+        self.textOfMessage = text
+        self.isIncoming = isIncoming
     }
 }

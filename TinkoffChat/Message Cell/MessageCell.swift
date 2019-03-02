@@ -8,11 +8,16 @@
 
 import UIKit
 
-class MessageCell: UITableViewCell {
+class MessageCell: UITableViewCell, MessageCellConfiguration {
+    
+    var textOfMessage: String? = nil
 
     @IBOutlet weak var messageLabel: UILabel!
     
-    
+    func configureCell(from message: Message) {  // TODO: realign for a single line message
+        self.textOfMessage = message.textOfMessage
+        messageLabel.text = self.textOfMessage
+    }
     
     override func awakeFromNib() {
         super.awakeFromNib()

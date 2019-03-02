@@ -139,8 +139,8 @@
 		20EEAB292211CC6F007EE26A /* TinkoffChat */ = {
 			isa = PBXGroup;
 			children = (
-				20B8759522281D3A00EE1DD6 /* Message Cell */,
 				2077BDA72227F3DB00B1CDB2 /* View Controllers */,
+				20B8759522281D3A00EE1DD6 /* Message Cell */,
 				2077BDA92227F41B00B1CDB2 /* Conversation Cell */,
 				2077BDA62227F3CE00B1CDB2 /* Model */,
 				2077BDAA2227F4B300B1CDB2 /* Protocols */,
