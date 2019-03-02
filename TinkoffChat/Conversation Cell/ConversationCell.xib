@@ -54,7 +54,7 @@
                 <outlet property="messageLabel" destination="o8a-Gf-MNO" id="ipp-eR-9Qw"/>
                 <outlet property="nameLabel" destination="UU6-ag-LOU" id="1Yt-EV-pyC"/>
             </connections>
-            <point key="canvasLocation" x="-1922.4000000000001" y="690.40479760119945"/>
+            <point key="canvasLocation" x="-1932" y="672"/>
         </tableViewCell>
     </objects>
 </document>

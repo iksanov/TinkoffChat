@@ -15,22 +15,33 @@ class ConversationsListViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         conversationListTV.dataSource = self
+        conversationListTV.delegate = self
         conversationListTV.register(UINib(nibName: "ConversationCell", bundle: Bundle.main), forCellReuseIdentifier: "ConvCell")
         title = "Tinkoff Chat"
     }
     
     let convList = ConversationsList()
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    private func conversationAt(_ indexPath: IndexPath) -> ConversationPreview? {
+        switch indexPath.section {
+        case 0:
+            return convList.onlineConversations[indexPath.row]
+        case 1:
+            return convList.historyConversations[indexPath.row]
+        default:
+            return nil
+        }
+        
     }
-    */
+
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "OpenConversation", let conversation = sender as? ConversationPreview {
+            segue.destination.title = conversation.name
+            print("preparing for segue")
+        } else {
+            super.prepare(for: segue, sender: sender)
+        }
+    }
 
 }
 
@@ -68,16 +79,16 @@ extension ConversationsListViewController: UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ConvCell", for: indexPath)
         let convCell = cell as! ConversationCell  // TODO: try to downcast to the protocol instead
         
-        switch indexPath.section {  // TODO: remove duplicated code
-        case 0:
-            let conversation = convList.onlineConversations[indexPath.row]
-            convCell.configureCell(from: conversation)
-        case 1:
-            let conversation = convList.historyConversations[indexPath.row]
-            convCell.configureCell(from: conversation)
-        default:
-            assert(false)
-        }
+        guard let conversation = conversationAt(indexPath) else { assert(false) }
+        convCell.configureCell(from: conversation)
         return convCell
+    }
+}
+
+extension ConversationsListViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard let conversation = conversationAt(indexPath) else { assert(false) }
+        print("ask to perfom a segue")
+        performSegue(withIdentifier: "OpenConversation", sender: conversation)
     }
 }

@@ -35,7 +35,7 @@
             <connections>
                 <outlet property="messageLabel" destination="xSG-Z1-rNP" id="MmO-fV-8ok"/>
             </connections>
-            <point key="canvasLocation" x="-119" y="-6"/>
+            <point key="canvasLocation" x="-212" y="-4"/>
         </tableViewCell>
     </objects>
 </document>
