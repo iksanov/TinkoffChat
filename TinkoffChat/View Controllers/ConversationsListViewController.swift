@@ -41,6 +41,10 @@ class ConversationsListViewController: UIViewController {
         }
         
     }
+    
+    func logThemeChanging(selectedTheme: UIColor) {
+        print("Selected theme is \(selectedTheme).")
+    }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         switch segue.identifier {
@@ -50,7 +54,10 @@ class ConversationsListViewController: UIViewController {
             }
         case "OpenThemeChooser":
             if let navigationVC = segue.destination as? UINavigationController, let themesVC = navigationVC.topViewController as? ThemesViewController {
-                themesVC.delegate = self
+//                themesVC.delegate = self
+                themesVC.closureForThemeSetting = { [weak self] (theme: UIColor) in
+                    self?.logThemeChanging(selectedTheme: theme)
+                }
             }
         default:
             super.prepare(for: segue, sender: sender)
@@ -106,12 +113,8 @@ extension ConversationsListViewController: UITableViewDelegate {
     }
 }
 
-extension ConversationsListViewController: ThemesViewControllerDelegate {
-    func logThemeChanging(selectedTheme: UIColor) {
-        print("Selected theme is \(selectedTheme).")
-    }
-    
-    func themesViewController(_ controller: ThemesViewController, didSelectTheme selectedTheme: UIColor) {
-        logThemeChanging(selectedTheme: selectedTheme)
-    }
-}
+//extension ConversationsListViewController: ThemesViewControllerDelegate {
+//    func themesViewController(_ controller: ThemesViewController, didSelectTheme selectedTheme: UIColor) {
+//        logThemeChanging(selectedTheme: selectedTheme)
+//    }
+//}

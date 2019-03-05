@@ -197,7 +197,7 @@
         <!--Themes View Controller-->
         <scene sceneID="lw5-RN-ZH3">
             <objects>
-                <viewController id="RP9-Y4-zK3" customClass="ThemesViewController" sceneMemberID="viewController">
+                <viewController id="RP9-Y4-zK3" customClass="ThemesViewController" customModule="TinkoffChat" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="fu1-dN-R0W">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -211,7 +211,7 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <state key="normal" title="Тема 1"/>
                                 <connections>
-                                    <action selector="setTheme1:" destination="RP9-Y4-zK3" eventType="touchUpInside" id="ySk-bb-JM7"/>
+                                    <action selector="setTheme1:" destination="RP9-Y4-zK3" eventType="touchUpInside" id="hRM-Iw-XNO"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="14n-Hw-Kxe">
@@ -220,7 +220,7 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <state key="normal" title="Тема 2"/>
                                 <connections>
-                                    <action selector="setTheme2:" destination="RP9-Y4-zK3" eventType="touchUpInside" id="hPS-94-65P"/>
+                                    <action selector="setTheme2:" destination="RP9-Y4-zK3" eventType="touchUpInside" id="RWB-nA-Rco"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VDX-MD-Ev9">
@@ -229,7 +229,7 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <state key="normal" title="Тема 3"/>
                                 <connections>
-                                    <action selector="setTheme3:" destination="RP9-Y4-zK3" eventType="touchUpInside" id="s8Y-ay-z8c"/>
+                                    <action selector="setTheme3:" destination="RP9-Y4-zK3" eventType="touchUpInside" id="gFr-6R-hT8"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -252,14 +252,14 @@
                     <navigationItem key="navigationItem" id="KZw-97-AYo">
                         <barButtonItem key="rightBarButtonItem" systemItem="stop" id="Vzw-5C-x0v">
                             <connections>
-                                <action selector="closeThemeChooser:" destination="RP9-Y4-zK3" id="hqM-Ss-VsH"/>
+                                <action selector="closeThemeChooser:" destination="RP9-Y4-zK3" id="Nce-mn-dFq"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="themeButton1" destination="4bI-cb-Ze8" id="BQN-pC-HVa"/>
-                        <outlet property="themeButton2" destination="14n-Hw-Kxe" id="cPm-Id-l6v"/>
-                        <outlet property="themeButton3" destination="VDX-MD-Ev9" id="OBG-4b-EKB"/>
+                        <outlet property="themeButton1" destination="4bI-cb-Ze8" id="qag-ns-Ek2"/>
+                        <outlet property="themeButton2" destination="14n-Hw-Kxe" id="VoR-8T-41l"/>
+                        <outlet property="themeButton3" destination="VDX-MD-Ev9" id="Q5a-qe-reX"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hMx-k3-51U" userLabel="First Responder" sceneMemberID="firstResponder"/>
