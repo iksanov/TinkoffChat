@@ -17,7 +17,7 @@ class ThemesViewController: UIViewController {
         themeButton3.layer.cornerRadius = 8;
     }
     
-    let model = Themes(colors:UIColor.orange, UIColor.yellow, UIColor.magenta);
+    let model = Themes(colors:#colorLiteral(red: 1, green: 0.8409949541, blue: 0.8371030092, alpha: 1), #colorLiteral(red: 0.8323200345, green: 0.9884948134, blue: 0.6632229686, alpha: 1), #colorLiteral(red: 1, green: 0.8323456645, blue: 0.4732058644, alpha: 1));
     var closureForThemeSetting: (UIColor) -> () = { color in }
     
     @IBOutlet var themeButton1: UIButton!
@@ -27,16 +27,22 @@ class ThemesViewController: UIViewController {
     @IBAction func setTheme1(_ sender: Any) {
         view.backgroundColor = model.theme1
         closureForThemeSetting(model.theme1)
+        ThemeManager.setLightTheme()
+        navigationController?.loadView()
     }
     
     @IBAction func setTheme2(_ sender: Any) {
         view.backgroundColor = model.theme2
         closureForThemeSetting(model.theme2)
+        ThemeManager.setDarkTheme()
+        navigationController?.loadView()
     }
     
     @IBAction func setTheme3(_ sender: Any) {
         view.backgroundColor = model.theme3
         closureForThemeSetting(model.theme3)
+        ThemeManager.setChampagneTheme()
+        navigationController?.loadView()
     }
     
     @IBAction func closeThemeChooser(_ sender: Any) {

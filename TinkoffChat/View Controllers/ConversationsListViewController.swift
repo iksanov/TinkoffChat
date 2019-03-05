@@ -22,7 +22,13 @@ class ConversationsListViewController: UIViewController {
         title = "Tinkoff Chat"
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        profileButton.tintColor = UIBarButtonItem.appearance().tintColor
+    }
+    
     let convList = ConversationsList()
+    
+    @IBOutlet var profileButton: UIBarButtonItem!
     
     @IBAction func openProfile(_ sender: Any) {  // create segue from code
         let storyBoard = UIStoryboard.init(name: "Main", bundle: nil)
@@ -55,9 +61,7 @@ class ConversationsListViewController: UIViewController {
         case "OpenThemeChooser":
             if let navigationVC = segue.destination as? UINavigationController, let themesVC = navigationVC.topViewController as? ThemesViewController {
 //                themesVC.delegate = self
-                themesVC.closureForThemeSetting = { [weak self] (theme: UIColor) in
-                    self?.logThemeChanging(selectedTheme: theme)
-                }
+                themesVC.closureForThemeSetting = { [weak self] (theme: UIColor) in self?.logThemeChanging(selectedTheme: theme) }
             }
         default:
             super.prepare(for: segue, sender: sender)
