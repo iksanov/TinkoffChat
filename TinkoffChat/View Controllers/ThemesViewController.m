@@ -8,10 +8,6 @@
 
 #import "ThemesViewController.h"
 
-@interface ThemesViewController ()
-
-@end
-
 @implementation ThemesViewController
 - (void)viewDidLoad {
     [super viewDidLoad];
