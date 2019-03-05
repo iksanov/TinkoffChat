@@ -78,6 +78,8 @@
 				20505D7F22256CFD00E7729D /* ConversationPreview.swift */,
 				20B8759E2229454300EE1DD6 /* MessagesList.swift */,
 				20B8759C2229434D00EE1DD6 /* Message.swift */,
+				20FB7EB9222D94F600FBCB47 /* Themes.h */,
+				20FB7EBA222D94F600FBCB47 /* Themes.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -88,6 +90,9 @@
 				2023A8062224647600FCCAEB /* ConversationsListViewController.swift */,
 				20EEAB2C2211CC6F007EE26A /* ProfileViewController.swift */,
 				20B8759122281BD200EE1DD6 /* ConversationViewController.swift */,
+				20FB7EB6222D948800FBCB47 /* ThemesViewController.h */,
+				20FB7EB7222D948800FBCB47 /* ThemesViewController.m */,
+				20FB7EBC222D95A600FBCB47 /* ThemesViewControllerDelegate.h */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -158,11 +163,6 @@
 				20EEAB332211CC70007EE26A /* LaunchScreen.storyboard */,
 				20EEAB312211CC70007EE26A /* Assets.xcassets */,
 				20EEAB362211CC70007EE26A /* Info.plist */,
-				20FB7EB9222D94F600FBCB47 /* Themes.h */,
-				20FB7EBA222D94F600FBCB47 /* Themes.m */,
-				20FB7EB6222D948800FBCB47 /* ThemesViewController.h */,
-				20FB7EB7222D948800FBCB47 /* ThemesViewController.m */,
-				20FB7EBC222D95A600FBCB47 /* ThemesViewControllerDelegate.h */,
 				20FB7EB5222D948700FBCB47 /* TinkoffChat-Bridging-Header.h */,
 			);
 			path = TinkoffChat;
