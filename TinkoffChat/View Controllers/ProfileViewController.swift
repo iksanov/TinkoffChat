@@ -105,7 +105,7 @@ extension ProfileViewController {
 extension ProfileViewController {
     private struct SizeRatio {
         static let chooserCornerRadiusToChooserWidth: CGFloat = 0.5
-        static let chooserImageInsetToChooserWidth: CGFloat = 0.3
+        static let chooserImageInsetToChooserWidth: CGFloat = 0.25
         static let editButtonCornerRadiusToEditButtonWidth: CGFloat = 0.05
         static let editButtonBorderWidth: CGFloat = 2.0
     }

@@ -20,6 +20,12 @@ class ConversationsListViewController: UIViewController {
         conversationsListTV.rowHeight = UITableView.automaticDimension
         conversationsListTV.estimatedRowHeight = 88
         title = "Tinkoff Chat"
+        
+        if let themeNameRawValue: ThemeName.RawValue = UserDefaults.standard.value(forKey: "appTheme") as? ThemeName.RawValue,
+            let themeName = ThemeName(rawValue: themeNameRawValue) {
+            ThemeManager.setTheme(withName: themeName)
+            navigationController?.loadView()
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -30,7 +36,7 @@ class ConversationsListViewController: UIViewController {
     
     @IBOutlet var profileButton: UIBarButtonItem!
     
-    @IBAction func openProfile(_ sender: Any) {  // create segue from code
+    @IBAction func openProfile(_ sender: Any) {  // present VC from code (instead of creating segue)
         let storyBoard = UIStoryboard.init(name: "Main", bundle: nil)
         let profileVC = storyBoard.instantiateViewController(withIdentifier: "ProfileVC (inside NavigationVC)")
         present(profileVC, animated: true, completion: nil)
@@ -117,6 +123,8 @@ extension ConversationsListViewController: UITableViewDelegate {
     }
 }
 
+// uncomment if using obj-c ThemesVC
+//
 //extension ConversationsListViewController: ThemesViewControllerDelegate {
 //    func themesViewController(_ controller: ThemesViewController, didSelectTheme selectedTheme: UIColor) {
 //        logThemeChanging(selectedTheme: selectedTheme)

@@ -9,7 +9,7 @@
 import UIKit
 
 class ThemesViewController: UIViewController {
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         themeButton1.layer.cornerRadius = 8;
@@ -27,21 +27,21 @@ class ThemesViewController: UIViewController {
     @IBAction func setTheme1(_ sender: Any) {
         view.backgroundColor = model.theme1
         closureForThemeSetting(model.theme1)
-        ThemeManager.setLightTheme()
+        ThemeManager.setTheme(withName: .light)
         navigationController?.loadView()
     }
     
     @IBAction func setTheme2(_ sender: Any) {
         view.backgroundColor = model.theme2
         closureForThemeSetting(model.theme2)
-        ThemeManager.setDarkTheme()
+        ThemeManager.setTheme(withName: .dark)
         navigationController?.loadView()
     }
     
     @IBAction func setTheme3(_ sender: Any) {
         view.backgroundColor = model.theme3
         closureForThemeSetting(model.theme3)
-        ThemeManager.setChampagneTheme()
+        ThemeManager.setTheme(withName: .champagne)
         navigationController?.loadView()
     }
     
