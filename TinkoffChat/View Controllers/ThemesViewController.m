@@ -50,24 +50,50 @@
 }
 
 @synthesize delegate = _delegate;
-
 - (id<ThemesViewControllerDelegate>)delegate {
     return _delegate;
 }
-
 - (void)setDelegate:(id<ThemesViewControllerDelegate>)delegate {
     _delegate = delegate;  // don't retain/release anything because it is weak.
 }
 
 @synthesize model = _model;
-
 - (Themes *)model {
     return _model;
 }
-
 - (void)setModel:(Themes *)model {
     [model retain];
     [_model release];
     _model = model;}
+
+@synthesize themeButton1 = _themeButton1;
+- (UIButton*)themeButton1 {
+    return _themeButton1;
+}
+- (void)setThemeButton1:(UIButton *)themeButton1 {
+    [themeButton1 retain];
+    [_themeButton1 release];
+    _themeButton1 = themeButton1;
+}
+
+@synthesize themeButton2 = _themeButton2;
+- (UIButton*)themeButton2 {
+    return _themeButton2;
+}
+- (void)setThemeButton2:(UIButton *)themeButton2 {
+    [themeButton2 retain];
+    [_themeButton2 release];
+    _themeButton2 = themeButton2;
+}
+
+@synthesize themeButton3 = _themeButton3;
+- (UIButton*)themeButton3 {
+    return _themeButton3;
+}
+- (void)setThemeButton3:(UIButton *)themeButton3 {
+    [themeButton3 retain];
+    [_themeButton3 release];
+    _themeButton3 = themeButton3;
+}
 
 @end

@@ -28,11 +28,9 @@
 }
 
 @synthesize theme1 = _theme1;
-
 - (UIColor*)theme1 {
     return _theme1;
 }
-
 - (void)setTheme1:(UIColor *)newTheme1 {
     [newTheme1 retain];
     [_theme1 release];
@@ -40,11 +38,9 @@
 }
 
 @synthesize theme2 = _theme2;
-
 - (UIColor*)theme2 {
     return _theme2;
 }
-
 - (void)setTheme2:(UIColor *)newTheme2 {
     [newTheme2 retain];
     [_theme2 release];
@@ -52,11 +48,9 @@
 }
 
 @synthesize theme3 = _theme3;
-
 - (UIColor*)theme3 {
     return _theme3;
 }
-
 - (void)setTheme3:(UIColor *)newTheme3 {
     [newTheme3 retain];
     [_theme3 release];
