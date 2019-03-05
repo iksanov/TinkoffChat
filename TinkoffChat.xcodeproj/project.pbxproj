@@ -28,7 +28,7 @@
 		20EEAB3D2211F642007EE26A /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20EEAB3C2211F642007EE26A /* Logger.swift */; };
 		20FB7EBB222D94F600FBCB47 /* Themes.m in Sources */ = {isa = PBXBuildFile; fileRef = 20FB7EBA222D94F600FBCB47 /* Themes.m */; };
 		20FB7EC4222EBAEC00FBCB47 /* ThemesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20FB7EBD222EAC5200FBCB47 /* ThemesViewController.swift */; };
-		20FB7EC6222EBFF300FBCB47 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20FB7EC5222EBFF300FBCB47 /* Theme.swift */; };
+		20FB7EC6222EBFF300FBCB47 /* ThemeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20FB7EC5222EBFF300FBCB47 /* ThemeManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -60,7 +60,7 @@
 		20FB7EBA222D94F600FBCB47 /* Themes.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Themes.m; sourceTree = "<group>"; };
 		20FB7EBC222D95A600FBCB47 /* ThemesViewControllerDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ThemesViewControllerDelegate.h; sourceTree = "<group>"; };
 		20FB7EBD222EAC5200FBCB47 /* ThemesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemesViewController.swift; sourceTree = "<group>"; };
-		20FB7EC5222EBFF300FBCB47 /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
+		20FB7EC5222EBFF300FBCB47 /* ThemeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -162,7 +162,7 @@
 				2077BDA62227F3CE00B1CDB2 /* Model */,
 				2077BDAA2227F4B300B1CDB2 /* Protocols */,
 				2077BDA82227F3E800B1CDB2 /* Utils */,
-				20FB7EC5222EBFF300FBCB47 /* Theme.swift */,
+				20FB7EC5222EBFF300FBCB47 /* ThemeManager.swift */,
 				20EEAB2A2211CC6F007EE26A /* AppDelegate.swift */,
 				20EEAB2E2211CC6F007EE26A /* Main.storyboard */,
 				20EEAB332211CC70007EE26A /* LaunchScreen.storyboard */,
@@ -257,7 +257,7 @@
 				20B8759422281CDC00EE1DD6 /* MessageCellConfiguration.swift in Sources */,
 				2077BDAC2227F4E900B1CDB2 /* ConversationCellConfigurationProtocol.swift in Sources */,
 				20505D8022256CFD00E7729D /* ConversationPreview.swift in Sources */,
-				20FB7EC6222EBFF300FBCB47 /* Theme.swift in Sources */,
+				20FB7EC6222EBFF300FBCB47 /* ThemeManager.swift in Sources */,
 				20FB7EC4222EBAEC00FBCB47 /* ThemesViewController.swift in Sources */,
 				2023A811222474E700FCCAEB /* ConversationCell.swift in Sources */,
 				20B8759D2229434D00EE1DD6 /* Message.swift in Sources */,
