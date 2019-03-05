@@ -43,13 +43,19 @@ class ConversationsListViewController: UIViewController {
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "OpenConversation", let conversation = sender as? ConversationPreview {
-            segue.destination.title = conversation.name
-        } else {
+        switch segue.identifier {
+        case "OpenConversation":
+            if let conversation = sender as? ConversationPreview {
+                segue.destination.title = conversation.name
+            }
+        case "OpenThemeChooser":
+            if let themesVC = segue.destination as? ThemesViewController {
+                themesVC.delegate = self
+            }
+        default:
             super.prepare(for: segue, sender: sender)
         }
     }
-
 }
 
 extension ConversationsListViewController: UITableViewDataSource {
@@ -97,5 +103,15 @@ extension ConversationsListViewController: UITableViewDelegate {
         guard let conversation = conversationAt(indexPath) else { assert(false); return }
         performSegue(withIdentifier: "OpenConversation", sender: conversation)
         tableView.deselectRow(at: indexPath, animated: true)
+    }
+}
+
+extension ConversationsListViewController: ThemesViewControllerDelegate {
+    func logThemeChanging(selectedTheme: UIColor) {
+        print("Selected theme is \(selectedTheme).")
+    }
+    
+    func themesViewController(_ controller: ThemesViewController, didSelectTheme selectedTheme: UIColor) {
+        logThemeChanging(selectedTheme: selectedTheme)
     }
 }

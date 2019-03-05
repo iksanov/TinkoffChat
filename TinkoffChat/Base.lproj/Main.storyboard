@@ -33,6 +33,11 @@
                         <viewLayoutGuide key="safeArea" id="LY4-Qq-lXS"/>
                     </view>
                     <navigationItem key="navigationItem" id="wkv-BI-Xaw">
+                        <barButtonItem key="leftBarButtonItem" title="Theme" id="ztO-Cw-Lam">
+                            <connections>
+                                <segue destination="RP9-Y4-zK3" kind="presentation" identifier="OpenThemeChooser" id="MOR-np-RLj"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="Item" image="userProfile" id="NMb-5W-vu9">
                             <inset key="largeContentSizeImageInsets" minX="107" minY="0.0" maxX="0.0" maxY="0.0"/>
                             <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -169,7 +174,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="305" y="1405"/>
+            <point key="canvasLocation" x="804" y="1407"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="B6R-RY-zAW">
@@ -189,6 +194,56 @@
             </objects>
             <point key="canvasLocation" x="-690" y="-78.16901408450704"/>
         </scene>
+        <!--Themes View Controller-->
+        <scene sceneID="lw5-RN-ZH3">
+            <objects>
+                <viewController id="RP9-Y4-zK3" customClass="ThemesViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="fu1-dN-R0W">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4bI-cb-Ze8">
+                                <rect key="frame" x="142" y="220" width="90" height="44"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.95686274510000002" green="0.85098039219999999" blue="0.28627450980000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <state key="normal" title="Button1">
+                                    <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="setTheme1:" destination="RP9-Y4-zK3" eventType="touchUpInside" id="ySk-bb-JM7"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="14n-Hw-Kxe">
+                                <rect key="frame" x="142" y="380" width="90" height="44"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.95686274510000002" green="0.85098039219999999" blue="0.28627450980000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <state key="normal" title="Button2">
+                                    <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="setTheme2:" destination="RP9-Y4-zK3" eventType="touchUpInside" id="hPS-94-65P"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VDX-MD-Ev9">
+                                <rect key="frame" x="142" y="548" width="90" height="44"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.95686274510000002" green="0.85098039219999999" blue="0.28627450980000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <state key="normal" title="Button3">
+                                    <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="setTheme3:" destination="RP9-Y4-zK3" eventType="touchUpInside" id="s8Y-ay-z8c"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="gMO-0c-n9E"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="hMx-k3-51U" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-191" y="679"/>
+        </scene>
         <!--Navigation Controller-->
         <scene sceneID="lsN-0x-2gQ">
             <objects>
@@ -205,7 +260,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="K9f-Mx-equ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="306" y="677"/>
+            <point key="canvasLocation" x="804" y="679"/>
         </scene>
     </scenes>
     <resources>
