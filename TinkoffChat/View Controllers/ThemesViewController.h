@@ -14,8 +14,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface ThemesViewController : UIViewController
 
-@property (nonatomic, strong) id<ThemesViewControllerDelegate> delegate;  // TODO: choose correct attributes
-@property (nonatomic, strong) Themes *model;
+@property (weak, nonatomic) id<ThemesViewControllerDelegate> delegate;
+@property (strong, nonatomic) Themes *model;
+
+@property (retain, nonatomic) IBOutlet UIButton *themeButton1;
+@property (retain, nonatomic) IBOutlet UIButton *themeButton2;
+@property (retain, nonatomic) IBOutlet UIButton *themeButton3;
 
 @end
 

@@ -13,9 +13,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface Themes : NSObject
 
-@property (nonatomic, strong) UIColor *theme1;  // TODO: choose correct attributes
-@property (nonatomic, strong) UIColor *theme2;
-@property (nonatomic, strong) UIColor *theme3;
+@property (strong, nonatomic) UIColor *theme1;
+@property (strong, nonatomic) UIColor *theme2;
+@property (strong, nonatomic) UIColor *theme3;
+
+-(id)initWithColors: (UIColor*)color1 :(UIColor*)color2 :(UIColor*)color3;
 
 @end
 

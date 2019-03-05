@@ -35,7 +35,7 @@
                     <navigationItem key="navigationItem" id="wkv-BI-Xaw">
                         <barButtonItem key="leftBarButtonItem" title="Theme" id="ztO-Cw-Lam">
                             <connections>
-                                <segue destination="RP9-Y4-zK3" kind="presentation" identifier="OpenThemeChooser" id="MOR-np-RLj"/>
+                                <segue destination="hbR-nD-vfZ" kind="presentation" identifier="OpenThemeChooser" id="MOR-np-RLj"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="Item" image="userProfile" id="NMb-5W-vu9">
@@ -160,7 +160,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="Jug-5F-VPt">
                         <barButtonItem key="backBarButtonItem" title="Back" id="m7B-Z4-F4Y"/>
-                        <barButtonItem key="leftBarButtonItem" systemItem="stop" id="6xD-vf-EJ2">
+                        <barButtonItem key="rightBarButtonItem" systemItem="stop" id="6xD-vf-EJ2">
                             <connections>
                                 <action selector="closeProfile:" destination="BYZ-38-t0r" id="Wif-BZ-KTx"/>
                             </connections>
@@ -202,47 +202,69 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4bI-cb-Ze8">
-                                <rect key="frame" x="142" y="220" width="90" height="44"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" red="0.95686274510000002" green="0.85098039219999999" blue="0.28627450980000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <state key="normal" title="Button1">
-                                    <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                </state>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4bI-cb-Ze8">
+                                <rect key="frame" x="93.666666666666671" y="318" width="187.66666666666663" height="40"/>
+                                <color key="backgroundColor" red="0.95686274510000002" green="0.89074412527303448" blue="0.53811148602936387" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="5TO-V4-CZ0"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <state key="normal" title="Тема 1"/>
                                 <connections>
                                     <action selector="setTheme1:" destination="RP9-Y4-zK3" eventType="touchUpInside" id="ySk-bb-JM7"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="14n-Hw-Kxe">
-                                <rect key="frame" x="142" y="380" width="90" height="44"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" red="0.95686274510000002" green="0.85098039219999999" blue="0.28627450980000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <state key="normal" title="Button2">
-                                    <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                </state>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="14n-Hw-Kxe">
+                                <rect key="frame" x="93.666666666666671" y="413" width="187.66666666666663" height="40"/>
+                                <color key="backgroundColor" red="0.95686274510000002" green="0.89074412527303448" blue="0.53811148602936387" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <state key="normal" title="Тема 2"/>
                                 <connections>
                                     <action selector="setTheme2:" destination="RP9-Y4-zK3" eventType="touchUpInside" id="hPS-94-65P"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VDX-MD-Ev9">
-                                <rect key="frame" x="142" y="548" width="90" height="44"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" red="0.95686274510000002" green="0.85098039219999999" blue="0.28627450980000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <state key="normal" title="Button3">
-                                    <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                </state>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VDX-MD-Ev9">
+                                <rect key="frame" x="93.666666666666671" y="508" width="187.66666666666663" height="40"/>
+                                <color key="backgroundColor" red="0.95686274510000002" green="0.89074412527303448" blue="0.53811148602936387" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <state key="normal" title="Тема 3"/>
                                 <connections>
                                     <action selector="setTheme3:" destination="RP9-Y4-zK3" eventType="touchUpInside" id="s8Y-ay-z8c"/>
                                 </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="VDX-MD-Ev9" firstAttribute="top" secondItem="14n-Hw-Kxe" secondAttribute="bottom" constant="55" id="0Z5-MU-rG7"/>
+                            <constraint firstItem="14n-Hw-Kxe" firstAttribute="width" secondItem="4bI-cb-Ze8" secondAttribute="width" id="2KP-8g-WoP"/>
+                            <constraint firstItem="4bI-cb-Ze8" firstAttribute="height" secondItem="14n-Hw-Kxe" secondAttribute="height" id="BVO-nh-b1T"/>
+                            <constraint firstItem="14n-Hw-Kxe" firstAttribute="top" secondItem="4bI-cb-Ze8" secondAttribute="bottom" constant="55" id="NnT-iU-AQY"/>
+                            <constraint firstItem="VDX-MD-Ev9" firstAttribute="width" secondItem="14n-Hw-Kxe" secondAttribute="width" id="PfM-fQ-ShB"/>
+                            <constraint firstItem="14n-Hw-Kxe" firstAttribute="centerX" secondItem="gMO-0c-n9E" secondAttribute="centerX" id="Phw-Ne-KiQ"/>
+                            <constraint firstItem="VDX-MD-Ev9" firstAttribute="centerX" secondItem="gMO-0c-n9E" secondAttribute="centerX" id="Pmx-sz-x0K"/>
+                            <constraint firstItem="4bI-cb-Ze8" firstAttribute="width" secondItem="fu1-dN-R0W" secondAttribute="width" multiplier="0.5" id="UTq-ch-eDx"/>
+                            <constraint firstItem="14n-Hw-Kxe" firstAttribute="centerY" secondItem="gMO-0c-n9E" secondAttribute="centerY" id="eLu-GT-RL2"/>
+                            <constraint firstItem="14n-Hw-Kxe" firstAttribute="height" secondItem="VDX-MD-Ev9" secondAttribute="height" id="nix-c5-PFl"/>
+                            <constraint firstItem="4bI-cb-Ze8" firstAttribute="centerX" secondItem="gMO-0c-n9E" secondAttribute="centerX" id="vxJ-i9-Esx"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="gMO-0c-n9E"/>
                     </view>
+                    <navigationItem key="navigationItem" id="KZw-97-AYo">
+                        <barButtonItem key="rightBarButtonItem" systemItem="stop" id="Vzw-5C-x0v">
+                            <connections>
+                                <action selector="closeThemeChooser:" destination="RP9-Y4-zK3" id="hqM-Ss-VsH"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="themeButton1" destination="4bI-cb-Ze8" id="BQN-pC-HVa"/>
+                        <outlet property="themeButton2" destination="14n-Hw-Kxe" id="cPm-Id-l6v"/>
+                        <outlet property="themeButton3" destination="VDX-MD-Ev9" id="OBG-4b-EKB"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hMx-k3-51U" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-191" y="679"/>
+            <point key="canvasLocation" x="-191" y="1407"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="lsN-0x-2gQ">
@@ -260,7 +282,25 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="K9f-Mx-equ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="804" y="679"/>
+            <point key="canvasLocation" x="804" y="678"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="rQn-vg-mqD">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="hbR-nD-vfZ" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="S8z-PU-YMq">
+                        <rect key="frame" x="0.0" y="44" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="RP9-Y4-zK3" kind="relationship" relationship="rootViewController" id="lhC-oY-qpz"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Ry3-ri-m8m" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-191.19999999999999" y="678.32512315270935"/>
         </scene>
     </scenes>
     <resources>

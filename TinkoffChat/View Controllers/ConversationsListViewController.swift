@@ -49,7 +49,7 @@ class ConversationsListViewController: UIViewController {
                 segue.destination.title = conversation.name
             }
         case "OpenThemeChooser":
-            if let themesVC = segue.destination as? ThemesViewController {
+            if let navigationVC = segue.destination as? UINavigationController, let themesVC = navigationVC.topViewController as? ThemesViewController {
                 themesVC.delegate = self
             }
         default:
