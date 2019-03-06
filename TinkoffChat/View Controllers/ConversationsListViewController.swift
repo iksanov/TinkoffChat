@@ -66,8 +66,8 @@ class ConversationsListViewController: UIViewController {
             }
         case "OpenThemeChooser":
             if let navigationVC = segue.destination as? UINavigationController, let themesVC = navigationVC.topViewController as? ThemesViewController {
-//                themesVC.delegate = self
-                themesVC.closureForThemeSetting = { [weak self] (theme: UIColor) in self?.logThemeChanging(selectedTheme: theme) }
+//                themesVC.delegate = self   // for obj-c ThemesViewController
+                themesVC.closureForThemeSetting = { [weak self] (theme: UIColor) in self?.logThemeChanging(selectedTheme: theme) }  // for swift ThemesViewController
             }
         default:
             super.prepare(for: segue, sender: sender)
@@ -124,7 +124,6 @@ extension ConversationsListViewController: UITableViewDelegate {
 }
 
 // uncomment if using obj-c ThemesVC
-//
 //extension ConversationsListViewController: ThemesViewControllerDelegate {
 //    func themesViewController(_ controller: ThemesViewController, didSelectTheme selectedTheme: UIColor) {
 //        logThemeChanging(selectedTheme: selectedTheme)

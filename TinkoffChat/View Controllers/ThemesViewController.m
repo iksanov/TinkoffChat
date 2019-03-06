@@ -11,7 +11,7 @@
 @implementation ThemesViewController
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.model = [[Themes alloc] initWithColors: UIColor.blueColor :UIColor.redColor :UIColor.purpleColor];
+    self.model = [[[Themes alloc] initWithColors: UIColor.blueColor :UIColor.redColor :UIColor.purpleColor] autorelease];
     self.themeButton1.layer.cornerRadius = 8;
     self.themeButton2.layer.cornerRadius = 8;
     self.themeButton3.layer.cornerRadius = 8;
@@ -40,7 +40,7 @@
     [_themeButton1 release];
     [_themeButton2 release];
     [_themeButton3 release];
-    [_model dealloc];  // почему недостаточно вызвать release?
+    [_model release];
     printf("dealloc in ThemesViewController\n");
     [super dealloc];
 }
@@ -60,7 +60,8 @@
 - (void)setModel:(Themes *)model {
     [model retain];
     [_model release];
-    _model = model;}
+    _model = model;
+}
 
 @synthesize themeButton1 = _themeButton1;
 - (UIButton*)themeButton1 {
