@@ -10,15 +10,23 @@ import UIKit
 
 class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
-    @IBOutlet weak var photoChooser: UIButton!
+    @IBOutlet weak var photoChooser: UIButton!  // TODO: remove photoChooser from this VC
     
-    @IBOutlet weak var photoImage: UIImageView!
+    @IBOutlet weak var photoImageView: UIImageView!
+    @IBOutlet var nameLabel: UILabel!
+    @IBOutlet var descriptionLabel: UILabel!
     
     @IBOutlet weak var editProfileButton: UIButton!
     
+    let nameFilename = "userName.txt"
+    let descriptionFilename = "userDescription.txt"
+    let imageFilename = "userPhoto.png"
+    lazy var gcdDataManager = GCDDataManager(nameFilename, descriptionFilename, imageFilename)
+    
+    let profile = ProfileInfo()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        Logger.shared.printFrame(for: editProfileButton)
     }
     
     override func viewDidLayoutSubviews() {
@@ -28,14 +36,22 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         let imageEdgeInset = chooserImageInset
         photoChooser.imageEdgeInsets = UIEdgeInsets(top: imageEdgeInset, left: imageEdgeInset, bottom: imageEdgeInset, right: imageEdgeInset)
         
-        photoImage.layer.masksToBounds = true
-        photoImage.layer.cornerRadius = photoChooser.layer.cornerRadius
-        photoImage.contentMode = .scaleAspectFill
+        photoImageView.layer.masksToBounds = true
+        photoImageView.layer.cornerRadius = photoChooser.layer.cornerRadius
+        photoImageView.contentMode = .scaleAspectFill
         
         editProfileButton.layer.borderWidth = SizeRatio.editButtonBorderWidth
         editProfileButton.layer.borderColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
         editProfileButton.layer.masksToBounds = true
         editProfileButton.layer.cornerRadius = editButtonCornerRadius
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)  // TODO: may be do it beforehand
+        gcdDataManager.readData(to: profile)  // TODO: use multythreading (choose GCD / Operation)
+        nameLabel.text = profile.name
+        descriptionLabel.text = profile.description
+        photoImageView.image = profile.image
     }
     
     @IBAction func closeProfile(_ sender: Any) {
@@ -70,30 +86,22 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         self.present(actionSheet, animated: true, completion: nil)
     }
     
-    /*
-     Происходит ошибка, так как editProfileButton = nil.
-     Это так, потому что в тот момент, когда вызывается метод init(), UI-элементов еще не существует.
-     */
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-        // Logger.shared.printFrame(for: editProfileButton)
-    }
-    
-    /*
-     Результаты получаются разные, потому что в сториборде выбрано устройство iPhoneSE и результаты во viewDidLoad() выводятся для него.
-     Уже потом после viewDidLoad() будет вызван viewDidLayoutSubviews(), применены констрейнты, границы будут заданы границами выбранного девайса (iPhone 8 Plus).
-     Если выбрать девайсы в симуляторе и в сториборде одинаковыми, то и результаты в логе будут одинаковыми.
-     */
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        Logger.shared.printFrame(for: editProfileButton)
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "editProfile" {
+            if let editProfileVCinNavigationVC = sender as? UINavigationController, let editProfileVC = editProfileVCinNavigationVC.topViewController as? EditProfileViewController {
+                editProfileVC.gcdDataManager = gcdDataManager
+                editProfileVC.profile = profile
+            }
+        } else {
+            super.prepare(for: segue, sender: sender)
+        }
     }
 }
 
 extension ProfileViewController {
     @objc func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         if let image = info[.editedImage] as? UIImage {
-            photoImage.image = image
+            photoImageView.image = image
             if picker.sourceType == .camera {
                 UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil)
             }
