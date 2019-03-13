@@ -214,6 +214,9 @@
                                 <state key="normal" title="GCD">
                                     <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
                                 </state>
+                                <connections>
+                                    <action selector="saveWithGCD:" destination="bNY-JS-pco" eventType="touchUpInside" id="mAQ-qz-O1N"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="252" verticalCompressionResistancePriority="752" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LD9-Zl-Myi">
                                 <rect key="frame" x="202.66666666666663" y="723" width="156.33333333333337" height="55"/>
@@ -221,10 +224,17 @@
                                 <state key="normal" title="Operation">
                                     <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
                                 </state>
+                                <connections>
+                                    <action selector="saveWithOperation:" destination="bNY-JS-pco" eventType="touchUpInside" id="NZZ-86-BK6"/>
+                                </connections>
                             </button>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="d4E-f0-Tnz">
+                                <rect key="frame" x="177" y="423" width="20" height="20"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="d4E-f0-Tnz" firstAttribute="centerY" secondItem="N39-li-7zI" secondAttribute="centerY" id="5Mx-TK-N1d"/>
                             <constraint firstItem="LD9-Zl-Myi" firstAttribute="leading" secondItem="PbJ-gt-A2A" secondAttribute="trailing" constant="30" id="6kc-BV-W8M"/>
                             <constraint firstItem="PbJ-gt-A2A" firstAttribute="top" secondItem="x77-gI-rJg" secondAttribute="bottom" constant="8" symbolic="YES" id="6mK-7C-SYQ"/>
                             <constraint firstItem="N39-li-7zI" firstAttribute="trailing" secondItem="x77-gI-rJg" secondAttribute="trailing" constant="16" id="B3h-bZ-Ftf"/>
@@ -237,6 +247,7 @@
                             <constraint firstItem="N39-li-7zI" firstAttribute="trailing" secondItem="QZJ-sV-036" secondAttribute="trailing" constant="16" id="cEo-tb-tDI"/>
                             <constraint firstItem="N39-li-7zI" firstAttribute="trailing" secondItem="LD9-Zl-Myi" secondAttribute="trailing" constant="16" id="cpG-zQ-edh"/>
                             <constraint firstItem="N39-li-7zI" firstAttribute="bottom" secondItem="LD9-Zl-Myi" secondAttribute="bottom" id="eBO-Ae-Ttj"/>
+                            <constraint firstItem="d4E-f0-Tnz" firstAttribute="centerX" secondItem="N39-li-7zI" secondAttribute="centerX" id="gU6-IR-Tjn"/>
                             <constraint firstItem="QZJ-sV-036" firstAttribute="leading" secondItem="N39-li-7zI" secondAttribute="leading" constant="16" id="kt4-YH-YCi"/>
                             <constraint firstItem="x77-gI-rJg" firstAttribute="leading" secondItem="N39-li-7zI" secondAttribute="leading" constant="16" id="mXo-zC-Gj9"/>
                             <constraint firstItem="PbJ-gt-A2A" firstAttribute="leading" secondItem="N39-li-7zI" secondAttribute="leading" constant="16" id="rCw-fm-HR8"/>
@@ -252,11 +263,18 @@
                                 <action selector="cancelEditProfile:" destination="bNY-JS-pco" id="VMV-Bh-TZv"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="6Vi-4k-4lc"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="KZx-J8-Dj2">
+                            <connections>
+                                <action selector="finishEditing:" destination="bNY-JS-pco" id="ohf-Ra-GjM"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="GCDButton" destination="PbJ-gt-A2A" id="n91-Qq-KB7"/>
+                        <outlet property="activityIndicator" destination="d4E-f0-Tnz" id="Av7-oB-crs"/>
                         <outlet property="descriptionTextView" destination="x77-gI-rJg" id="awc-Yd-55y"/>
                         <outlet property="nameTextField" destination="kIB-uf-x48" id="jLi-AM-M7z"/>
+                        <outlet property="operationButton" destination="LD9-Zl-Myi" id="4wm-Cx-vv9"/>
                         <outlet property="photoImageView" destination="QZJ-sV-036" id="0to-QR-Vri"/>
                     </connections>
                 </viewController>
@@ -393,7 +411,6 @@
         <!--Navigation Controller-->
         <scene sceneID="xwp-Ew-uph">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="TeS-xt-L0g" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="CsS-jF-wUM" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="OGK-rP-i2k">
@@ -405,6 +422,7 @@
                         <segue destination="bNY-JS-pco" kind="relationship" relationship="rootViewController" id="yM5-kC-YTN"/>
                     </connections>
                 </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="TeS-xt-L0g" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1672.8" y="1406.8965517241379"/>
         </scene>

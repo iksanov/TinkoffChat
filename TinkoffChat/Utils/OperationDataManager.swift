@@ -1,5 +1,5 @@
 //
-//  GCDDataManager.swift
+//  OperationDataManager.swift
 //  TinkoffChat
 //
 //  Created by MacBookPro on 13/03/2019.
@@ -8,9 +8,7 @@
 
 import Foundation
 
-// make parent class for both DataManagers
-class GCDDataManager {  // TODO: make it singleton
-    
+class OperationDataManager {
     init(_ nameFilename: String = "userName.txt", _ descriptionFilename: String = "userDescription.txt", _ imageFilename: String = "userPhoto.png") {
         self.nameFilename = nameFilename
         self.descriptionFilename = descriptionFilename
@@ -26,11 +24,12 @@ class GCDDataManager {  // TODO: make it singleton
     var imageIsEditted = false
     
     func readDataFromFile(to profile: ProfileInfo) {
-        DispatchQueue.init(label: "gcdQueue").async {
+        let operationQueue = OperationQueue()
+        operationQueue.addOperation {
             let dispatchGroup = DispatchGroup()
             
             guard let dir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else { assert(false) }
-        
+            
             let nameFileURL = dir.appendingPathComponent(self.nameFilename)
             dispatchGroup.enter()
             let nameFromFile = try? String(contentsOf: nameFileURL, encoding: .utf8)
@@ -67,7 +66,6 @@ class GCDDataManager {  // TODO: make it singleton
             guard let dir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else { assert(false) }
             
             if self.nameIsEditted {  // TODO: think about retain cycle with closure
-                print("SAVING NAME in GCD")
                 dispatchGroup.enter()
                 let fileURL = dir.appendingPathComponent(self.nameFilename)
                 do {
@@ -76,10 +74,9 @@ class GCDDataManager {  // TODO: make it singleton
                 catch { assert(false) }
                 dispatchGroup.leave()
             }
-
+            
             
             if self.descriptionIsEditted {  // TODO: make them parallel
-                print("SAVING DESCRIPTION in GCD")
                 dispatchGroup.enter()
                 let fileURL = dir.appendingPathComponent(self.descriptionFilename)
                 do {
@@ -90,7 +87,6 @@ class GCDDataManager {  // TODO: make it singleton
             }
             
             if self.imageIsEditted {
-                print("SAVING IMAGE in GCD")
                 dispatchGroup.enter()
                 let fileURL = dir.appendingPathComponent(self.imageFilename)
                 

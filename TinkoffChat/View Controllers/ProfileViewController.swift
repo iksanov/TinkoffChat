@@ -22,6 +22,8 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     let descriptionFilename = "userDescription.txt"
     let imageFilename = "userPhoto.png"
     lazy var gcdDataManager = GCDDataManager(nameFilename, descriptionFilename, imageFilename)
+    lazy var operationDataManager = OperationDataManager(nameFilename, descriptionFilename, imageFilename)
+    
     
     let profile = ProfileInfo()
     
@@ -48,8 +50,10 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)  // TODO: may be do it beforehand
-        gcdDataManager.readData(to: profile)  // TODO: use multythreading (choose GCD / Operation)
+        gcdDataManager.readDataFromFile(to: profile)  // TODO: use multithreading (choose GCD / Operation)
+        // operationDataManager.readDataFromFile(to: profile)
         nameLabel.text = profile.name
+        print("viewWillAppear", profile.description)
         descriptionLabel.text = profile.description
         photoImageView.image = profile.image
     }
@@ -90,6 +94,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         if segue.identifier == "editProfile" {
             if let editProfileVCinNavigationVC = sender as? UINavigationController, let editProfileVC = editProfileVCinNavigationVC.topViewController as? EditProfileViewController {
                 editProfileVC.gcdDataManager = gcdDataManager
+                editProfileVC.operationDataManager = operationDataManager
                 editProfileVC.profile = profile
             }
         } else {
