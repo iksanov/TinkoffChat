@@ -40,7 +40,7 @@ class DataManager {
     func readDataFromFile(to profile: inout ProfileInfo) {
         print("inside readDataFromFile")
         
-        sleep(5)  // TODO: remove sleep()
+        sleep(3)  // TODO: remove sleep()
         
         let nameFromFile = try? String(contentsOf: nameFileURL, encoding: .utf8)
         if let nameFromFileString = nameFromFile {
@@ -63,7 +63,7 @@ class DataManager {
     func writeDataToFile(from profile: ProfileInfo) {
         print("inside writeDataToFile")
         
-        sleep(5)  // TODO: remove sleep()
+        sleep(3)  // TODO: remove sleep()
         
         if self.nameIsEditted {  // TODO: think about retain cycle with closure
             try! profile.name.write(to: nameFileURL, atomically: false, encoding: .utf8)

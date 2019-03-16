@@ -125,17 +125,6 @@
                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BSQ-or-ae0">
-                                <rect key="frame" x="256" y="344" width="103" height="103"/>
-                                <color key="backgroundColor" red="0.2470588235" green="0.47058823529999999" blue="0.94117647059999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" secondItem="BSQ-or-ae0" secondAttribute="height" id="t4E-iX-VTP"/>
-                                </constraints>
-                                <state key="normal" title="Button" image="slr-camera-2-xxl"/>
-                                <connections>
-                                    <action selector="choosePhoto:" destination="BYZ-38-t0r" eventType="touchUpInside" id="8t7-jG-Cet"/>
-                                </connections>
-                            </button>
                             <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="Z1O-J9-XG9">
                                 <rect key="frame" x="177.66666666666666" y="423" width="20" height="20"/>
                             </activityIndicatorView>
@@ -148,17 +137,13 @@
                             <constraint firstItem="vjm-L4-Oat" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="CSk-q2-i0M"/>
                             <constraint firstItem="lKM-V4-EaH" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="DhA-dT-wJj"/>
                             <constraint firstItem="jTb-Uq-A3e" firstAttribute="top" secondItem="lKM-V4-EaH" secondAttribute="bottom" constant="8" symbolic="YES" id="HRV-mb-xS9"/>
-                            <constraint firstItem="BSQ-or-ae0" firstAttribute="height" secondItem="lKM-V4-EaH" secondAttribute="height" multiplier="0.3" id="Leq-JT-Z6b"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="jTb-Uq-A3e" secondAttribute="trailing" constant="16" id="cMw-Rw-jgK"/>
-                            <constraint firstItem="BSQ-or-ae0" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="lKM-V4-EaH" secondAttribute="leading" constant="8" id="ekY-r1-zM6"/>
                             <constraint firstItem="Z1O-J9-XG9" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" id="fof-cA-xVC"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="lKM-V4-EaH" secondAttribute="trailing" constant="16" id="hoT-hv-QYe"/>
                             <constraint firstItem="Z1O-J9-XG9" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="itT-9Z-Imb"/>
                             <constraint firstItem="QcZ-jR-Txz" firstAttribute="top" secondItem="jTb-Uq-A3e" secondAttribute="bottom" constant="8" symbolic="YES" id="jff-dD-aA9"/>
                             <constraint firstItem="lKM-V4-EaH" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="16" id="mOm-US-Wnc"/>
                             <constraint firstItem="vjm-L4-Oat" firstAttribute="top" relation="greaterThanOrEqual" secondItem="QcZ-jR-Txz" secondAttribute="bottom" constant="8" id="osm-hG-Rvl"/>
-                            <constraint firstItem="BSQ-or-ae0" firstAttribute="bottom" secondItem="lKM-V4-EaH" secondAttribute="bottom" id="pbh-2V-jCb"/>
-                            <constraint firstItem="BSQ-or-ae0" firstAttribute="trailing" secondItem="lKM-V4-EaH" secondAttribute="trailing" id="wU5-Pc-W3h"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="QcZ-jR-Txz" secondAttribute="trailing" constant="16" id="xaY-uy-MNB"/>
                             <constraint firstItem="QcZ-jR-Txz" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="z8S-su-OVu"/>
                         </constraints>
@@ -177,7 +162,6 @@
                         <outlet property="descriptionLabel" destination="QcZ-jR-Txz" id="d3T-uF-ZdI"/>
                         <outlet property="editProfileButton" destination="vjm-L4-Oat" id="a9u-3c-4hu"/>
                         <outlet property="nameLabel" destination="jTb-Uq-A3e" id="bPl-fO-9Px"/>
-                        <outlet property="photoChooser" destination="BSQ-or-ae0" id="VEy-Gb-7a1"/>
                         <outlet property="photoImageView" destination="lKM-V4-EaH" id="6wb-fI-wtW"/>
                     </connections>
                 </viewController>
@@ -237,17 +221,28 @@
                             <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="d4E-f0-Tnz">
                                 <rect key="frame" x="177.66666666666666" y="423" width="20" height="20"/>
                             </activityIndicatorView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xL1-go-cEk">
+                                <rect key="frame" x="256" y="344" width="103" height="103"/>
+                                <color key="backgroundColor" red="0.2470588235" green="0.47058823529999999" blue="0.94117647059999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <state key="normal" image="slr-camera-2-xxl"/>
+                                <connections>
+                                    <action selector="choosePhoto:" destination="bNY-JS-pco" eventType="touchUpInside" id="77a-tV-bqh"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="xL1-go-cEk" firstAttribute="trailing" secondItem="QZJ-sV-036" secondAttribute="trailing" id="2bv-a5-2kf"/>
                             <constraint firstItem="d4E-f0-Tnz" firstAttribute="centerY" secondItem="N39-li-7zI" secondAttribute="centerY" id="5Mx-TK-N1d"/>
                             <constraint firstItem="LD9-Zl-Myi" firstAttribute="leading" secondItem="PbJ-gt-A2A" secondAttribute="trailing" constant="30" id="6kc-BV-W8M"/>
                             <constraint firstItem="PbJ-gt-A2A" firstAttribute="top" secondItem="x77-gI-rJg" secondAttribute="bottom" constant="8" symbolic="YES" id="6mK-7C-SYQ"/>
                             <constraint firstItem="N39-li-7zI" firstAttribute="trailing" secondItem="x77-gI-rJg" secondAttribute="trailing" constant="16" id="B3h-bZ-Ftf"/>
                             <constraint firstItem="N39-li-7zI" firstAttribute="trailing" secondItem="kIB-uf-x48" secondAttribute="trailing" constant="16" id="D5R-W3-5ES"/>
+                            <constraint firstItem="xL1-go-cEk" firstAttribute="bottom" secondItem="QZJ-sV-036" secondAttribute="bottom" id="Ifh-r4-YH7"/>
                             <constraint firstItem="kIB-uf-x48" firstAttribute="top" secondItem="QZJ-sV-036" secondAttribute="bottom" constant="8" symbolic="YES" id="Ip5-xb-H6u"/>
                             <constraint firstItem="PbJ-gt-A2A" firstAttribute="height" secondItem="LD9-Zl-Myi" secondAttribute="height" id="M24-3m-2GE"/>
                             <constraint firstItem="QZJ-sV-036" firstAttribute="top" secondItem="N39-li-7zI" secondAttribute="top" constant="16" id="RSJ-I2-fAc"/>
+                            <constraint firstItem="xL1-go-cEk" firstAttribute="width" secondItem="xL1-go-cEk" secondAttribute="height" id="WQq-g4-lyn"/>
                             <constraint firstItem="LD9-Zl-Myi" firstAttribute="top" secondItem="x77-gI-rJg" secondAttribute="bottom" constant="8" symbolic="YES" id="Xro-c4-EVR"/>
                             <constraint firstItem="PbJ-gt-A2A" firstAttribute="width" secondItem="LD9-Zl-Myi" secondAttribute="width" id="aLY-z5-IYo"/>
                             <constraint firstItem="N39-li-7zI" firstAttribute="trailing" secondItem="QZJ-sV-036" secondAttribute="trailing" constant="16" id="cEo-tb-tDI"/>
@@ -257,6 +252,7 @@
                             <constraint firstItem="QZJ-sV-036" firstAttribute="leading" secondItem="N39-li-7zI" secondAttribute="leading" constant="16" id="kt4-YH-YCi"/>
                             <constraint firstItem="x77-gI-rJg" firstAttribute="leading" secondItem="N39-li-7zI" secondAttribute="leading" constant="16" id="mXo-zC-Gj9"/>
                             <constraint firstItem="PbJ-gt-A2A" firstAttribute="leading" secondItem="N39-li-7zI" secondAttribute="leading" constant="16" id="rCw-fm-HR8"/>
+                            <constraint firstItem="xL1-go-cEk" firstAttribute="height" secondItem="QZJ-sV-036" secondAttribute="height" multiplier="0.3" id="usN-c7-Hqp"/>
                             <constraint firstItem="N39-li-7zI" firstAttribute="bottom" secondItem="PbJ-gt-A2A" secondAttribute="bottom" id="wlj-1I-Q4f"/>
                             <constraint firstItem="kIB-uf-x48" firstAttribute="leading" secondItem="N39-li-7zI" secondAttribute="leading" constant="16" id="xyZ-lR-MlV"/>
                             <constraint firstItem="x77-gI-rJg" firstAttribute="top" secondItem="kIB-uf-x48" secondAttribute="bottom" constant="8" symbolic="YES" id="z2r-uc-5mh"/>
@@ -281,6 +277,7 @@
                         <outlet property="descriptionTextView" destination="x77-gI-rJg" id="awc-Yd-55y"/>
                         <outlet property="nameTextField" destination="kIB-uf-x48" id="jLi-AM-M7z"/>
                         <outlet property="operationButton" destination="LD9-Zl-Myi" id="4wm-Cx-vv9"/>
+                        <outlet property="photoChooser" destination="xL1-go-cEk" id="xje-Fe-0xm"/>
                         <outlet property="photoImageView" destination="QZJ-sV-036" id="0to-QR-Vri"/>
                     </connections>
                 </viewController>

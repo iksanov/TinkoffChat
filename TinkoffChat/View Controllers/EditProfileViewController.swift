@@ -10,6 +10,8 @@ import UIKit
 
 class EditProfileViewController: UIViewController {
 
+    @IBOutlet weak var photoChooser: UIButton!  // TODO: set width from code (using constant)
+
     @IBOutlet weak var photoImageView: UIImageView!
     @IBOutlet var nameTextField: UITextField!  // test hugging and comression for different content volume
     @IBOutlet var descriptionTextView: UITextView!
@@ -67,6 +69,46 @@ class EditProfileViewController: UIViewController {
         operationButton.isEnabled = true
         operationButton.backgroundColor = operationButton.backgroundColor?.withAlphaComponent(1.0)
     }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        // TODO: change font size according to screen width (how?)
+        photoChooser.layer.cornerRadius = chooserCornerRadius
+        let imageEdgeInset = chooserImageInset
+        photoChooser.imageEdgeInsets = UIEdgeInsets(top: imageEdgeInset, left: imageEdgeInset, bottom: imageEdgeInset, right: imageEdgeInset)
+        
+        photoImageView.layer.masksToBounds = true
+        photoImageView.layer.cornerRadius = photoChooser.layer.cornerRadius
+        photoImageView.contentMode = .scaleAspectFill
+    }
+    
+    @IBAction func choosePhoto(_ sender: Any) {
+        print("Выбери изображение профиля")
+        
+        let actionSheet = UIAlertController.init(title: "Choose source", message: nil, preferredStyle: .actionSheet)
+        
+        actionSheet.addAction(UIAlertAction(title: "Open Camera", style: .default, handler: { action in
+            if UIImagePickerController.isSourceTypeAvailable(.camera) {
+                let imagePicker = UIImagePickerController()
+                imagePicker.delegate = self
+                imagePicker.sourceType = .camera
+                imagePicker.allowsEditing = true
+                self.present(imagePicker, animated: true, completion: nil)
+            }
+        }))
+        actionSheet.addAction(UIAlertAction(title: "Open Photo Library", style: .default, handler: { action in
+            if UIImagePickerController.isSourceTypeAvailable(.photoLibrary) {
+                let imagePicker = UIImagePickerController()
+                imagePicker.delegate = self
+                imagePicker.sourceType = .photoLibrary
+                imagePicker.allowsEditing = true
+                self.present(imagePicker, animated: true, completion: nil)
+            }
+        }))
+        actionSheet.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        
+        self.present(actionSheet, animated: true, completion: nil)
+    }
 
     var gcdDataManager: GCDDataManager {
         return ((presentingViewController as! UINavigationController).topViewController! as! ProfileViewController).gcdDataManager
@@ -92,8 +134,8 @@ class EditProfileViewController: UIViewController {
         return descriptionTextView.text != profile.description
     }
     
-    var imageIsEditted: Bool {  // TODO: think about equality of images (ref or obj)
-        return photoImageView.image! != profile.image
+    var imageIsEditted: Bool {  // TODO: it always returns True
+        return photoImageView.image! != profile.image  // TODO: think about equality of images (ref or obj)
     }
     
     private func prepareDataFromViewForSaving() {
@@ -167,12 +209,6 @@ class EditProfileViewController: UIViewController {
     }
 }
 
-//extension EditProfileViewController: UITextFieldDelegate {
-//    func textFieldDidEndEditing(_ textField: UITextField) {
-//
-//    }
-//}
-
 extension EditProfileViewController: UITextViewDelegate {
     func textViewDidChange(_ textView: UITextView) {
         if nameIsEditted || descriptionIsEditted || imageIsEditted {  // replace by descriptionIsEditted only
@@ -183,8 +219,36 @@ extension EditProfileViewController: UITextViewDelegate {
     }
 }
 
+extension EditProfileViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    @objc func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        if let image = info[.editedImage] as? UIImage {
+            photoImageView.image = image
+            if imageIsEditted {
+                enableButtons()
+            } else {
+                print("Image wasn't editted")
+                disableButtons()
+            }
+            if picker.sourceType == .camera {
+                UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil)
+            }
+        }
+        dismiss(animated: true, completion: nil)
+    }
+}
+
 extension EditProfileViewController {
+    private struct SizeRatio {
+        static let chooserCornerRadiusToChooserWidth: CGFloat = 0.5
+        static let chooserImageInsetToChooserWidth: CGFloat = 0.25
+    }
     private struct ColorConstants {
         static let disabledButtonsAlpha: CGFloat = 0.3
+    }
+    private var chooserCornerRadius: CGFloat {
+        return photoChooser.bounds.width * SizeRatio.chooserCornerRadiusToChooserWidth
+    }
+    private var chooserImageInset: CGFloat {
+        return photoChooser.bounds.width * SizeRatio.chooserImageInsetToChooserWidth
     }
 }
