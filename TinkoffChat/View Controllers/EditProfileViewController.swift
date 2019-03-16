@@ -23,9 +23,11 @@ class EditProfileViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-//        nameTextField.delegate = self
-        descriptionTextView.delegate = self
         activityIndicator.hidesWhenStopped = true
+        descriptionTextView.delegate = self
+        nameTextField.delegate = self
+        nameTextField.returnKeyType = .done
+        nameTextField.clearButtonMode = .whileEditing
         
         configureButtons()
         
@@ -216,6 +218,13 @@ extension EditProfileViewController: UITextViewDelegate {
         } else {
             disableButtons()
         }
+    }
+}
+
+extension EditProfileViewController: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return false
     }
 }
 

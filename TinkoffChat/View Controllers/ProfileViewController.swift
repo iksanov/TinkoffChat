@@ -28,11 +28,12 @@ class ProfileViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         activityIndicator.hidesWhenStopped = true
+        nameLabel.text = nil
+        descriptionLabel.text = nil
     }
     
-    override func viewDidAppear(_ animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {  // TODO: may be do it in viewWillAppear()
         super.viewDidAppear(animated)
-        activityIndicator.startAnimating()
         readDataFromFile()
         fillContentFromProfile()  // TODO: wait until reading will stop
     }
