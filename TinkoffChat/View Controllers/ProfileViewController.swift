@@ -13,22 +13,46 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     @IBOutlet weak var photoChooser: UIButton!  // TODO: remove photoChooser from this VC
     
     @IBOutlet weak var photoImageView: UIImageView!
-    @IBOutlet var nameLabel: UILabel!
+    @IBOutlet var nameLabel: UILabel!  // test hugging and comression for different content volume
     @IBOutlet var descriptionLabel: UILabel!
     
     @IBOutlet weak var editProfileButton: UIButton!
     
-    let nameFilename = "userName.txt"
-    let descriptionFilename = "userDescription.txt"
-    let imageFilename = "userPhoto.png"
-    lazy var gcdDataManager = GCDDataManager(nameFilename, descriptionFilename, imageFilename)
-    lazy var operationDataManager = OperationDataManager(nameFilename, descriptionFilename, imageFilename)
+    @IBOutlet var activityIndicator: UIActivityIndicatorView!
     
+    lazy var gcdDataManager = GCDDataManager()
+    lazy var operationDataManager = OperationDataManager()
     
-    let profile = ProfileInfo()
+    var profile = ProfileInfo()
+    
+    var usingGCDInstedOfOperation = true
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        activityIndicator.hidesWhenStopped = true
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        activityIndicator.startAnimating()
+        readDataFromFile()
+        fillContentFromProfile()  // TODO: wait until reading will stop
+    }
+    
+    private func readDataFromFile() {
+        activityIndicator.startAnimating()
+        if usingGCDInstedOfOperation {
+            gcdDataManager.readDataFromFile(to: &profile)
+        } else {
+            operationDataManager.readDataFromFile(to: &profile)
+        }
+        activityIndicator.stopAnimating()
+    }
+    
+    private func fillContentFromProfile() {
+        nameLabel.text = profile.name
+        descriptionLabel.text = profile.description
+        photoImageView.image = profile.image
     }
     
     override func viewDidLayoutSubviews() {
@@ -46,16 +70,6 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         editProfileButton.layer.borderColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
         editProfileButton.layer.masksToBounds = true
         editProfileButton.layer.cornerRadius = editButtonCornerRadius
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)  // TODO: may be do it beforehand
-        gcdDataManager.readDataFromFile(to: profile)  // TODO: use multithreading (choose GCD / Operation)
-        // operationDataManager.readDataFromFile(to: profile)
-        nameLabel.text = profile.name
-        print("viewWillAppear", profile.description)
-        descriptionLabel.text = profile.description
-        photoImageView.image = profile.image
     }
     
     @IBAction func closeProfile(_ sender: Any) {
@@ -92,9 +106,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "editProfile" {
-            if let editProfileVCinNavigationVC = sender as? UINavigationController, let editProfileVC = editProfileVCinNavigationVC.topViewController as? EditProfileViewController {
-                editProfileVC.gcdDataManager = gcdDataManager
-                editProfileVC.operationDataManager = operationDataManager
+            if let editProfileVCinNavigationVC = segue.destination as? UINavigationController, let editProfileVC = editProfileVCinNavigationVC.topViewController as? EditProfileViewController {
                 editProfileVC.profile = profile
             }
         } else {
