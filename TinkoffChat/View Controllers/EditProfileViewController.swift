@@ -26,6 +26,7 @@ class EditProfileViewController: UIViewController {
         activityIndicator.hidesWhenStopped = true
         descriptionTextView.delegate = self
         nameTextField.delegate = self
+        nameTextField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
         nameTextField.returnKeyType = .done
         nameTextField.clearButtonMode = .whileEditing
         
@@ -35,7 +36,7 @@ class EditProfileViewController: UIViewController {
         descriptionTextView.text = profile.description
         photoImageView.image = profile.image
         
-        nameTextField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
+        registerForKeyboardNotifications()
     }
     
     @objc func textFieldDidChange(_ textField: UITextField) {
@@ -70,6 +71,29 @@ class EditProfileViewController: UIViewController {
         
         operationButton.isEnabled = true
         operationButton.backgroundColor = operationButton.backgroundColor?.withAlphaComponent(1.0)
+    }
+    
+    private func registerForKeyboardNotifications() {
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWasShown(_:)), name: UIResponder.keyboardDidShowNotification, object: nil)  // TODO: check documentation
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillBeHidden(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)  // TODO: try to remove (_:)
+    }
+    
+    @objc func keyboardWasShown(_ notification: Notification) {  // TODO: add scrollView and finish guide from bookmarks
+        let info = notification.userInfo
+        if let keyboardSize = (info?[UIResponder.keyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue.size {
+            if self.view.frame.origin.y == 0 {
+                self.view.frame.origin.y -= keyboardSize.height
+            }
+        }
+    }
+    
+    @objc func keyboardWillBeHidden(_ notification: Notification) {
+        let info = notification.userInfo
+        if let keyboardSize = (info?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue.size {
+            if self.view.frame.origin.y != 0 {
+                self.view.frame.origin.y += keyboardSize.height
+            }
+        }
     }
     
     override func viewDidLayoutSubviews() {
