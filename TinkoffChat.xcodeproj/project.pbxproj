@@ -10,8 +10,7 @@
 		2023A8072224647600FCCAEB /* ConversationsListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2023A8062224647600FCCAEB /* ConversationsListViewController.swift */; };
 		2023A80D22246D8900FCCAEB /* ConversationCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2023A80C22246D8900FCCAEB /* ConversationCell.xib */; };
 		2023A811222474E700FCCAEB /* ConversationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2023A810222474E700FCCAEB /* ConversationCell.swift */; };
-		20505D7E22256B9D00E7729D /* ConversationsList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20505D7D22256B9D00E7729D /* ConversationsList.swift */; };
-		20505D8022256CFD00E7729D /* ConversationPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20505D7F22256CFD00E7729D /* ConversationPreview.swift */; };
+		20505D8022256CFD00E7729D /* Conversation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20505D7F22256CFD00E7729D /* Conversation.swift */; };
 		206AAABA2239053400B363C6 /* EditProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 206AAAB92239053400B363C6 /* EditProfileViewController.swift */; };
 		206AAABC22392C3500B363C6 /* ProfileInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 206AAABB22392C3500B363C6 /* ProfileInfo.swift */; };
 		206AAABE22392D4B00B363C6 /* GCDDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 206AAABD22392D4B00B363C6 /* GCDDataManager.swift */; };
@@ -25,6 +24,11 @@
 		20B8759B22281E0800EE1DD6 /* MessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20B8759A22281E0800EE1DD6 /* MessageCell.swift */; };
 		20B8759D2229434D00EE1DD6 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20B8759C2229434D00EE1DD6 /* Message.swift */; };
 		20B8759F2229454300EE1DD6 /* MessagesList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20B8759E2229454300EE1DD6 /* MessagesList.swift */; };
+		20C4BBB7224105CA00A35537 /* Communicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20C4BBB6224105CA00A35537 /* Communicator.swift */; };
+		20C4BBB92241062100A35537 /* CommunicatorDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20C4BBB82241062100A35537 /* CommunicatorDelegate.swift */; };
+		20C4BBBB2241069700A35537 /* MultipeerCommunicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20C4BBBA2241069700A35537 /* MultipeerCommunicator.swift */; };
+		20C4BBBD224106E200A35537 /* CommunicationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20C4BBBC224106E200A35537 /* CommunicationManager.swift */; };
+		20C4BBBF2241383100A35537 /* CommunicationManagerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20C4BBBE2241383100A35537 /* CommunicationManagerDelegate.swift */; };
 		20D4DED82230607100745911 /* ThemesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20FB7EBD222EAC5200FBCB47 /* ThemesViewController.swift */; };
 		20EEAB2B2211CC6F007EE26A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20EEAB2A2211CC6F007EE26A /* AppDelegate.swift */; };
 		20EEAB2D2211CC6F007EE26A /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20EEAB2C2211CC6F007EE26A /* ProfileViewController.swift */; };
@@ -41,8 +45,7 @@
 		2023A8062224647600FCCAEB /* ConversationsListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationsListViewController.swift; sourceTree = "<group>"; };
 		2023A80C22246D8900FCCAEB /* ConversationCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ConversationCell.xib; sourceTree = "<group>"; };
 		2023A810222474E700FCCAEB /* ConversationCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationCell.swift; sourceTree = "<group>"; };
-		20505D7D22256B9D00E7729D /* ConversationsList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationsList.swift; sourceTree = "<group>"; };
-		20505D7F22256CFD00E7729D /* ConversationPreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationPreview.swift; sourceTree = "<group>"; };
+		20505D7F22256CFD00E7729D /* Conversation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Conversation.swift; sourceTree = "<group>"; };
 		206AAAB92239053400B363C6 /* EditProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileViewController.swift; sourceTree = "<group>"; };
 		206AAABB22392C3500B363C6 /* ProfileInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileInfo.swift; sourceTree = "<group>"; };
 		206AAABD22392D4B00B363C6 /* GCDDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GCDDataManager.swift; sourceTree = "<group>"; };
@@ -56,6 +59,11 @@
 		20B8759A22281E0800EE1DD6 /* MessageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageCell.swift; sourceTree = "<group>"; };
 		20B8759C2229434D00EE1DD6 /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
 		20B8759E2229454300EE1DD6 /* MessagesList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesList.swift; sourceTree = "<group>"; };
+		20C4BBB6224105CA00A35537 /* Communicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Communicator.swift; sourceTree = "<group>"; };
+		20C4BBB82241062100A35537 /* CommunicatorDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunicatorDelegate.swift; sourceTree = "<group>"; };
+		20C4BBBA2241069700A35537 /* MultipeerCommunicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipeerCommunicator.swift; sourceTree = "<group>"; };
+		20C4BBBC224106E200A35537 /* CommunicationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunicationManager.swift; sourceTree = "<group>"; };
+		20C4BBBE2241383100A35537 /* CommunicationManagerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunicationManagerDelegate.swift; sourceTree = "<group>"; };
 		20EEAB272211CC6F007EE26A /* TinkoffChat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TinkoffChat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		20EEAB2A2211CC6F007EE26A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		20EEAB2C2211CC6F007EE26A /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
@@ -89,8 +97,7 @@
 		2077BDA62227F3CE00B1CDB2 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				20505D7D22256B9D00E7729D /* ConversationsList.swift */,
-				20505D7F22256CFD00E7729D /* ConversationPreview.swift */,
+				20505D7F22256CFD00E7729D /* Conversation.swift */,
 				20B8759E2229454300EE1DD6 /* MessagesList.swift */,
 				20B8759C2229434D00EE1DD6 /* Message.swift */,
 				20FB7EB9222D94F600FBCB47 /* Themes.h */,
@@ -123,6 +130,8 @@
 				206AAABD22392D4B00B363C6 /* GCDDataManager.swift */,
 				2074B8952239A22C00A0F215 /* OperationDataManager.swift */,
 				207F0EE2223D1074006B0268 /* DataManager.swift */,
+				20C4BBBA2241069700A35537 /* MultipeerCommunicator.swift */,
+				20C4BBBC224106E200A35537 /* CommunicationManager.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -142,6 +151,9 @@
 				2077BDAB2227F4E900B1CDB2 /* ConversationCellConfigurationProtocol.swift */,
 				20B8759322281CDC00EE1DD6 /* MessageCellConfiguration.swift */,
 				20FB7EBC222D95A600FBCB47 /* ThemesViewControllerDelegate.h */,
+				20C4BBB6224105CA00A35537 /* Communicator.swift */,
+				20C4BBB82241062100A35537 /* CommunicatorDelegate.swift */,
+				20C4BBBE2241383100A35537 /* CommunicationManagerDelegate.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -272,18 +284,21 @@
 			buildActionMask = 2147483647;
 			files = (
 				20B8759B22281E0800EE1DD6 /* MessageCell.swift in Sources */,
+				20C4BBB92241062100A35537 /* CommunicatorDelegate.swift in Sources */,
+				20C4BBBD224106E200A35537 /* CommunicationManager.swift in Sources */,
 				20EEAB2D2211CC6F007EE26A /* ProfileViewController.swift in Sources */,
 				206AAABE22392D4B00B363C6 /* GCDDataManager.swift in Sources */,
 				20B8759F2229454300EE1DD6 /* MessagesList.swift in Sources */,
 				2023A8072224647600FCCAEB /* ConversationsListViewController.swift in Sources */,
 				20D4DED82230607100745911 /* ThemesViewController.swift in Sources */,
+				20C4BBBB2241069700A35537 /* MultipeerCommunicator.swift in Sources */,
 				20B8759222281BD200EE1DD6 /* ConversationViewController.swift in Sources */,
 				206AAABC22392C3500B363C6 /* ProfileInfo.swift in Sources */,
 				20EEAB3D2211F642007EE26A /* Logger.swift in Sources */,
 				20B8759422281CDC00EE1DD6 /* MessageCellConfiguration.swift in Sources */,
 				206AAABA2239053400B363C6 /* EditProfileViewController.swift in Sources */,
 				2077BDAC2227F4E900B1CDB2 /* ConversationCellConfigurationProtocol.swift in Sources */,
-				20505D8022256CFD00E7729D /* ConversationPreview.swift in Sources */,
+				20505D8022256CFD00E7729D /* Conversation.swift in Sources */,
 				20FB7EC6222EBFF300FBCB47 /* ThemeManager.swift in Sources */,
 				2023A811222474E700FCCAEB /* ConversationCell.swift in Sources */,
 				20B8759D2229434D00EE1DD6 /* Message.swift in Sources */,
@@ -291,8 +306,9 @@
 				2074B8962239A22C00A0F215 /* OperationDataManager.swift in Sources */,
 				20EEAB2B2211CC6F007EE26A /* AppDelegate.swift in Sources */,
 				207F0EE3223D1074006B0268 /* DataManager.swift in Sources */,
-				20505D7E22256B9D00E7729D /* ConversationsList.swift in Sources */,
 				20FB7ECA222EE67200FBCB47 /* Theme.swift in Sources */,
+				20C4BBB7224105CA00A35537 /* Communicator.swift in Sources */,
+				20C4BBBF2241383100A35537 /* CommunicationManagerDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -20,9 +20,9 @@ class ConversationCell: UITableViewCell, ConversationCellConfiguration {  // TOD
     var online: Bool = false
     var hasUnreadMessages: Bool = false
     
-    func configureCell(from convPreview: ConversationPreview) {
+    func configureCell(from convPreview: Conversation) {
         self.name = convPreview.name
-        self.message = convPreview.message
+        self.message = convPreview.messages?.last?.textOfMessage
         self.date = convPreview.date
         self.online = convPreview.online
         self.hasUnreadMessages = convPreview.hasUnreadMessages

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ConversationsListViewController: UIViewController {
+class ConversationsListViewController: UIViewController, CommunicationManagerDelegate {
     
     @IBOutlet weak var conversationsListTV: UITableView!
     
@@ -26,13 +26,29 @@ class ConversationsListViewController: UIViewController {
             ThemeManager.setTheme(withName: themeName)
             navigationController?.loadView()
         }
+        
+        communicator.delegate = communicationManager
+        communicator.advertiser.delegate = communicationManager
+        communicator.browser.delegate = communicationManager
+        communicationManager.delegate = self
     }
     
     override func viewWillAppear(_ animated: Bool) {
         profileButton.tintColor = UIBarButtonItem.appearance().tintColor
     }
     
-    let convList = ConversationsList()
+    var conversations = [Conversation].init(Conversation.listOfConversations)
+    
+    var onlineConversations: [Conversation] {
+        return conversations.filter({ $0.online }).sorted { $0.date! > $1.date! }
+    }
+    
+    var historyConversations: [Conversation] {
+        return conversations.filter({ $0.messages != nil && !$0.online }).sorted { $0.date! > $1.date! }
+    }
+    
+    let communicator = MultipeerCommunicator()
+    let communicationManager = CommunicationManager()
     
     @IBOutlet var profileButton: UIBarButtonItem!
     
@@ -42,12 +58,12 @@ class ConversationsListViewController: UIViewController {
         present(profileVC, animated: true, completion: nil)
     }
     
-    private func conversationAt(_ indexPath: IndexPath) -> ConversationPreview? {
+    private func conversationAt(_ indexPath: IndexPath) -> Conversation? {
         switch indexPath.section {
         case 0:
-            return convList.onlineConversations[indexPath.row]
+            return onlineConversations[indexPath.row]
         case 1:
-            return convList.historyConversations[indexPath.row]
+            return historyConversations[indexPath.row]
         default:
             return nil
         }
@@ -61,7 +77,7 @@ class ConversationsListViewController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         switch segue.identifier {
         case "OpenConversation":
-            if let conversation = sender as? ConversationPreview {
+            if let conversation = sender as? Conversation {
                 segue.destination.title = conversation.name
             }
         case "OpenThemeChooser":
@@ -84,9 +100,9 @@ extension ConversationsListViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch section {
         case 0:
-            return convList.onlineConversations.count
+            return onlineConversations.count
         case 1:
-            return convList.historyConversations.count
+            return historyConversations.count
         default:
             assert(false)
             return Int()
