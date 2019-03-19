@@ -29,6 +29,7 @@
 		20C4BBBB2241069700A35537 /* MultipeerCommunicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20C4BBBA2241069700A35537 /* MultipeerCommunicator.swift */; };
 		20C4BBBD224106E200A35537 /* CommunicationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20C4BBBC224106E200A35537 /* CommunicationManager.swift */; };
 		20C4BBBF2241383100A35537 /* CommunicationManagerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20C4BBBE2241383100A35537 /* CommunicationManagerDelegate.swift */; };
+		20C4BBC1224191DB00A35537 /* MessageForJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20C4BBC0224191DB00A35537 /* MessageForJSON.swift */; };
 		20D4DED82230607100745911 /* ThemesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20FB7EBD222EAC5200FBCB47 /* ThemesViewController.swift */; };
 		20EEAB2B2211CC6F007EE26A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20EEAB2A2211CC6F007EE26A /* AppDelegate.swift */; };
 		20EEAB2D2211CC6F007EE26A /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20EEAB2C2211CC6F007EE26A /* ProfileViewController.swift */; };
@@ -64,6 +65,7 @@
 		20C4BBBA2241069700A35537 /* MultipeerCommunicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipeerCommunicator.swift; sourceTree = "<group>"; };
 		20C4BBBC224106E200A35537 /* CommunicationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunicationManager.swift; sourceTree = "<group>"; };
 		20C4BBBE2241383100A35537 /* CommunicationManagerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunicationManagerDelegate.swift; sourceTree = "<group>"; };
+		20C4BBC0224191DB00A35537 /* MessageForJSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageForJSON.swift; sourceTree = "<group>"; };
 		20EEAB272211CC6F007EE26A /* TinkoffChat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TinkoffChat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		20EEAB2A2211CC6F007EE26A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		20EEAB2C2211CC6F007EE26A /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
@@ -103,6 +105,7 @@
 				20FB7EB9222D94F600FBCB47 /* Themes.h */,
 				20FB7EBA222D94F600FBCB47 /* Themes.m */,
 				206AAABB22392C3500B363C6 /* ProfileInfo.swift */,
+				20C4BBC0224191DB00A35537 /* MessageForJSON.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -130,8 +133,8 @@
 				206AAABD22392D4B00B363C6 /* GCDDataManager.swift */,
 				2074B8952239A22C00A0F215 /* OperationDataManager.swift */,
 				207F0EE2223D1074006B0268 /* DataManager.swift */,
-				20C4BBBA2241069700A35537 /* MultipeerCommunicator.swift */,
 				20C4BBBC224106E200A35537 /* CommunicationManager.swift */,
+				20C4BBBA2241069700A35537 /* MultipeerCommunicator.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -293,6 +296,7 @@
 				20D4DED82230607100745911 /* ThemesViewController.swift in Sources */,
 				20C4BBBB2241069700A35537 /* MultipeerCommunicator.swift in Sources */,
 				20B8759222281BD200EE1DD6 /* ConversationViewController.swift in Sources */,
+				20C4BBC1224191DB00A35537 /* MessageForJSON.swift in Sources */,
 				206AAABC22392C3500B363C6 /* ProfileInfo.swift in Sources */,
 				20EEAB3D2211F642007EE26A /* Logger.swift in Sources */,
 				20B8759422281CDC00EE1DD6 /* MessageCellConfiguration.swift in Sources */,

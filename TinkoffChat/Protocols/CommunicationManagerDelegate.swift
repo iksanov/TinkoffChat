@@ -7,7 +7,8 @@
 //
 
 import Foundation
+import MultipeerConnectivity
 
 protocol CommunicationManagerDelegate: class {
-    var conversations: [Conversation] { get set }
+    var conversations: [MCPeerID : Conversation] { get set }
 }

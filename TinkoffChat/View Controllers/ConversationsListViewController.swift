@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MultipeerConnectivity
 
 class ConversationsListViewController: UIViewController, CommunicationManagerDelegate {
     
@@ -37,14 +38,14 @@ class ConversationsListViewController: UIViewController, CommunicationManagerDel
         profileButton.tintColor = UIBarButtonItem.appearance().tintColor
     }
     
-    var conversations = [Conversation].init(Conversation.listOfConversations)
+    var conversations = [MCPeerID : Conversation]()
     
-    var onlineConversations: [Conversation] {
-        return conversations.filter({ $0.online }).sorted { $0.date! > $1.date! }
+    var onlineConversations: [(key: MCPeerID, value: Conversation)] {
+        return conversations.filter({ $0.value.online }).sorted { $0.value.date! > $1.value.date! }
     }
     
-    var historyConversations: [Conversation] {
-        return conversations.filter({ $0.messages != nil && !$0.online }).sorted { $0.date! > $1.date! }
+    var historyConversations: [(key: MCPeerID, value: Conversation)] {
+        return conversations.filter({ $0.value.messages != nil && !$0.value.online }).sorted { $0.value.date! > $1.value.date! }
     }
     
     let communicator = MultipeerCommunicator()
@@ -61,9 +62,9 @@ class ConversationsListViewController: UIViewController, CommunicationManagerDel
     private func conversationAt(_ indexPath: IndexPath) -> Conversation? {
         switch indexPath.section {
         case 0:
-            return onlineConversations[indexPath.row]
+            return onlineConversations[indexPath.row].value
         case 1:
-            return historyConversations[indexPath.row]
+            return historyConversations[indexPath.row].value
         default:
             return nil
         }

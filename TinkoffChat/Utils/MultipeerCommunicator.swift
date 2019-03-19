@@ -9,20 +9,15 @@
 import Foundation
 import MultipeerConnectivity
 
-class MultipeerCommunicator: Communicator {
-    init() {
-//        advertiser.delegate = (delegate as! CommunicationManager)
-//        browser.delegate = (delegate as! CommunicationManager)
-    }
-    
+class MultipeerCommunicator: Communicator {    
     var online = false
     weak var delegate: CommunicatorDelegate?  // make it sigleton
+    static let myPeerID = MCPeerID(displayName: "Emil")
     
-    let myPeerID = MCPeerID(displayName: "Emil")
-    lazy var advertiser = MCNearbyServiceAdvertiser(peer: myPeerID,
+    lazy var advertiser = MCNearbyServiceAdvertiser(peer: MultipeerCommunicator.myPeerID,
                                                     discoveryInfo: ["userName": "emil_iksanov"],
                                                     serviceType: "tinkoff-chat")
-    lazy var browser = MCNearbyServiceBrowser(peer: myPeerID,
+    lazy var browser = MCNearbyServiceBrowser(peer: MultipeerCommunicator.myPeerID,
                                               serviceType: "tinkoff-chat")
     
     func sendMessage(string: String, to userID: String, completionHandler: ((_ success: Bool, _ error: Error?) -> ())?) {

@@ -29,18 +29,18 @@ extension Conversation {
     static let messageText: String = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
 }
 
-extension Conversation {
-    
-    static let listOfConversations = [Conversation(name: String?("James Smith"),
-                                                   messages: nil,
-                                                   date: Date.init(timeIntervalSinceNow: TimeInterval.init(-3600)),
-                                                   online: true,
-                                                   hasUnreadMessages: true),
-                                      
-                                      Conversation(name: "Daniel Perry",
-                                                   messages: [Message(text: Conversation.messageText, isIncoming: true)],
-                                                   date: Date.init(timeIntervalSinceNow: 0),
-                                                   online: false,
-                                                   hasUnreadMessages: true)
-    ]
-}
+//extension Conversation {
+//    
+//    static let listOfConversations = [Conversation(name: String?("James Smith"),
+//                                                   messages: nil,
+//                                                   date: Date.init(timeIntervalSinceNow: TimeInterval.init(-3600)),
+//                                                   online: true,
+//                                                   hasUnreadMessages: true),
+//                                      
+//                                      Conversation(name: "Daniel Perry",
+//                                                   messages: [Message(text: Conversation.messageText, isIncoming: true)],
+//                                                   date: Date.init(timeIntervalSinceNow: 0),
+//                                                   online: false,
+//                                                   hasUnreadMessages: true)
+//    ]
+//}
