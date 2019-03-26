@@ -30,6 +30,10 @@
 		20C4BBBD224106E200A35537 /* CommunicationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20C4BBBC224106E200A35537 /* CommunicationManager.swift */; };
 		20C4BBBF2241383100A35537 /* CommunicationManagerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20C4BBBE2241383100A35537 /* CommunicationManagerDelegate.swift */; };
 		20C4BBC1224191DB00A35537 /* MessageForJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20C4BBC0224191DB00A35537 /* MessageForJSON.swift */; };
+		20D38ECF224A650D001CC809 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 20D38ECD224A650D001CC809 /* Model.xcdatamodeld */; };
+		20D38ED3224A9C59001CC809 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20D38ED2224A9C59001CC809 /* CoreDataStack.swift */; };
+		20D38ED5224AAF92001CC809 /* ProfileInfoTmp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20D38ED4224AAF92001CC809 /* ProfileInfoTmp.swift */; };
+		20D38ED7224AB09F001CC809 /* StorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20D38ED6224AB09F001CC809 /* StorageManager.swift */; };
 		20D4DED82230607100745911 /* ThemesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20FB7EBD222EAC5200FBCB47 /* ThemesViewController.swift */; };
 		20EEAB2B2211CC6F007EE26A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20EEAB2A2211CC6F007EE26A /* AppDelegate.swift */; };
 		20EEAB2D2211CC6F007EE26A /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20EEAB2C2211CC6F007EE26A /* ProfileViewController.swift */; };
@@ -66,6 +70,10 @@
 		20C4BBBC224106E200A35537 /* CommunicationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunicationManager.swift; sourceTree = "<group>"; };
 		20C4BBBE2241383100A35537 /* CommunicationManagerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunicationManagerDelegate.swift; sourceTree = "<group>"; };
 		20C4BBC0224191DB00A35537 /* MessageForJSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageForJSON.swift; sourceTree = "<group>"; };
+		20D38ECE224A650D001CC809 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
+		20D38ED2224A9C59001CC809 /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
+		20D38ED4224AAF92001CC809 /* ProfileInfoTmp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileInfoTmp.swift; sourceTree = "<group>"; };
+		20D38ED6224AB09F001CC809 /* StorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageManager.swift; sourceTree = "<group>"; };
 		20EEAB272211CC6F007EE26A /* TinkoffChat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TinkoffChat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		20EEAB2A2211CC6F007EE26A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		20EEAB2C2211CC6F007EE26A /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
@@ -105,6 +113,7 @@
 				20FB7EB9222D94F600FBCB47 /* Themes.h */,
 				20FB7EBA222D94F600FBCB47 /* Themes.m */,
 				206AAABB22392C3500B363C6 /* ProfileInfo.swift */,
+				20D38ED4224AAF92001CC809 /* ProfileInfoTmp.swift */,
 				20C4BBC0224191DB00A35537 /* MessageForJSON.swift */,
 			);
 			path = Model;
@@ -135,6 +144,8 @@
 				207F0EE2223D1074006B0268 /* DataManager.swift */,
 				20C4BBBC224106E200A35537 /* CommunicationManager.swift */,
 				20C4BBBA2241069700A35537 /* MultipeerCommunicator.swift */,
+				20D38ED2224A9C59001CC809 /* CoreDataStack.swift */,
+				20D38ED6224AB09F001CC809 /* StorageManager.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -196,6 +207,7 @@
 				2077BDA62227F3CE00B1CDB2 /* Model */,
 				2077BDAA2227F4B300B1CDB2 /* Protocols */,
 				2077BDA82227F3E800B1CDB2 /* Utils */,
+				20D38ECD224A650D001CC809 /* Model.xcdatamodeld */,
 				20EEAB2A2211CC6F007EE26A /* AppDelegate.swift */,
 				20EEAB2E2211CC6F007EE26A /* Main.storyboard */,
 				20EEAB332211CC70007EE26A /* LaunchScreen.storyboard */,
@@ -289,6 +301,7 @@
 				20B8759B22281E0800EE1DD6 /* MessageCell.swift in Sources */,
 				20C4BBB92241062100A35537 /* CommunicatorDelegate.swift in Sources */,
 				20C4BBBD224106E200A35537 /* CommunicationManager.swift in Sources */,
+				20D38ECF224A650D001CC809 /* Model.xcdatamodeld in Sources */,
 				20EEAB2D2211CC6F007EE26A /* ProfileViewController.swift in Sources */,
 				206AAABE22392D4B00B363C6 /* GCDDataManager.swift in Sources */,
 				20B8759F2229454300EE1DD6 /* MessagesList.swift in Sources */,
@@ -307,12 +320,15 @@
 				2023A811222474E700FCCAEB /* ConversationCell.swift in Sources */,
 				20B8759D2229434D00EE1DD6 /* Message.swift in Sources */,
 				20FB7EBB222D94F600FBCB47 /* Themes.m in Sources */,
+				20D38ED7224AB09F001CC809 /* StorageManager.swift in Sources */,
 				2074B8962239A22C00A0F215 /* OperationDataManager.swift in Sources */,
 				20EEAB2B2211CC6F007EE26A /* AppDelegate.swift in Sources */,
 				207F0EE3223D1074006B0268 /* DataManager.swift in Sources */,
 				20FB7ECA222EE67200FBCB47 /* Theme.swift in Sources */,
 				20C4BBB7224105CA00A35537 /* Communicator.swift in Sources */,
+				20D38ED5224AAF92001CC809 /* ProfileInfoTmp.swift in Sources */,
 				20C4BBBF2241383100A35537 /* CommunicationManagerDelegate.swift in Sources */,
+				20D38ED3224A9C59001CC809 /* CoreDataStack.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -523,6 +539,20 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		20D38ECD224A650D001CC809 /* Model.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				20D38ECE224A650D001CC809 /* Model.xcdatamodel */,
+			);
+			currentVersion = 20D38ECE224A650D001CC809 /* Model.xcdatamodel */;
+			name = Model.xcdatamodeld;
+			path = TinkoffChat/Model.xcdatamodeld;
+			sourceTree = SOURCE_ROOT;
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 20EEAB1F2211CC6F007EE26A /* Project object */;
 }

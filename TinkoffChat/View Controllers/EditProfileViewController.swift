@@ -136,20 +136,23 @@ class EditProfileViewController: UIViewController {
         self.present(actionSheet, animated: true, completion: nil)
     }
 
-    var gcdDataManager: GCDDataManager {
-        return ((presentingViewController as! UINavigationController).topViewController! as! ProfileViewController).gcdDataManager
+    var storageManager: StorageManager {
+        return ((presentingViewController as! UINavigationController).topViewController! as! ProfileViewController).storageManager
     }
-    var operationDataManager: OperationDataManager {
-        return ((presentingViewController as! UINavigationController).topViewController! as! ProfileViewController).operationDataManager
-    }
-    var usingGCDInstedOfOperation: Bool {
-        get {
-            return ((presentingViewController as! UINavigationController).topViewController! as! ProfileViewController).usingGCDInstedOfOperation
-        }
-        set {
-            ((presentingViewController as! UINavigationController).topViewController! as! ProfileViewController).usingGCDInstedOfOperation = newValue
-        }
-    }
+//    var gcdDataManager: GCDDataManager {
+//        return ((presentingViewController as! UINavigationController).topViewController! as! ProfileViewController).gcdDataManager
+//    }
+//    var operationDataManager: OperationDataManager {
+//        return ((presentingViewController as! UINavigationController).topViewController! as! ProfileViewController).operationDataManager
+//    }
+//    var usingGCDInstedOfOperation: Bool {
+//        get {
+//            return ((presentingViewController as! UINavigationController).topViewController! as! ProfileViewController).usingGCDInstedOfOperation
+//        }
+//        set {
+//            ((presentingViewController as! UINavigationController).topViewController! as! ProfileViewController).usingGCDInstedOfOperation = newValue
+//        }
+//    }
     var profile = ProfileInfo()
     
     var nameIsEditted: Bool {
@@ -166,22 +169,22 @@ class EditProfileViewController: UIViewController {
     
     private func prepareDataFromViewForSaving() {
         if nameIsEditted {
-            gcdDataManager.nameIsEditted = true
-            operationDataManager.nameIsEditted = true
+//            gcdDataManager.nameIsEditted = true
+//            operationDataManager.nameIsEditted = true
             
             profile.name = nameTextField.text!
         }
         
         if descriptionIsEditted {
-            gcdDataManager.descriptionIsEditted = true
-            operationDataManager.descriptionIsEditted = true
+//            gcdDataManager.descriptionIsEditted = true
+//            operationDataManager.descriptionIsEditted = true
             
             profile.description = descriptionTextView.text
         }
         
         if imageIsEditted {
-            gcdDataManager.imageIsEditted = true
-            operationDataManager.imageIsEditted = true
+//            gcdDataManager.imageIsEditted = true
+//            operationDataManager.imageIsEditted = true
             
             profile.image = photoImageView.image!
         }
@@ -190,10 +193,13 @@ class EditProfileViewController: UIViewController {
     private func writeDataToFileFromProfile() {
         activityIndicator.startAnimating()
         prepareDataFromViewForSaving()
-        if usingGCDInstedOfOperation {
-            gcdDataManager.writeDataToFile(from: profile)
-        } else {
-            operationDataManager.writeDataToFile(from: profile)
+//        if usingGCDInstedOfOperation {
+//            gcdDataManager.writeDataToFile(from: profile)
+//        } else {
+//            operationDataManager.writeDataToFile(from: profile)
+//        }
+        storageManager.coreDataStack.saveContext.performAndWait {
+            storageManager.saveData(from: profile, with: storageManager.coreDataStack.saveContext)  // TODO: understand which context is necessary
         }
         activityIndicator.stopAnimating()
         disableButtons()
@@ -201,26 +207,26 @@ class EditProfileViewController: UIViewController {
     
     @IBAction func saveWithGCD(_ sender: Any) {
         endEditingBothNameAndDescription()
-        usingGCDInstedOfOperation = true
+//        usingGCDInstedOfOperation = true
         writeDataToFileFromProfile()
     }
     
     @IBAction func saveWithOperation(_ sender: Any) {
         endEditingBothNameAndDescription()
-        usingGCDInstedOfOperation = false
+//        usingGCDInstedOfOperation = false
         writeDataToFileFromProfile()
     }
     
     @IBAction func cancelEditProfile(_ sender: Any) {
         endEditingBothNameAndDescription()
         
-        gcdDataManager.nameIsEditted = false  // TODO: move this code into a function
-        gcdDataManager.descriptionIsEditted = false
-        gcdDataManager.imageIsEditted = false
-        
-        operationDataManager.nameIsEditted = false
-        operationDataManager.descriptionIsEditted = false
-        operationDataManager.imageIsEditted = false
+//        gcdDataManager.nameIsEditted = false  // TODO: move this code into a function
+//        gcdDataManager.descriptionIsEditted = false
+//        gcdDataManager.imageIsEditted = false
+//        
+//        operationDataManager.nameIsEditted = false
+//        operationDataManager.descriptionIsEditted = false
+//        operationDataManager.imageIsEditted = false
         
         dismiss(animated: true, completion: nil)
     }

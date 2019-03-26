@@ -18,12 +18,14 @@ class ProfileViewController: UIViewController {
     
     @IBOutlet var activityIndicator: UIActivityIndicatorView!
     
-    lazy var gcdDataManager = GCDDataManager()
-    lazy var operationDataManager = OperationDataManager()
+//    lazy var gcdDataManager = GCDDataManager()
+//    lazy var operationDataManager = OperationDataManager()
+    
+    var storageManager = StorageManager()
     
     var profile = ProfileInfo()
     
-    var usingGCDInstedOfOperation = true
+//    var usingGCDInstedOfOperation = true
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,10 +42,15 @@ class ProfileViewController: UIViewController {
     
     private func readDataFromFile() {
         activityIndicator.startAnimating()
-        if usingGCDInstedOfOperation {
-            gcdDataManager.readDataFromFile(to: &profile)
-        } else {
-            operationDataManager.readDataFromFile(to: &profile)
+//        if usingGCDInstedOfOperation {
+//            gcdDataManager.readDataFromFile(to: &profile)
+//        } else {
+//            operationDataManager.readDataFromFile(to: &profile)
+//        }
+        storageManager.coreDataStack.saveContext.performAndWait {  // TODO: understand which context is necessary
+            let profileTmp = storageManager.fetchOrCreateNewProfile(in: storageManager.coreDataStack.saveContext)!
+            profile.name = profileTmp.name!
+            profile.description = profileTmp.descriptionInfo!
         }
         activityIndicator.stopAnimating()
     }
