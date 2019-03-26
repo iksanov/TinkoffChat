@@ -7,12 +7,22 @@
 //
 
 import UIKit
+import MultipeerConnectivity
 
 class ConversationViewController: UIViewController {
     
     @IBOutlet weak var messagesTV: UITableView!
     
-    let messagesList = MessagesList()
+//    let messagesList = MessagesList()
+    var messages: [Message] {
+        if let convListVC = navigationController?.viewControllers[1] as? ConversationsListViewController, let peerID = convPeerId, let conv = convListVC.conversations[peerID], let messages = conv.messages {
+            return messages
+        } else {
+            return [Message]()
+        }
+    }
+    
+    let convPeerId: MCPeerID? = nil
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,11 +44,11 @@ extension ConversationViewController: UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return messagesList.messages.count
+        return messages.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let message = messagesList.messages[indexPath.row]
+        let message = messages[indexPath.row]
         let messageCellIdentifier = message.isIncoming ? "InMessageCell" : "OutMessageCell"
         let cell = tableView.dequeueReusableCell(withIdentifier: messageCellIdentifier, for: indexPath)
         let messageCell = cell as! MessageCell

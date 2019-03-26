@@ -48,6 +48,10 @@ class ConversationsListViewController: UIViewController, CommunicationManagerDel
         return conversations.filter({ $0.value.messages != nil && !$0.value.online }).sorted { $0.value.date! > $1.value.date! }
     }
     
+    func updateViewFromModel() {
+        conversationsListTV.reloadData()  // TODO: may be reload only speсific rows
+    }
+    
     let communicator = MultipeerCommunicator()
     let communicationManager = CommunicationManager()
     

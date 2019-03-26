@@ -73,7 +73,7 @@ class EditProfileViewController: UIViewController {
         operationButton.backgroundColor = operationButton.backgroundColor?.withAlphaComponent(1.0)
     }
     
-    private func registerForKeyboardNotifications() {
+    private func registerForKeyboardNotifications() {  // TODO: fix keyboard managing for iPhones without home buttons
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWasShown(_:)), name: UIResponder.keyboardDidShowNotification, object: nil)  // TODO: check documentation
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillBeHidden(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)  // TODO: try to remove (_:)
     }

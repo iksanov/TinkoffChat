@@ -11,4 +11,5 @@ import MultipeerConnectivity
 
 protocol CommunicationManagerDelegate: class {
     var conversations: [MCPeerID : Conversation] { get set }
+    func updateViewFromModel()
 }

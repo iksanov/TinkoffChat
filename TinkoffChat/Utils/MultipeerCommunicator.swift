@@ -10,7 +10,7 @@ import Foundation
 import MultipeerConnectivity
 
 class MultipeerCommunicator: Communicator {    
-    var online = false
+    var online = true
     weak var delegate: CommunicatorDelegate?  // make it sigleton
     static let myPeerID = MCPeerID(displayName: "Emil")
     
