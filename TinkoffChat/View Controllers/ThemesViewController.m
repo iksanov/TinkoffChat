@@ -41,7 +41,6 @@
     [_themeButton2 release];
     [_themeButton3 release];
     [_model release];
-    printf("dealloc in ThemesViewController\n");
     [super dealloc];
 }
 

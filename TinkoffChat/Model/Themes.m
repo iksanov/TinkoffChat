@@ -23,7 +23,6 @@
     [_theme1 release];
     [_theme2 release];
     [_theme3 release];
-    printf("dealloc in Themes\n");
     [super dealloc];
 }
 

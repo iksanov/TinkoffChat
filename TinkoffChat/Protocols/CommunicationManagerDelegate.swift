@@ -9,7 +9,11 @@
 import Foundation
 import MultipeerConnectivity
 
-protocol CommunicationManagerDelegate: class {
+protocol CommunicationManagerDelegate: class, MCSessionDelegate {
     var conversations: [MCPeerID : Conversation] { get set }
     func updateViewFromModel()
 }
+
+
+
+

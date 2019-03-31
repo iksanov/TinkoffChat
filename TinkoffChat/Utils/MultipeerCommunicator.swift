@@ -12,7 +12,7 @@ import MultipeerConnectivity
 class MultipeerCommunicator: Communicator {    
     var online = true
     weak var delegate: CommunicatorDelegate?  // make it sigleton
-    static let myPeerID = MCPeerID(displayName: "Emil")
+    static let myPeerID = MCPeerID(displayName: UIDevice.current.name)
     
     lazy var advertiser = MCNearbyServiceAdvertiser(peer: MultipeerCommunicator.myPeerID,
                                                     discoveryInfo: ["userName": "emil_iksanov"],

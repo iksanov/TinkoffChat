@@ -24,25 +24,25 @@ class ThemesViewController: UIViewController {
     @IBOutlet var themeButton2: UIButton!
     @IBOutlet var themeButton3: UIButton!
     
-    @IBAction func setTheme1(_ sender: Any) {
+    @IBAction func setTheme1(_ sender: Any) {  // TODO: remove duplicated code for IBActions
         view.backgroundColor = model.theme1
         closureForThemeSetting(model.theme1)
         ThemeManager.setTheme(withName: .light)
-        navigationController?.loadView()
+        navigationController?.loadView()  // TODO: don't do like this
     }
     
     @IBAction func setTheme2(_ sender: Any) {
         view.backgroundColor = model.theme2
         closureForThemeSetting(model.theme2)
         ThemeManager.setTheme(withName: .dark)
-        navigationController?.loadView()
+        navigationController?.loadView()  // TODO: don't do like this
     }
     
     @IBAction func setTheme3(_ sender: Any) {
         view.backgroundColor = model.theme3
         closureForThemeSetting(model.theme3)
         ThemeManager.setTheme(withName: .champagne)
-        navigationController?.loadView()
+        navigationController?.loadView()  // TODO: don't do like this
     }
     
     @IBAction func closeThemeChooser(_ sender: Any) {

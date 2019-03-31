@@ -10,7 +10,6 @@ import UIKit
 import MultipeerConnectivity
 
 class ConversationsListViewController: UIViewController, CommunicationManagerDelegate {
-    
     @IBOutlet weak var conversationsListTV: UITableView!
     
     override func viewDidLoad() {
@@ -25,17 +24,25 @@ class ConversationsListViewController: UIViewController, CommunicationManagerDel
         if let themeNameRawValue: ThemeName.RawValue = UserDefaults.standard.value(forKey: "appTheme") as? ThemeName.RawValue,
             let themeName = ThemeName(rawValue: themeNameRawValue) {
             ThemeManager.setTheme(withName: themeName)
-            navigationController?.loadView()
+            navigationController?.loadView()  // TODO: don't do like this
         }
         
         communicator.delegate = communicationManager
         communicator.advertiser.delegate = communicationManager
         communicator.browser.delegate = communicationManager
         communicationManager.delegate = self
+        communicator.advertiser.startAdvertisingPeer()
+        communicator.browser.startBrowsingForPeers()
     }
     
+    
+    // TODO: may be add refresh button that will delete all sessions and reconnect to everyone again
+    // (that will solve the problem of unrelevant dialogs right after reopening app after background mode)
     override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        print("_ viewWillAppear")
         profileButton.tintColor = UIBarButtonItem.appearance().tintColor
+        updateViewFromModel()
     }
     
     var conversations = [MCPeerID : Conversation]()
@@ -54,6 +61,8 @@ class ConversationsListViewController: UIViewController, CommunicationManagerDel
     
     let communicator = MultipeerCommunicator()
     let communicationManager = CommunicationManager()
+    
+    let decoder = JSONDecoder()
     
     @IBOutlet var profileButton: UIBarButtonItem!
     
@@ -76,7 +85,7 @@ class ConversationsListViewController: UIViewController, CommunicationManagerDel
     }
     
     func logThemeChanging(selectedTheme: UIColor) {
-        print("Selected theme is \(selectedTheme).")
+        print("_ Selected theme is \(selectedTheme).")
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -150,3 +159,56 @@ extension ConversationsListViewController: UITableViewDelegate {
 //        logThemeChanging(selectedTheme: selectedTheme)
 //    }
 //}
+
+extension ConversationsListViewController: MCSessionDelegate {
+    
+    func session(_ session: MCSession, peer peerID: MCPeerID, didChange state: MCSessionState) {
+        print("_ Session with peer \(peerID.displayName) changed state to \(state.rawValue)")
+        print("_ peerID \(peerID.displayName) connection to session: \(session.connectedPeers.contains(peerID))")
+        if state == MCSessionState.notConnected {
+            (communicator.delegate! as! CommunicationManager).sessions.removeValue(forKey: peerID)
+            print("_ deleted session with peerID \(peerID.displayName)")
+            DispatchQueue.main.async { [weak self] in 
+                self?.updateViewFromModel()
+            }
+        }
+        if state == MCSessionState.connected {
+            print("_ Session is connected")
+            conversations[peerID] = Conversation(name: peerID.displayName,  // TODO: make a separate method
+                messages: nil,
+                date: Date(),  // TODO: replace for nil
+                online: true,
+                hasUnreadMessages: false)
+            DispatchQueue.main.async { [weak self] in  // TODO: may be use .sync() instead
+                self?.updateViewFromModel()
+            }
+        }
+    }
+    
+    func session(_ session: MCSession, didReceive data: Data, fromPeer peerID: MCPeerID) {
+        print("_ session didReceive data \(data)")
+        
+        let messageFromJSON = try! decoder.decode(MessageForJSON.self, from: data)
+        conversations[peerID]?.messages?.append(Message(text: messageFromJSON.text,
+                                                                  isIncoming: true))
+        DispatchQueue.main.async { [weak self] in  // TODO: may be use .sync() instead
+            self?.updateViewFromModel()
+        }
+    }
+    
+    func session(_ session: MCSession, didReceive stream: InputStream, withName streamName: String, fromPeer peerID: MCPeerID) {
+        print("_ session didReceive stream: \(stream)")
+    }
+    
+    func session(_ session: MCSession, didStartReceivingResourceWithName resourceName: String, fromPeer peerID: MCPeerID, with progress: Progress) {
+        print("_ session didStartReceivingResourceWithName \(resourceName)")
+    }
+    
+    func session(_ session: MCSession, didFinishReceivingResourceWithName resourceName: String, fromPeer peerID: MCPeerID, at localURL: URL?, withError error: Error?) {
+        print("_ session didFinishReceivingResourceWithName \(resourceName)")
+    }
+    
+    func session(_ session: MCSession, didReceiveCertificate certificate: [Any]?, fromPeer peerID: MCPeerID, certificateHandler: @escaping (Bool) -> Void) {
+        certificateHandler(true)
+    }
+}

@@ -13,7 +13,6 @@ class CommunicationManager: NSObject, CommunicatorDelegate {
     
     weak var delegate: CommunicationManagerDelegate?
     var sessions = [MCPeerID : MCSession]()
-    let decoder = JSONDecoder()
     
     func didFoundUser(userID: String, userName: String?) {
         
@@ -39,19 +38,27 @@ class CommunicationManager: NSObject, CommunicatorDelegate {
 extension CommunicationManager: MCNearbyServiceBrowserDelegate {
     
     func browser(_ browser: MCNearbyServiceBrowser, foundPeer peerID: MCPeerID, withDiscoveryInfo info: [String : String]?) {
+        print("_ foundPeer \(peerID.displayName)")
         if sessions[peerID] == nil {
-            let newSession = MCSession(peer: MultipeerCommunicator.myPeerID)
+            print("_ foundPeer -> session was nil")
+            let newSession = MCSession(peer: MultipeerCommunicator.myPeerID, securityIdentity: nil, encryptionPreference: MCEncryptionPreference.none)
+            newSession.delegate = delegate!
             sessions[peerID] = newSession
             browser.invitePeer(peerID,
                                to: newSession,
                                withContext: nil,
                                timeout: 120)
+            print("_ foundPeer -> session was nil -> invited peer")
         } else {
-            assert(false, "Session with this peerID already excists")
+            print("_ Session with \(peerID.displayName) already exists. peerID connection to session: \(sessions[peerID]!.connectedPeers.contains(peerID))")
         }
     }
     
+    // TODO: FIX! - update somehow (may be by checking all sessions again) info about old conversations after coming back from background mode
+    // if close on the first device, then close on the second and then reopen on the first - it will show that the second is online
+    // (because it didn't get the message about loosing peer (because it was in background mode))
     func browser(_ browser: MCNearbyServiceBrowser, lostPeer peerID: MCPeerID) {
+        print("_ lost peer \(peerID.displayName)")
         sessions.removeValue(forKey: peerID)
         delegate!.conversations.removeValue(forKey: peerID)
         delegate!.updateViewFromModel()
@@ -61,52 +68,24 @@ extension CommunicationManager: MCNearbyServiceBrowserDelegate {
 extension CommunicationManager: MCNearbyServiceAdvertiserDelegate {
     
     func advertiser(_ advertiser: MCNearbyServiceAdvertiser, didReceiveInvitationFromPeer peerID: MCPeerID, withContext context: Data?, invitationHandler: @escaping (Bool, MCSession?) -> Void) {
-        print("I have received invitation from peer: \(peerID)")
+        print("_ received invitation from peer: \(peerID.displayName)")
         if sessions[peerID] == nil {
-            let newSession = MCSession(peer: MultipeerCommunicator.myPeerID)
+            print("_ didReceiveInvitation -> session was nil")
+            let newSession = MCSession(peer: MultipeerCommunicator.myPeerID, securityIdentity: nil, encryptionPreference: MCEncryptionPreference.none)
+            newSession.delegate = delegate!
             sessions[peerID] = newSession
             invitationHandler(true, newSession)
+            print("_ accepted invitation from peer: \(peerID.displayName)")
         } else {
             if sessions[peerID]!.connectedPeers.contains(peerID) {
+                print("_ didReceiveInvitation -> session wasn't nil -> connectedPeers.contains")
                 invitationHandler(false, nil)
+                print("_ reject invitation from \(peerID.displayName)")
             } else {
+                print("_ didReceiveInvitation -> session wasn't nil -> connectedPeers doesn't contain")
                 invitationHandler(true, sessions[peerID]!)
+                print("_ accepted invitation from \(peerID.displayName)")
             }
         }
-    }
-}
-
-extension CommunicationManager: MCSessionDelegate {
-    
-    func session(_ session: MCSession, peer peerID: MCPeerID, didChange state: MCSessionState) {
-        if state == MCSessionState.connected {
-            delegate!.conversations[peerID] = Conversation(name: peerID.displayName,  // TODO: make a separate method
-                                                           messages: nil,
-                                                           date: Date(),  // TODO: replace for nil
-                                                           online: true,
-                                                           hasUnreadMessages: false)
-            delegate!.updateViewFromModel()
-        }
-    }
-    
-    func session(_ session: MCSession, didReceive data: Data, fromPeer peerID: MCPeerID) {
-        print("session didReceive data \(data)")
-        
-        let messageFromJSON = try! decoder.decode(MessageForJSON.self, from: data)
-        delegate!.conversations[peerID]?.messages?.append(Message(text: messageFromJSON.text,
-                                                                  isIncoming: true))
-        delegate!.updateViewFromModel()
-    }
-    
-    func session(_ session: MCSession, didReceive stream: InputStream, withName streamName: String, fromPeer peerID: MCPeerID) {
-        print("session didReceive stream: \(stream)")
-    }
-    
-    func session(_ session: MCSession, didStartReceivingResourceWithName resourceName: String, fromPeer peerID: MCPeerID, with progress: Progress) {
-        print("session didStartReceivingResourceWithName \(resourceName)")
-    }
-    
-    func session(_ session: MCSession, didFinishReceivingResourceWithName resourceName: String, fromPeer peerID: MCPeerID, at localURL: URL?, withError error: Error?) {
-        print("session didFinishReceivingResourceWithName \(resourceName)")
     }
 }
