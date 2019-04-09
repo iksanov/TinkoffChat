@@ -1,11 +1,33 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="14460.32" systemVersion="18A391" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="ConversationTmp" representedClassName="ConversationTmp" syncable="YES" codeGenerationType="class">
+        <attribute name="hasUnreadMessages" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="lastMessageDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="lastMessageText" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="messages" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="MessageTmp" inverseName="conversation" inverseEntity="MessageTmp" syncable="YES"/>
+        <relationship name="user" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="UserTmp" inverseName="conversation" inverseEntity="UserTmp" syncable="YES"/>
+    </entity>
+    <entity name="MessageTmp" representedClassName="MessageTmp" syncable="YES" codeGenerationType="class">
+        <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="isIncoming" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="text" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="unread" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
+        <relationship name="conversation" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="ConversationTmp" inverseName="messages" inverseEntity="ConversationTmp" syncable="YES"/>
+    </entity>
     <entity name="ProfileInfoTmp" representedClassName="ProfileInfoTmp" syncable="YES" codeGenerationType="class">
         <attribute name="descriptionInfo" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
+    <entity name="UserTmp" representedClassName="UserTmp" syncable="YES" codeGenerationType="class">
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="online" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
+        <relationship name="conversation" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="ConversationTmp" inverseName="user" inverseEntity="ConversationTmp" syncable="YES"/>
+    </entity>
     <fetchRequest name="ProfileInfoTmpRequest" entity="ProfileInfoTmp"/>
     <elements>
-        <element name="ProfileInfoTmp" positionX="-63" positionY="-18" width="128" height="75"/>
+        <element name="ConversationTmp" positionX="-69.6875" positionY="-50.72265625" width="128" height="120"/>
+        <element name="MessageTmp" positionX="128.62109375" positionY="179.9921875" width="128" height="118"/>
+        <element name="ProfileInfoTmp" positionX="-351.32421875" positionY="-67.859375" width="128" height="75"/>
+        <element name="UserTmp" positionX="-327.8828125" positionY="101.6953125" width="128" height="88"/>
     </elements>
 </model>

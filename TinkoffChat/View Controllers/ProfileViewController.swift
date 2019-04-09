@@ -11,7 +11,7 @@ import UIKit
 class ProfileViewController: UIViewController {
     
     @IBOutlet weak var photoImageView: UIImageView!
-    @IBOutlet var nameLabel: UILabel!  // test hugging and comression for different content volume
+    @IBOutlet var nameLabel: UILabel!  // TODO: test hugging and comression for different content volume
     @IBOutlet var descriptionLabel: UILabel!
     
     @IBOutlet weak var editProfileButton: UIButton!
@@ -21,7 +21,7 @@ class ProfileViewController: UIViewController {
 //    lazy var gcdDataManager = GCDDataManager()
 //    lazy var operationDataManager = OperationDataManager()
     
-    var storageManager = StorageManager()
+    let storageManager = StorageManager()
     
     var profile = ProfileInfo()
     
@@ -47,8 +47,8 @@ class ProfileViewController: UIViewController {
 //        } else {
 //            operationDataManager.readDataFromFile(to: &profile)
 //        }
-        storageManager.coreDataStack.saveContext.performAndWait {  // TODO: understand which context is necessary
-            let profileTmp = storageManager.fetchOrCreateNewProfile(in: storageManager.coreDataStack.saveContext)!
+        StorageManager.sharedCoreDataStack.saveContext.performAndWait {  // TODO: understand which context is necessary
+            let profileTmp = storageManager.fetchOrCreateNewProfile(in: StorageManager.sharedCoreDataStack.saveContext)!
             profile.name = profileTmp.name!
             profile.description = profileTmp.descriptionInfo!
         }

@@ -8,9 +8,23 @@
 
 import UIKit
 import MultipeerConnectivity
+import CoreData
 
 class ConversationsListViewController: UIViewController, CommunicationManagerDelegate {
     @IBOutlet weak var conversationsListTV: UITableView!
+    
+    let request: NSFetchRequest<ConversationTmp> = {
+        let returnRequest: NSFetchRequest<ConversationTmp> = ConversationTmp.fetchRequest()
+        returnRequest.sortDescriptors = [NSSortDescriptor(key: "user.online", ascending: false), NSSortDescriptor(key: "lastMessageDate", ascending: false)]
+        return returnRequest
+    }()
+    
+    lazy var frc: NSFetchedResultsController<ConversationTmp> = NSFetchedResultsController(fetchRequest: request,
+                                              managedObjectContext: StorageManager.sharedCoreDataStack.mainContext,
+                                              sectionNameKeyPath: nil,  // TODO: replace it with online in the future
+                                              cacheName: nil)
+    
+    let testStorageManager = StorageManager()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,6 +47,29 @@ class ConversationsListViewController: UIViewController, CommunicationManagerDel
         communicationManager.delegate = self
         communicator.advertiser.startAdvertisingPeer()
         communicator.browser.startBrowsingForPeers()
+        
+        
+        let testUser = NSEntityDescription.insertNewObject(forEntityName: "UserTmp", into: StorageManager.sharedCoreDataStack.mainContext) as? UserTmp
+        testUser?.name = "name of test User"
+        testUser?.online = true
+        
+        let testConv = NSEntityDescription.insertNewObject(forEntityName: "ConversationTmp", into: StorageManager.sharedCoreDataStack.mainContext) as? ConversationTmp
+        testConv?.lastMessageText = "text of the last test message"
+        testConv?.lastMessageDate = Date(timeIntervalSince1970: 0)
+        testConv?.hasUnreadMessages = true
+        testConv?.user = testUser
+        
+        CoreDataStack.performSave(with: StorageManager.sharedCoreDataStack.mainContext)
+        
+        
+        frc.delegate = self
+        //        if let performFetchResult = try? frc.performFetch() {
+        //            print(performFetchResult)
+        //        } else {
+        //            assert(false)
+        //        }
+        print(try! frc.performFetch())
+        conversationsListTV.reloadData()
     }
     
     
@@ -91,8 +128,8 @@ class ConversationsListViewController: UIViewController, CommunicationManagerDel
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         switch segue.identifier {
         case "OpenConversation":
-            if let conversation = sender as? Conversation {
-                segue.destination.title = conversation.name
+            if let conversation = sender as? ConversationTmp {
+                segue.destination.title = conversation.user?.name
             }
         case "OpenThemeChooser":
             if let navigationVC = segue.destination as? UINavigationController, let themesVC = navigationVC.topViewController as? ThemesViewController {
@@ -110,7 +147,7 @@ extension ConversationsListViewController: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
         return 2
     }
-    
+
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch section {
         case 0:
@@ -135,14 +172,49 @@ extension ConversationsListViewController: UITableViewDataSource {
         }
     }
     
+
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ConvCell", for: indexPath)
         let convCell = cell as! ConversationCell
-        
+
         guard let conversation = conversationAt(indexPath) else { assert(false); return convCell }
         convCell.configureCell(from: conversation)
         return convCell
     }
+    
+//    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+//        guard let sections = frc.sections else {
+//            fatalError("No sections in fetchedResultsController")
+//        }
+//        return sections[section].name
+//    }
+//
+//
+//    func numberOfSections(in tableView: UITableView) -> Int {
+//        guard let sections = frc.sections else {
+//            fatalError("No sections in fetchedResultsController")
+//        }
+//        return sections.count
+//    }
+//
+//    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+//        guard let sections = frc.sections else {
+//            fatalError("No sections in fetchedResultsController")
+//        }
+//        let sectionInfo = sections[section]
+//        return sectionInfo.numberOfObjects
+//    }
+//
+//    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+//        let cell = tableView.dequeueReusableCell(withIdentifier: "ConvCell", for: indexPath)
+//        let convCell = cell as! ConversationCell
+//
+//        let conversation = frc.object(at: indexPath)
+//
+//        convCell.configureCell(from: conversation)
+//        return convCell
+//    }
+    
 }
 
 extension ConversationsListViewController: UITableViewDelegate {
@@ -152,6 +224,14 @@ extension ConversationsListViewController: UITableViewDelegate {
         tableView.deselectRow(at: indexPath, animated: true)
     }
 }
+
+//extension ConversationsListViewController: UITableViewDelegate {
+//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+//        let conversation = frc.object(at: indexPath)
+//        performSegue(withIdentifier: "OpenConversation", sender: conversation)
+//        tableView.deselectRow(at: indexPath, animated: true)
+//    }
+//}
 
 // uncomment if using obj-c ThemesVC
 //extension ConversationsListViewController: ThemesViewControllerDelegate {
@@ -210,5 +290,44 @@ extension ConversationsListViewController: MCSessionDelegate {
     
     func session(_ session: MCSession, didReceiveCertificate certificate: [Any]?, fromPeer peerID: MCPeerID, certificateHandler: @escaping (Bool) -> Void) {
         certificateHandler(true)
+    }
+}
+
+extension ConversationsListViewController: NSFetchedResultsControllerDelegate {
+    func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+        conversationsListTV.beginUpdates()
+    }
+
+    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>,
+                           didChange sectionInfo: NSFetchedResultsSectionInfo,
+                           atSectionIndex sectionIndex: Int,
+                           for type: NSFetchedResultsChangeType) {
+        switch type {
+        case .insert: conversationsListTV.insertSections([sectionIndex], with: .automatic)
+        case .delete: conversationsListTV.deleteSections([sectionIndex], with: .automatic)
+        default: break
+        }
+    }
+
+    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>,
+                    didChange anObject: Any,
+                    at indexPath: IndexPath?,
+                    for type: NSFetchedResultsChangeType,
+                    newIndexPath: IndexPath?) {
+        switch type {
+        case .insert:
+            conversationsListTV.insertRows(at: [newIndexPath!], with: .automatic)
+        case .move:
+            conversationsListTV.deleteRows(at: [indexPath!], with: .automatic)
+            conversationsListTV.insertRows(at: [newIndexPath!], with: .automatic)
+        case .update:
+            conversationsListTV.reloadRows(at: [indexPath!], with: .automatic)
+        case .delete:
+            conversationsListTV.deleteRows(at: [indexPath!], with: .automatic)
+        }
+    }
+
+    func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+        conversationsListTV.endUpdates()
     }
 }

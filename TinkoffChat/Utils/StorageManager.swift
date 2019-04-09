@@ -11,7 +11,7 @@ import CoreData
 
 class StorageManager {
     
-    let coreDataStack = CoreDataStack()  // TODO: may be move it to AppDelegate
+    static let sharedCoreDataStack = CoreDataStack()
     
     func fetchOrCreateNewProfile(in context: NSManagedObjectContext) -> ProfileInfoTmp? {
         return CoreDataStack.findOrInsertAppUser(in: context)

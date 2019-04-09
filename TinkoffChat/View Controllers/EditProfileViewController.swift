@@ -136,9 +136,7 @@ class EditProfileViewController: UIViewController {
         self.present(actionSheet, animated: true, completion: nil)
     }
 
-    var storageManager: StorageManager {
-        return ((presentingViewController as! UINavigationController).topViewController! as! ProfileViewController).storageManager
-    }
+    let storageManager = StorageManager()
 //    var gcdDataManager: GCDDataManager {
 //        return ((presentingViewController as! UINavigationController).topViewController! as! ProfileViewController).gcdDataManager
 //    }
@@ -198,8 +196,8 @@ class EditProfileViewController: UIViewController {
 //        } else {
 //            operationDataManager.writeDataToFile(from: profile)
 //        }
-        storageManager.coreDataStack.saveContext.performAndWait {
-            storageManager.saveData(from: profile, with: storageManager.coreDataStack.saveContext)  // TODO: understand which context is necessary
+        StorageManager.sharedCoreDataStack.saveContext.performAndWait {
+            storageManager.saveData(from: profile, with: StorageManager.sharedCoreDataStack.saveContext)  // TODO: understand which context is necessary
         }
         activityIndicator.stopAnimating()
         disableButtons()

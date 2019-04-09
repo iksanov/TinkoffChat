@@ -9,12 +9,12 @@
 import Foundation
 
 //class Conversation: ConversationCellConfiguration {
-class Conversation {
+class Conversation {  // TODO: may be add convID
     var name: String?
     var messages: [Message]?
-    var date: Date?
-    var online: Bool
-    var hasUnreadMessages: Bool
+    var date: Date?  // TODO: remove date (use last message's date instead)
+    var online: Bool  // TODO: remove online (use user's online instead)
+    var hasUnreadMessages: Bool  // TODO: remove
     
     init(name: String?, messages: [Message]?, date: Date?, online: Bool, hasUnreadMessages: Bool) {
         self.name = name

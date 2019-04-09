@@ -26,9 +26,19 @@ class ConversationCell: UITableViewCell, ConversationCellConfiguration {  // TOD
         self.date = convPreview.date
         self.online = convPreview.online
         self.hasUnreadMessages = convPreview.hasUnreadMessages
-        
+
         drawCell()
     }
+    
+//    func configureCell(from convPreview: ConversationTmp) {
+//        self.name = convPreview.user?.name
+//        self.message = convPreview.lastMessageText
+//        self.date = convPreview.lastMessageDate
+//        self.online = convPreview.user?.online ?? false
+//        self.hasUnreadMessages = convPreview.hasUnreadMessages
+//
+//        drawCell()
+//    }
     
     private func drawCell() {
         nameLabel.text = name

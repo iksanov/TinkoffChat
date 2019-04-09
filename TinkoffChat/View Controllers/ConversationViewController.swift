@@ -14,6 +14,7 @@ class ConversationViewController: UIViewController {
     @IBOutlet weak var messagesTV: UITableView!
     
 //    let messagesList = MessagesList()
+//    lazy var messages = messagesList.messages
     var messages: [Message] {
         if let convListVC = navigationController?.viewControllers[1] as? ConversationsListViewController, let peerID = convPeerId, let conv = convListVC.conversations[peerID], let messages = conv.messages {
             return messages

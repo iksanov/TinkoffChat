@@ -10,11 +10,11 @@
 //
 //class MessagesList {
 //    lazy var messages = getMessagesFromPlainText(MessagesList.plainText)
-//    
+//
 //    private func getMessagesFromPlainText(_ text: String) -> [Message] {
 //        var listOfMessages = [Message]()
 //        let listOfWords = text.split(separator: " ")
-//        
+//
 //        var startIndex = 0
 //        var endIndex = 10
 //        while endIndex < listOfWords.count {
