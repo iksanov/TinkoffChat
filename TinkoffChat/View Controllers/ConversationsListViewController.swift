@@ -42,7 +42,7 @@ class ConversationsListViewController: UIViewController {
             navigationController?.loadView()  // TODO: don't do like this
         }
         
-        communicator.delegate = self
+        MultipeerCommunicator.shared.delegate = self
         
         
         let testUser = NSEntityDescription.insertNewObject(forEntityName: "UserTmp", into: StorageManager.sharedCoreDataStack.mainContext) as? UserTmp
@@ -82,13 +82,20 @@ class ConversationsListViewController: UIViewController {
         return conversations.filter({ $0.value.messages != nil && !$0.value.online }).sorted { $0.value.date! > $1.value.date! }
     }
     
-    func updateViewFromModel() {  // TODO: think about execution on the main thread
-        DispatchQueue.main.async { [weak self] in
-            self?.conversationsListTV.reloadData()  // TODO: may be reload only speсific rows
+    private func updateViewFromModel() {  // TODO: think about execution on the main thread
+        DispatchQueue.main.async {
+            self.conversationsListTV.reloadData()  // TODO: may be reload only speсific rows
         }
     }
     
-    let communicator = MultipeerCommunicator()
+    private func updateChatViewFromModel() {
+        if let chatVC = navigationController?.topViewController as? ChatViewController {
+            chatVC.userIsOnline = MultipeerCommunicator.shared.checkIfUserAvaliable(userID: chatVC.userId)
+            DispatchQueue.main.async {
+                chatVC.messagesTV.reloadData()
+            }
+        }
+    }
     
     @IBOutlet var profileButton: UIBarButtonItem!
     
@@ -118,9 +125,9 @@ class ConversationsListViewController: UIViewController {
         switch segue.identifier {
         case "OpenConversation":
             if let conversation = sender as? Conversation {
-                if let convVC = segue.destination as? ConversationViewController {
+                if let convVC = segue.destination as? ChatViewController {
 //                    convVC.userId = conversation.user?.name
-                    convVC.userId = conversation.name
+                    convVC.userId = conversation.name ?? "Unknown User"
                 }
             }
         case "OpenThemeChooser":
@@ -335,11 +342,13 @@ extension ConversationsListViewController: CommunicatorDelegate {
                                                     online: true,
                                                     hasUnreadMessages: false)
         updateViewFromModel()
+        updateChatViewFromModel()
     }
     
     func didLostUser(userID: String) {
         conversations.removeValue(forKey: userID)
         updateViewFromModel()
+        updateChatViewFromModel()
     }
     
     func failedToStartBrowsingForUsers(error: Error) {
@@ -365,8 +374,9 @@ extension ConversationsListViewController: CommunicatorDelegate {
         }
         let newMessage = Message(text: text, isIncoming: isIncoming)
         conversations[userName]?.messages?.append(newMessage)
-        DispatchQueue.main.async { [weak self] in  // TODO: may be use .sync() instead
-            self?.updateViewFromModel()
+        DispatchQueue.main.async {
+            self.updateViewFromModel()
+            self.updateChatViewFromModel()
         }
     }
 }

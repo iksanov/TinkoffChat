@@ -9,20 +9,28 @@
 import Foundation
 import MultipeerConnectivity
 
+struct PeerData {
+    let peerId: MCPeerID
+    var session: MCSession
+}
+
 class MultipeerCommunicator: NSObject, Communicator {
+    
+    static let shared = MultipeerCommunicator()
+    
     var online: Bool
     weak var delegate: CommunicatorDelegate?
     static let myPeerID = MCPeerID(displayName: MultipeerCommunicator.myDeviceName)
     
     var advertiser: MCNearbyServiceAdvertiser
     var browser: MCNearbyServiceBrowser
-    var sessions: [String : MCSession]
+    var sessions: [String : PeerData]
     
     let decoder: JSONDecoder
     
-    override init() {
+    override private init() {
         online = true
-        sessions = [String : MCSession]()
+        sessions = [String : PeerData]()
         advertiser = MCNearbyServiceAdvertiser(peer: MultipeerCommunicator.myPeerID,
                                                discoveryInfo: ["userName": "emil_iksanov"],
                                                serviceType: "tinkoff-chat")
@@ -52,14 +60,18 @@ class MultipeerCommunicator: NSObject, Communicator {
         let jsonData = msgString.data(using: .utf8)!
         
         do {
-            if let sessionWithReceiver = sessions[userID] {
-//                try sessionWithReceiver.send(jsonData, toPeers: [userID], with: .reliable)
+            if let receiver = sessions[userID] {
+                try receiver.session.send(jsonData, toPeers: [receiver.peerId], with: .reliable)
             }
         } catch let myJSONError {
             print("CAN'T SEND", myJSONError)
         }
         print("I have tried to send message")
         delegate?.didReceiveMessage(text: string, fromUser: MultipeerCommunicator.myDeviceName, toUser: userID)
+    }
+    
+    func checkIfUserAvaliable(userID: String) -> Bool {
+        return sessions.index(forKey: userID) == nil ? false : true
     }
 }
 
@@ -74,17 +86,17 @@ extension MultipeerCommunicator: MCNearbyServiceAdvertiserDelegate {
             print("_ didReceiveInvitation -> session was nil")
             let newSession = MCSession(peer: MultipeerCommunicator.myPeerID, securityIdentity: nil, encryptionPreference: MCEncryptionPreference.none)
             newSession.delegate = self
-            sessions[peerID.displayName] = newSession
+            sessions[peerID.displayName] = PeerData(peerId: peerID, session: newSession)
             invitationHandler(true, newSession)
             print("_ accepted invitation from peer: \(peerID.displayName)")
         } else {
-            if sessions[peerID.displayName]!.connectedPeers.contains(peerID) {
+            if sessions[peerID.displayName]!.session.connectedPeers.contains(peerID) {
                 print("_ didReceiveInvitation -> session wasn't nil -> connectedPeers.contains")
                 invitationHandler(false, nil)
                 print("_ reject invitation from \(peerID.displayName)")
             } else {
                 print("_ didReceiveInvitation -> session wasn't nil -> connectedPeers doesn't contain")
-                invitationHandler(true, sessions[peerID.displayName]!)
+                invitationHandler(true, sessions[peerID.displayName]!.session)
                 print("_ accepted invitation from \(peerID.displayName)")
             }
         }
@@ -98,14 +110,14 @@ extension MultipeerCommunicator: MCNearbyServiceBrowserDelegate {
             print("_ foundPeer -> session was nil")
             let newSession = MCSession(peer: MultipeerCommunicator.myPeerID, securityIdentity: nil, encryptionPreference: MCEncryptionPreference.none)
             newSession.delegate = self
-            sessions[peerID.displayName] = newSession
+            sessions[peerID.displayName] = PeerData(peerId: peerID, session: newSession)
             browser.invitePeer(peerID,
                                to: newSession,
                                withContext: nil,
                                timeout: 120)
             print("_ foundPeer -> session was nil -> invited peer")
         } else {
-            print("_ Session with \(peerID.displayName) already exists. peerID connection to session: \(sessions[peerID.displayName]!.connectedPeers.contains(peerID))")
+            print("_ Session with \(peerID.displayName) already exists. peerID connection to session: \(sessions[peerID.displayName]!.session.connectedPeers.contains(peerID))")
         }
     }
     
@@ -135,9 +147,12 @@ extension MultipeerCommunicator: MCSessionDelegate {
     }
     
     func session(_ session: MCSession, didReceive data: Data, fromPeer peerID: MCPeerID) {
-        print("_ session didReceive data \(data)")
-        let messageFromJSON = try! decoder.decode(MessageForJSON.self, from: data)
-        delegate?.didReceiveMessage(text: messageFromJSON.text, fromUser: peerID.displayName, toUser: MultipeerCommunicator.myPeerID.displayName)
+        print("_ session didReceive message from \(peerID.displayName)")
+        if let messageFromJSON = try? decoder.decode(MessageForJSON.self, from: data) {
+            delegate?.didReceiveMessage(text: messageFromJSON.text, fromUser: peerID.displayName, toUser: MultipeerCommunicator.myPeerID.displayName)
+        } else {
+            print("_ !!! ERROR: can't decode message from \(peerID.displayName)")
+        }
     }
     
     func session(_ session: MCSession, didReceive stream: InputStream, withName streamName: String, fromPeer peerID: MCPeerID) {
