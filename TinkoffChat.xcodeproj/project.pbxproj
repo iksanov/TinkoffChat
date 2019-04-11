@@ -24,7 +24,6 @@
 		20B8759922281DC700EE1DD6 /* OutMessageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 20B8759822281DC700EE1DD6 /* OutMessageCell.xib */; };
 		20B8759B22281E0800EE1DD6 /* MessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20B8759A22281E0800EE1DD6 /* MessageCell.swift */; };
 		20B8759D2229434D00EE1DD6 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20B8759C2229434D00EE1DD6 /* Message.swift */; };
-		20B8759F2229454300EE1DD6 /* MessagesList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20B8759E2229454300EE1DD6 /* MessagesList.swift */; };
 		20C4BBB7224105CA00A35537 /* Communicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20C4BBB6224105CA00A35537 /* Communicator.swift */; };
 		20C4BBBB2241069700A35537 /* MultipeerCommunicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20C4BBBA2241069700A35537 /* MultipeerCommunicator.swift */; };
 		20C4BBC1224191DB00A35537 /* MessageForJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20C4BBC0224191DB00A35537 /* MessageForJSON.swift */; };
@@ -62,7 +61,6 @@
 		20B8759822281DC700EE1DD6 /* OutMessageCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OutMessageCell.xib; sourceTree = "<group>"; };
 		20B8759A22281E0800EE1DD6 /* MessageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageCell.swift; sourceTree = "<group>"; };
 		20B8759C2229434D00EE1DD6 /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
-		20B8759E2229454300EE1DD6 /* MessagesList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesList.swift; sourceTree = "<group>"; };
 		20C4BBB6224105CA00A35537 /* Communicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Communicator.swift; sourceTree = "<group>"; };
 		20C4BBBA2241069700A35537 /* MultipeerCommunicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipeerCommunicator.swift; sourceTree = "<group>"; };
 		20C4BBC0224191DB00A35537 /* MessageForJSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageForJSON.swift; sourceTree = "<group>"; };
@@ -104,7 +102,6 @@
 			isa = PBXGroup;
 			children = (
 				20505D7F22256CFD00E7729D /* Conversation.swift */,
-				20B8759E2229454300EE1DD6 /* MessagesList.swift */,
 				20B8759C2229434D00EE1DD6 /* Message.swift */,
 				20FB7EB9222D94F600FBCB47 /* Themes.h */,
 				20FB7EBA222D94F600FBCB47 /* Themes.m */,
@@ -296,7 +293,6 @@
 				20D38ECF224A650D001CC809 /* Model.xcdatamodeld in Sources */,
 				20EEAB2D2211CC6F007EE26A /* ProfileViewController.swift in Sources */,
 				206AAABE22392D4B00B363C6 /* GCDDataManager.swift in Sources */,
-				20B8759F2229454300EE1DD6 /* MessagesList.swift in Sources */,
 				2023A8072224647600FCCAEB /* ConversationsListViewController.swift in Sources */,
 				20D4DED82230607100745911 /* ThemesViewController.swift in Sources */,
 				20C4BBBB2241069700A35537 /* MultipeerCommunicator.swift in Sources */,
