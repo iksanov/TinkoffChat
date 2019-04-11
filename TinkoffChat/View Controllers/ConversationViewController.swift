@@ -16,17 +16,22 @@ class ConversationViewController: UIViewController {
 //    let messagesList = MessagesList()
 //    lazy var messages = messagesList.messages
     var messages: [Message] {
-        if let convListVC = navigationController?.viewControllers[1] as? ConversationsListViewController, let peerID = convPeerId, let conv = convListVC.conversations[peerID], let messages = conv.messages {
+        if let viewControllers = navigationController?.viewControllers,
+            let convListVC = viewControllers[viewControllers.count - 2] as? ConversationsListViewController,
+            let peerID = userId,
+            let conv = convListVC.conversations[peerID],
+            let messages = conv.messages {
             return messages
         } else {
             return [Message]()
         }
     }
     
-    let convPeerId: MCPeerID? = nil
+    var userId: String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        title = userId
         messagesTV.dataSource = self
         messagesTV.register(UINib(nibName: "InMessageCell", bundle: Bundle.main), forCellReuseIdentifier: "InMessageCell")
         messagesTV.register(UINib(nibName: "OutMessageCell", bundle: Bundle.main), forCellReuseIdentifier: "OutMessageCell")

@@ -10,7 +10,8 @@ import UIKit
 import MultipeerConnectivity
 import CoreData
 
-class ConversationsListViewController: UIViewController, CommunicationManagerDelegate {
+class ConversationsListViewController: UIViewController {
+    
     @IBOutlet weak var conversationsListTV: UITableView!
     
     let request: NSFetchRequest<ConversationTmp> = {
@@ -41,12 +42,7 @@ class ConversationsListViewController: UIViewController, CommunicationManagerDel
             navigationController?.loadView()  // TODO: don't do like this
         }
         
-        communicator.delegate = communicationManager
-        communicator.advertiser.delegate = communicationManager
-        communicator.browser.delegate = communicationManager
-        communicationManager.delegate = self
-        communicator.advertiser.startAdvertisingPeer()
-        communicator.browser.startBrowsingForPeers()
+        communicator.delegate = self
         
         
         let testUser = NSEntityDescription.insertNewObject(forEntityName: "UserTmp", into: StorageManager.sharedCoreDataStack.mainContext) as? UserTmp
@@ -61,14 +57,8 @@ class ConversationsListViewController: UIViewController, CommunicationManagerDel
         
         CoreDataStack.performSave(with: StorageManager.sharedCoreDataStack.mainContext)
         
-        
         frc.delegate = self
-        //        if let performFetchResult = try? frc.performFetch() {
-        //            print(performFetchResult)
-        //        } else {
-        //            assert(false)
-        //        }
-        print(try! frc.performFetch())
+        try! frc.performFetch()
         conversationsListTV.reloadData()
     }
     
@@ -82,24 +72,23 @@ class ConversationsListViewController: UIViewController, CommunicationManagerDel
         updateViewFromModel()
     }
     
-    var conversations = [MCPeerID : Conversation]()
+    var conversations = [String : Conversation]()
     
-    var onlineConversations: [(key: MCPeerID, value: Conversation)] {
+    var onlineConversations: [(key: String, value: Conversation)] {
         return conversations.filter({ $0.value.online }).sorted { $0.value.date! > $1.value.date! }
     }
     
-    var historyConversations: [(key: MCPeerID, value: Conversation)] {
+    var historyConversations: [(key: String, value: Conversation)] {
         return conversations.filter({ $0.value.messages != nil && !$0.value.online }).sorted { $0.value.date! > $1.value.date! }
     }
     
-    func updateViewFromModel() {
-        conversationsListTV.reloadData()  // TODO: may be reload only speсific rows
+    func updateViewFromModel() {  // TODO: think about execution on the main thread
+        DispatchQueue.main.async { [weak self] in
+            self?.conversationsListTV.reloadData()  // TODO: may be reload only speсific rows
+        }
     }
     
     let communicator = MultipeerCommunicator()
-    let communicationManager = CommunicationManager()
-    
-    let decoder = JSONDecoder()
     
     @IBOutlet var profileButton: UIBarButtonItem!
     
@@ -128,8 +117,11 @@ class ConversationsListViewController: UIViewController, CommunicationManagerDel
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         switch segue.identifier {
         case "OpenConversation":
-            if let conversation = sender as? ConversationTmp {
-                segue.destination.title = conversation.user?.name
+            if let conversation = sender as? Conversation {
+                if let convVC = segue.destination as? ConversationViewController {
+//                    convVC.userId = conversation.user?.name
+                    convVC.userId = conversation.name
+                }
             }
         case "OpenThemeChooser":
             if let navigationVC = segue.destination as? UINavigationController, let themesVC = navigationVC.topViewController as? ThemesViewController {
@@ -240,58 +232,58 @@ extension ConversationsListViewController: UITableViewDelegate {
 //    }
 //}
 
-extension ConversationsListViewController: MCSessionDelegate {
+//extension ConversationsListViewController: MCSessionDelegate {
+//    
+//    func session(_ session: MCSession, peer peerID: MCPeerID, didChange state: MCSessionState) {
+//        print("_ Session with peer \(peerID.displayName) changed state to \(state.rawValue)")
+//        print("_ peerID \(peerID.displayName) connection to session: \(session.connectedPeers.contains(peerID))")
+//        if state == MCSessionState.notConnected {
+//            (communicator.delegate! as! CommunicationManager).sessions.removeValue(forKey: peerID)
+//            print("_ deleted session with peerID \(peerID.displayName)")
+//            DispatchQueue.main.async { [weak self] in 
+//                self?.updateViewFromModel()
+//            }
+//        }
+//        if state == MCSessionState.connected {
+//            print("_ Session is connected")
+//            conversations[peerID] = Conversation(name: peerID.displayName,  // TODO: make a separate method
+//                messages: nil,
+//                date: Date(),  // TODO: replace for nil
+//                online: true,
+//                hasUnreadMessages: false)
+//            DispatchQueue.main.async { [weak self] in  // TODO: may be use .sync() instead
+//                self?.updateViewFromModel()
+//            }
+//        }
+//    }
     
-    func session(_ session: MCSession, peer peerID: MCPeerID, didChange state: MCSessionState) {
-        print("_ Session with peer \(peerID.displayName) changed state to \(state.rawValue)")
-        print("_ peerID \(peerID.displayName) connection to session: \(session.connectedPeers.contains(peerID))")
-        if state == MCSessionState.notConnected {
-            (communicator.delegate! as! CommunicationManager).sessions.removeValue(forKey: peerID)
-            print("_ deleted session with peerID \(peerID.displayName)")
-            DispatchQueue.main.async { [weak self] in 
-                self?.updateViewFromModel()
-            }
-        }
-        if state == MCSessionState.connected {
-            print("_ Session is connected")
-            conversations[peerID] = Conversation(name: peerID.displayName,  // TODO: make a separate method
-                messages: nil,
-                date: Date(),  // TODO: replace for nil
-                online: true,
-                hasUnreadMessages: false)
-            DispatchQueue.main.async { [weak self] in  // TODO: may be use .sync() instead
-                self?.updateViewFromModel()
-            }
-        }
-    }
-    
-    func session(_ session: MCSession, didReceive data: Data, fromPeer peerID: MCPeerID) {
-        print("_ session didReceive data \(data)")
-        
-        let messageFromJSON = try! decoder.decode(MessageForJSON.self, from: data)
-        conversations[peerID]?.messages?.append(Message(text: messageFromJSON.text,
-                                                                  isIncoming: true))
-        DispatchQueue.main.async { [weak self] in  // TODO: may be use .sync() instead
-            self?.updateViewFromModel()
-        }
-    }
-    
-    func session(_ session: MCSession, didReceive stream: InputStream, withName streamName: String, fromPeer peerID: MCPeerID) {
-        print("_ session didReceive stream: \(stream)")
-    }
-    
-    func session(_ session: MCSession, didStartReceivingResourceWithName resourceName: String, fromPeer peerID: MCPeerID, with progress: Progress) {
-        print("_ session didStartReceivingResourceWithName \(resourceName)")
-    }
-    
-    func session(_ session: MCSession, didFinishReceivingResourceWithName resourceName: String, fromPeer peerID: MCPeerID, at localURL: URL?, withError error: Error?) {
-        print("_ session didFinishReceivingResourceWithName \(resourceName)")
-    }
-    
-    func session(_ session: MCSession, didReceiveCertificate certificate: [Any]?, fromPeer peerID: MCPeerID, certificateHandler: @escaping (Bool) -> Void) {
-        certificateHandler(true)
-    }
-}
+//    func session(_ session: MCSession, didReceive data: Data, fromPeer peerID: MCPeerID) {
+//        print("_ session didReceive data \(data)")
+//
+//        let messageFromJSON = try! decoder.decode(MessageForJSON.self, from: data)
+//        conversations[peerID]?.messages?.append(Message(text: messageFromJSON.text,
+//                                                                  isIncoming: true))
+//        DispatchQueue.main.async { [weak self] in  // TODO: may be use .sync() instead
+//            self?.updateViewFromModel()
+//        }
+//    }
+//
+//    func session(_ session: MCSession, didReceive stream: InputStream, withName streamName: String, fromPeer peerID: MCPeerID) {
+//        print("_ session didReceive stream: \(stream)")
+//    }
+//
+//    func session(_ session: MCSession, didStartReceivingResourceWithName resourceName: String, fromPeer peerID: MCPeerID, with progress: Progress) {
+//        print("_ session didStartReceivingResourceWithName \(resourceName)")
+//    }
+//
+//    func session(_ session: MCSession, didFinishReceivingResourceWithName resourceName: String, fromPeer peerID: MCPeerID, at localURL: URL?, withError error: Error?) {
+//        print("_ session didFinishReceivingResourceWithName \(resourceName)")
+//    }
+//
+//    func session(_ session: MCSession, didReceiveCertificate certificate: [Any]?, fromPeer peerID: MCPeerID, certificateHandler: @escaping (Bool) -> Void) {
+//        certificateHandler(true)
+//    }
+//}
 
 extension ConversationsListViewController: NSFetchedResultsControllerDelegate {
     func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
@@ -329,5 +321,52 @@ extension ConversationsListViewController: NSFetchedResultsControllerDelegate {
 
     func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
         conversationsListTV.endUpdates()
+    }
+}
+
+extension ConversationsListViewController: CommunicatorDelegate {
+    func didFoundUser(userID: String, userName: String?) {
+        // TODO: make a separate method (add conversation to model)
+        // TODO: remove hardcord
+        conversations[userID] = Conversation(name: userID,
+                                                    messages: [Message(text: "Some text", isIncoming: true),
+                                                               Message(text: "Another text", isIncoming: false)],
+                                                    date: Date(),
+                                                    online: true,
+                                                    hasUnreadMessages: false)
+        updateViewFromModel()
+    }
+    
+    func didLostUser(userID: String) {
+        conversations.removeValue(forKey: userID)
+        updateViewFromModel()
+    }
+    
+    func failedToStartBrowsingForUsers(error: Error) {
+        
+    }
+    
+    func failedToStartAdvertising(error: Error) {
+        
+    }
+    
+    func didReceiveMessage(text: String, fromUser: String, toUser: String) {
+        let isIncoming: Bool
+        let userName: String
+        if toUser == MultipeerCommunicator.myDeviceName {
+            isIncoming = true
+            userName = fromUser
+        } else if fromUser == MultipeerCommunicator.myDeviceName {
+            isIncoming = false
+            userName = toUser
+        } else {
+            assert(false, "_ receiving message error")
+            return
+        }
+        let newMessage = Message(text: text, isIncoming: isIncoming)
+        conversations[userName]?.messages?.append(newMessage)
+        DispatchQueue.main.async { [weak self] in  // TODO: may be use .sync() instead
+            self?.updateViewFromModel()
+        }
     }
 }
