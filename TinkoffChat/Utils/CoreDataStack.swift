@@ -41,51 +41,26 @@ class CoreDataStack {
         return coordinator
     }()
     
-        lazy var masterContext: NSManagedObjectContext = {
-            var masterContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
-            masterContext.persistentStoreCoordinator = self.persistentStoreCoordinator
-            masterContext.mergePolicy = NSOverwriteMergePolicy
-            return masterContext
-        }()
+    lazy var masterContext: NSManagedObjectContext = {
+        var masterContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
+        masterContext.persistentStoreCoordinator = self.persistentStoreCoordinator
+        masterContext.mergePolicy = NSOverwriteMergePolicy
+        return masterContext
+    }()
     
-        lazy var mainContext: NSManagedObjectContext = {
-            var mainContext = NSManagedObjectContext(concurrencyType: .mainQueueConcurrencyType)
-            mainContext.parent = self.masterContext
-            mainContext.mergePolicy = NSOverwriteMergePolicy
-            return mainContext
-        }()
+    lazy var mainContext: NSManagedObjectContext = {
+        var mainContext = NSManagedObjectContext(concurrencyType: .mainQueueConcurrencyType)
+        mainContext.parent = self.masterContext
+        mainContext.mergePolicy = NSOverwriteMergePolicy
+        return mainContext
+    }()
     
-        lazy var saveContext: NSManagedObjectContext = {
-            var saveContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
-            saveContext.parent = self.mainContext
-            saveContext.mergePolicy = NSOverwriteMergePolicy
-            return saveContext
-        }()
-    
-    // TODO: what about the rule of using NSMO only on the context where it was created
-    // TODO: remove ProfileInfoTmp (It was created because it doesn't contain UIImage for experimental purposes)
-    static func findOrInsertAppUser(in context: NSManagedObjectContext) -> ProfileInfoTmp? {
-        // TODO: may be embed in .perform() (don't forget context.save() before exit perfomBlock())
-        var appUser: ProfileInfoTmp?  // TODO: refactor naming
-        let fetchRequest = NSFetchRequest<ProfileInfoTmp>(entityName: "ProfileInfoTmp")
-        
-        do {
-            let results = try context.fetch(fetchRequest)
-            assert(results.count < 2, "Multiple AppUsers found!")
-            if let foundUser = results.first {
-                appUser = foundUser
-            }
-        } catch {
-            print("Failed to fetch AppUser: \(error)")
-        }
-        
-        if appUser == nil {
-            appUser = ProfileInfoTmp.insertAppUser(in: context)
-        }
-        
-        performSave(with: context)
-        return appUser
-    }
+    lazy var saveContext: NSManagedObjectContext = {
+        var saveContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
+        saveContext.parent = self.mainContext
+        saveContext.mergePolicy = NSOverwriteMergePolicy
+        return saveContext
+    }()
     
     typealias SaveCompletion = () -> Void
     
@@ -110,5 +85,4 @@ class CoreDataStack {
             }
         }
     }
-    
 }

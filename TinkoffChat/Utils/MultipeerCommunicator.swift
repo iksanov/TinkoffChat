@@ -12,6 +12,8 @@ import MultipeerConnectivity
 struct PeerData {
     let peerId: MCPeerID
     var session: MCSession
+//    TODO: support user's name from discovery info
+//    let userName: String
 }
 
 class MultipeerCommunicator: NSObject, Communicator {

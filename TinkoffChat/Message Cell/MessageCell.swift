@@ -14,8 +14,8 @@ class MessageCell: UITableViewCell, MessageCellConfiguration {
 
     @IBOutlet weak var messageLabel: UILabel!
     
-    func configureCell(from message: Message) {  // TODO: realign in case of single-line message (how?)
-        self.textOfMessage = message.textOfMessage
+    func configureCell(from message: MessageTmp) {  // TODO: realign in case of single-line message (how?)
+        self.textOfMessage = message.text
         messageLabel.text = self.textOfMessage
     }
     

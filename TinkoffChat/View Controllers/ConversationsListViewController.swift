@@ -20,12 +20,14 @@ class ConversationsListViewController: UIViewController {
         return returnRequest
     }()
     
-    lazy var frc: NSFetchedResultsController<ConversationTmp> = NSFetchedResultsController(fetchRequest: request,
-                                              managedObjectContext: StorageManager.sharedCoreDataStack.mainContext,
-                                              sectionNameKeyPath: nil,  // TODO: replace it with online in the future
-                                              cacheName: nil)
+    lazy var frc: NSFetchedResultsController<ConversationTmp> = NSFetchedResultsController(
+        fetchRequest: request,
+        managedObjectContext: StorageManager.sharedCoreDataStack.mainContext,  // TODO: choose right context
+        sectionNameKeyPath: nil,  // TODO: replace it with online in the future
+        cacheName: nil
+    )
     
-    let testStorageManager = StorageManager()
+//    let testStorageManager = StorageManager()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -45,17 +47,26 @@ class ConversationsListViewController: UIViewController {
         MultipeerCommunicator.shared.delegate = self
         
         
-        let testUser = NSEntityDescription.insertNewObject(forEntityName: "UserTmp", into: StorageManager.sharedCoreDataStack.mainContext) as? UserTmp
-        testUser?.name = "name of test User"
-        testUser?.online = true
-        
-        let testConv = NSEntityDescription.insertNewObject(forEntityName: "ConversationTmp", into: StorageManager.sharedCoreDataStack.mainContext) as? ConversationTmp
-        testConv?.lastMessageText = "text of the last test message"
-        testConv?.lastMessageDate = Date(timeIntervalSince1970: 0)
-        testConv?.hasUnreadMessages = true
-        testConv?.user = testUser
-        
-        CoreDataStack.performSave(with: StorageManager.sharedCoreDataStack.mainContext)
+//        let testUser = NSEntityDescription.insertNewObject(forEntityName: "UserTmp", into: StorageManager.sharedCoreDataStack.mainContext) as? UserTmp
+//        testUser?.name = "name of test User"
+//        testUser?.online = true
+//
+//        let testMessage = NSEntityDescription.insertNewObject(forEntityName: "MessageTmp", into: StorageManager.sharedCoreDataStack.mainContext) as? MessageTmp
+//        testMessage?.date = Date(timeIntervalSinceNow: 0)
+//        testMessage?.isIncoming = false
+//        testMessage?.text = "text of test message"
+//        testMessage?.unread = true
+//
+//        let testConv = NSEntityDescription.insertNewObject(forEntityName: "ConversationTmp", into: StorageManager.sharedCoreDataStack.mainContext) as? ConversationTmp
+//        testConv?.lastMessageText = "text of the last test message"
+//        testConv?.lastMessageDate = Date(timeIntervalSinceNow: 0)
+//        testConv?.hasUnreadMessages = true
+//        testConv?.user = testUser
+//        if let message = testMessage {
+//            testConv?.addToMessages(message)
+//        }
+//
+//        CoreDataStack.performSave(with: StorageManager.sharedCoreDataStack.mainContext)
         
         frc.delegate = self
         try! frc.performFetch()
@@ -83,14 +94,14 @@ class ConversationsListViewController: UIViewController {
     }
     
     private func updateViewFromModel() {  // TODO: think about execution on the main thread
-        DispatchQueue.main.async {
-            self.conversationsListTV.reloadData()  // TODO: may be reload only speсific rows
-        }
+//        DispatchQueue.main.async {
+//            self.conversationsListTV.reloadData()  // TODO: may be reload only speсific rows
+//        }
     }
     
     private func updateChatViewFromModel() {
         if let chatVC = navigationController?.topViewController as? ChatViewController {
-            chatVC.userIsOnline = MultipeerCommunicator.shared.checkIfUserAvaliable(userID: chatVC.userId)
+            chatVC.userIsOnline = MultipeerCommunicator.shared.checkIfUserAvaliable(userID: chatVC.userID)
             DispatchQueue.main.async {
                 chatVC.messagesTV.reloadData()
             }
@@ -105,17 +116,17 @@ class ConversationsListViewController: UIViewController {
         present(profileVC, animated: true, completion: nil)
     }
     
-    private func conversationAt(_ indexPath: IndexPath) -> Conversation? {
-        switch indexPath.section {
-        case 0:
-            return onlineConversations[indexPath.row].value
-        case 1:
-            return historyConversations[indexPath.row].value
-        default:
-            return nil
-        }
-        
-    }
+//    private func conversationAt(_ indexPath: IndexPath) -> Conversation? {
+//        switch indexPath.section {
+//        case 0:
+//            return onlineConversations[indexPath.row].value
+//        case 1:
+//            return historyConversations[indexPath.row].value
+//        default:
+//            return nil
+//        }
+//
+//    }
     
     func logThemeChanging(selectedTheme: UIColor) {
         print("_ Selected theme is \(selectedTheme).")
@@ -124,10 +135,14 @@ class ConversationsListViewController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         switch segue.identifier {
         case "OpenConversation":
-            if let conversation = sender as? Conversation {
-                if let convVC = segue.destination as? ChatViewController {
-//                    convVC.userId = conversation.user?.name
-                    convVC.userId = conversation.name ?? "Unknown User"
+//            if let conversation = sender as? Conversation {
+//                if let convVC = segue.destination as? ChatViewController {
+//                    convVC.userID = conversation.name ?? "Unknown User"
+//                }
+//            }
+            if let conversation = sender as? ConversationTmp {
+                if let convVC = segue.destination as? ChatViewController, let userName = conversation.user?.name {
+                    convVC.userID = userName
                 }
             }
         case "OpenThemeChooser":
@@ -143,152 +158,98 @@ class ConversationsListViewController: UIViewController {
 
 extension ConversationsListViewController: UITableViewDataSource {
     
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return 2
-    }
-
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        switch section {
-        case 0:
-            return onlineConversations.count
-        case 1:
-            return historyConversations.count
-        default:
-            assert(false)
-            return Int()
-        }
-    }
-
-    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        switch section {
-        case 0:
-            return "Online"
-        case 1:
-            return "History"
-        default:
-            assert(false)
-            return nil
-        }
-    }
-    
-
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "ConvCell", for: indexPath)
-        let convCell = cell as! ConversationCell
-
-        guard let conversation = conversationAt(indexPath) else { assert(false); return convCell }
-        convCell.configureCell(from: conversation)
-        return convCell
-    }
-    
-//    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-//        guard let sections = frc.sections else {
-//            fatalError("No sections in fetchedResultsController")
-//        }
-//        return sections[section].name
-//    }
-//
-//
 //    func numberOfSections(in tableView: UITableView) -> Int {
-//        guard let sections = frc.sections else {
-//            fatalError("No sections in fetchedResultsController")
-//        }
-//        return sections.count
+//        return 2
 //    }
 //
 //    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        guard let sections = frc.sections else {
-//            fatalError("No sections in fetchedResultsController")
+//        switch section {
+//        case 0:
+//            return onlineConversations.count
+//        case 1:
+//            return historyConversations.count
+//        default:
+//            assert(false)
+//            return Int()
 //        }
-//        let sectionInfo = sections[section]
-//        return sectionInfo.numberOfObjects
 //    }
+//
+//    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+//        switch section {
+//        case 0:
+//            return "Online"
+//        case 1:
+//            return "History"
+//        default:
+//            assert(false)
+//            return nil
+//        }
+//    }
+//
 //
 //    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 //        let cell = tableView.dequeueReusableCell(withIdentifier: "ConvCell", for: indexPath)
 //        let convCell = cell as! ConversationCell
 //
-//        let conversation = frc.object(at: indexPath)
-//
+//        guard let conversation = conversationAt(indexPath) else { assert(false); return convCell }
 //        convCell.configureCell(from: conversation)
 //        return convCell
 //    }
     
-}
-
-extension ConversationsListViewController: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard let conversation = conversationAt(indexPath) else { assert(false); return }
-        performSegue(withIdentifier: "OpenConversation", sender: conversation)
-        tableView.deselectRow(at: indexPath, animated: true)
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        guard let sections = frc.sections else {
+            fatalError("No sections in fetchedResultsController")
+        }
+        return sections[section].name
     }
+
+    func numberOfSections(in tableView: UITableView) -> Int {
+        guard let sections = frc.sections else {
+            fatalError("No sections in fetchedResultsController")
+        }
+        return sections.count
+    }
+
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        guard let sections = frc.sections else {
+            fatalError("No sections in fetchedResultsController")
+        }
+        let sectionInfo = sections[section]
+        return sectionInfo.numberOfObjects
+    }
+
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "ConvCell", for: indexPath)
+        let convCell = cell as! ConversationCell
+
+        let conversation = frc.object(at: indexPath)
+
+        convCell.configureCell(from: conversation)
+        return convCell
+    }
+    
 }
 
 //extension ConversationsListViewController: UITableViewDelegate {
 //    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        let conversation = frc.object(at: indexPath)
+//        guard let conversation = conversationAt(indexPath) else { assert(false); return }
 //        performSegue(withIdentifier: "OpenConversation", sender: conversation)
 //        tableView.deselectRow(at: indexPath, animated: true)
 //    }
 //}
 
+extension ConversationsListViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let conversation = frc.object(at: indexPath)
+        performSegue(withIdentifier: "OpenConversation", sender: conversation)
+        tableView.deselectRow(at: indexPath, animated: true)
+    }
+}
+
 // uncomment if using obj-c ThemesVC
 //extension ConversationsListViewController: ThemesViewControllerDelegate {
 //    func themesViewController(_ controller: ThemesViewController, didSelectTheme selectedTheme: UIColor) {
 //        logThemeChanging(selectedTheme: selectedTheme)
-//    }
-//}
-
-//extension ConversationsListViewController: MCSessionDelegate {
-//    
-//    func session(_ session: MCSession, peer peerID: MCPeerID, didChange state: MCSessionState) {
-//        print("_ Session with peer \(peerID.displayName) changed state to \(state.rawValue)")
-//        print("_ peerID \(peerID.displayName) connection to session: \(session.connectedPeers.contains(peerID))")
-//        if state == MCSessionState.notConnected {
-//            (communicator.delegate! as! CommunicationManager).sessions.removeValue(forKey: peerID)
-//            print("_ deleted session with peerID \(peerID.displayName)")
-//            DispatchQueue.main.async { [weak self] in 
-//                self?.updateViewFromModel()
-//            }
-//        }
-//        if state == MCSessionState.connected {
-//            print("_ Session is connected")
-//            conversations[peerID] = Conversation(name: peerID.displayName,  // TODO: make a separate method
-//                messages: nil,
-//                date: Date(),  // TODO: replace for nil
-//                online: true,
-//                hasUnreadMessages: false)
-//            DispatchQueue.main.async { [weak self] in  // TODO: may be use .sync() instead
-//                self?.updateViewFromModel()
-//            }
-//        }
-//    }
-    
-//    func session(_ session: MCSession, didReceive data: Data, fromPeer peerID: MCPeerID) {
-//        print("_ session didReceive data \(data)")
-//
-//        let messageFromJSON = try! decoder.decode(MessageForJSON.self, from: data)
-//        conversations[peerID]?.messages?.append(Message(text: messageFromJSON.text,
-//                                                                  isIncoming: true))
-//        DispatchQueue.main.async { [weak self] in  // TODO: may be use .sync() instead
-//            self?.updateViewFromModel()
-//        }
-//    }
-//
-//    func session(_ session: MCSession, didReceive stream: InputStream, withName streamName: String, fromPeer peerID: MCPeerID) {
-//        print("_ session didReceive stream: \(stream)")
-//    }
-//
-//    func session(_ session: MCSession, didStartReceivingResourceWithName resourceName: String, fromPeer peerID: MCPeerID, with progress: Progress) {
-//        print("_ session didStartReceivingResourceWithName \(resourceName)")
-//    }
-//
-//    func session(_ session: MCSession, didFinishReceivingResourceWithName resourceName: String, fromPeer peerID: MCPeerID, at localURL: URL?, withError error: Error?) {
-//        print("_ session didFinishReceivingResourceWithName \(resourceName)")
-//    }
-//
-//    func session(_ session: MCSession, didReceiveCertificate certificate: [Any]?, fromPeer peerID: MCPeerID, certificateHandler: @escaping (Bool) -> Void) {
-//        certificateHandler(true)
 //    }
 //}
 
@@ -336,11 +297,11 @@ extension ConversationsListViewController: CommunicatorDelegate {
         // TODO: make a separate method (add conversation to model)
         // TODO: remove hardcord
         conversations[userID] = Conversation(name: userID,
-                                                    messages: [Message(text: "Some text", isIncoming: true),
-                                                               Message(text: "Another text", isIncoming: false)],
-                                                    date: Date(),
-                                                    online: true,
-                                                    hasUnreadMessages: false)
+                                             messages: [Message(text: "Some text", isIncoming: true),
+                                                        Message(text: "Another text", isIncoming: false)],
+                                             date: Date(),
+                                             online: true,
+                                             hasUnreadMessages: false)
         updateViewFromModel()
         updateChatViewFromModel()
     }
