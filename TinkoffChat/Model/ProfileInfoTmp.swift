@@ -29,15 +29,16 @@ extension ProfileInfoTmp {
         
         do {
             let results = try context.fetch(fetchRequest)
-            assert(results.count < 2, "Multiple AppUsers found!")
+            assert(results.count < 2, "_ Multiple AppUsers found!")
             if let foundUser = results.first {
                 appUser = foundUser
             }
         } catch {
-            print("Failed to fetch AppUser: \(error)")
+            print("_ Failed to fetch AppUser: \(error)")
         }
         
         if appUser == nil {
+            print("_ no such profileInfo. Trying to create a new one")
             appUser = ProfileInfoTmp.insertAppUser(in: context)
         }
         

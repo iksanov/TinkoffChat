@@ -16,6 +16,7 @@ class ConversationsListViewController: UIViewController {
     
     let request: NSFetchRequest<ConversationTmp> = {
         let returnRequest: NSFetchRequest<ConversationTmp> = ConversationTmp.fetchRequest()
+        // TODO: remove lastMessageDate attribute and calculate it instead
         returnRequest.sortDescriptors = [NSSortDescriptor(key: "user.online", ascending: false), NSSortDescriptor(key: "lastMessageDate", ascending: false)]
         return returnRequest
     }()
@@ -23,11 +24,9 @@ class ConversationsListViewController: UIViewController {
     lazy var frc: NSFetchedResultsController<ConversationTmp> = NSFetchedResultsController(
         fetchRequest: request,
         managedObjectContext: StorageManager.sharedCoreDataStack.mainContext,  // TODO: choose right context
-        sectionNameKeyPath: nil,  // TODO: replace it with online in the future
+        sectionNameKeyPath: "user.online",  // TODO: replace 1/0 with online/history
         cacheName: nil
     )
-    
-//    let testStorageManager = StorageManager()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -46,28 +45,6 @@ class ConversationsListViewController: UIViewController {
         
         MultipeerCommunicator.shared.delegate = self
         
-        
-//        let testUser = NSEntityDescription.insertNewObject(forEntityName: "UserTmp", into: StorageManager.sharedCoreDataStack.mainContext) as? UserTmp
-//        testUser?.name = "name of test User"
-//        testUser?.online = true
-//
-//        let testMessage = NSEntityDescription.insertNewObject(forEntityName: "MessageTmp", into: StorageManager.sharedCoreDataStack.mainContext) as? MessageTmp
-//        testMessage?.date = Date(timeIntervalSinceNow: 0)
-//        testMessage?.isIncoming = false
-//        testMessage?.text = "text of test message"
-//        testMessage?.unread = true
-//
-//        let testConv = NSEntityDescription.insertNewObject(forEntityName: "ConversationTmp", into: StorageManager.sharedCoreDataStack.mainContext) as? ConversationTmp
-//        testConv?.lastMessageText = "text of the last test message"
-//        testConv?.lastMessageDate = Date(timeIntervalSinceNow: 0)
-//        testConv?.hasUnreadMessages = true
-//        testConv?.user = testUser
-//        if let message = testMessage {
-//            testConv?.addToMessages(message)
-//        }
-//
-//        CoreDataStack.performSave(with: StorageManager.sharedCoreDataStack.mainContext)
-        
         frc.delegate = self
         try! frc.performFetch()
         conversationsListTV.reloadData()
@@ -80,31 +57,20 @@ class ConversationsListViewController: UIViewController {
         super.viewWillAppear(animated)
         print("_ viewWillAppear")
         profileButton.tintColor = UIBarButtonItem.appearance().tintColor
-        updateViewFromModel()
+//        updateViewFromModel()
     }
     
     var conversations = [String : Conversation]()
     
-    var onlineConversations: [(key: String, value: Conversation)] {
-        return conversations.filter({ $0.value.online }).sorted { $0.value.date! > $1.value.date! }
-    }
-    
-    var historyConversations: [(key: String, value: Conversation)] {
-        return conversations.filter({ $0.value.messages != nil && !$0.value.online }).sorted { $0.value.date! > $1.value.date! }
-    }
-    
-    private func updateViewFromModel() {  // TODO: think about execution on the main thread
+//    private func updateViewFromModel() {  // TODO: think about execution on the main thread
 //        DispatchQueue.main.async {
 //            self.conversationsListTV.reloadData()  // TODO: may be reload only speсific rows
 //        }
-    }
+//    }
     
-    private func updateChatViewFromModel() {
+    private func updateOnlineStatusOnChatView() {
         if let chatVC = navigationController?.topViewController as? ChatViewController {
             chatVC.userIsOnline = MultipeerCommunicator.shared.checkIfUserAvaliable(userID: chatVC.userID)
-            DispatchQueue.main.async {
-                chatVC.messagesTV.reloadData()
-            }
         }
     }
     
@@ -116,18 +82,6 @@ class ConversationsListViewController: UIViewController {
         present(profileVC, animated: true, completion: nil)
     }
     
-//    private func conversationAt(_ indexPath: IndexPath) -> Conversation? {
-//        switch indexPath.section {
-//        case 0:
-//            return onlineConversations[indexPath.row].value
-//        case 1:
-//            return historyConversations[indexPath.row].value
-//        default:
-//            return nil
-//        }
-//
-//    }
-    
     func logThemeChanging(selectedTheme: UIColor) {
         print("_ Selected theme is \(selectedTheme).")
     }
@@ -135,11 +89,6 @@ class ConversationsListViewController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         switch segue.identifier {
         case "OpenConversation":
-//            if let conversation = sender as? Conversation {
-//                if let convVC = segue.destination as? ChatViewController {
-//                    convVC.userID = conversation.name ?? "Unknown User"
-//                }
-//            }
             if let conversation = sender as? ConversationTmp {
                 if let convVC = segue.destination as? ChatViewController, let userName = conversation.user?.name {
                     convVC.userID = userName
@@ -157,44 +106,6 @@ class ConversationsListViewController: UIViewController {
 }
 
 extension ConversationsListViewController: UITableViewDataSource {
-    
-//    func numberOfSections(in tableView: UITableView) -> Int {
-//        return 2
-//    }
-//
-//    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        switch section {
-//        case 0:
-//            return onlineConversations.count
-//        case 1:
-//            return historyConversations.count
-//        default:
-//            assert(false)
-//            return Int()
-//        }
-//    }
-//
-//    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-//        switch section {
-//        case 0:
-//            return "Online"
-//        case 1:
-//            return "History"
-//        default:
-//            assert(false)
-//            return nil
-//        }
-//    }
-//
-//
-//    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//        let cell = tableView.dequeueReusableCell(withIdentifier: "ConvCell", for: indexPath)
-//        let convCell = cell as! ConversationCell
-//
-//        guard let conversation = conversationAt(indexPath) else { assert(false); return convCell }
-//        convCell.configureCell(from: conversation)
-//        return convCell
-//    }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         guard let sections = frc.sections else {
@@ -230,14 +141,6 @@ extension ConversationsListViewController: UITableViewDataSource {
     
 }
 
-//extension ConversationsListViewController: UITableViewDelegate {
-//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        guard let conversation = conversationAt(indexPath) else { assert(false); return }
-//        performSegue(withIdentifier: "OpenConversation", sender: conversation)
-//        tableView.deselectRow(at: indexPath, animated: true)
-//    }
-//}
-
 extension ConversationsListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let conversation = frc.object(at: indexPath)
@@ -259,9 +162,9 @@ extension ConversationsListViewController: NSFetchedResultsControllerDelegate {
     }
 
     func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>,
-                           didChange sectionInfo: NSFetchedResultsSectionInfo,
-                           atSectionIndex sectionIndex: Int,
-                           for type: NSFetchedResultsChangeType) {
+                    didChange sectionInfo: NSFetchedResultsSectionInfo,
+                    atSectionIndex sectionIndex: Int,
+                    for type: NSFetchedResultsChangeType) {
         switch type {
         case .insert: conversationsListTV.insertSections([sectionIndex], with: .automatic)
         case .delete: conversationsListTV.deleteSections([sectionIndex], with: .automatic)
@@ -295,21 +198,27 @@ extension ConversationsListViewController: NSFetchedResultsControllerDelegate {
 extension ConversationsListViewController: CommunicatorDelegate {
     func didFoundUser(userID: String, userName: String?) {
         // TODO: make a separate method (add conversation to model)
-        // TODO: remove hardcord
-        conversations[userID] = Conversation(name: userID,
-                                             messages: [Message(text: "Some text", isIncoming: true),
-                                                        Message(text: "Another text", isIncoming: false)],
-                                             date: Date(),
-                                             online: true,
-                                             hasUnreadMessages: false)
-        updateViewFromModel()
-        updateChatViewFromModel()
+        // TODO: remove hardcode
+        print("_ didFoundUser \(userID)")
+        // TODO: may be wrap with .perform()
+        if let user = UserTmp.findOrInsertUser(with: userID, in: StorageManager.sharedCoreDataStack.mainContext) {
+            user.online = true
+            _ = ConversationTmp.findOrInsertConversation(with: user, in: StorageManager.sharedCoreDataStack.mainContext)
+        }
+        // TODO: find out if FRC updates TV when some attribute of its relationship changes
+        // if not: add isOnline attribute to ConversationTmp entity
+//        updateViewFromModel()
+        updateOnlineStatusOnChatView()
     }
     
     func didLostUser(userID: String) {
-        conversations.removeValue(forKey: userID)
-        updateViewFromModel()
-        updateChatViewFromModel()
+        print("_ didLostUser \(userID)")
+        // TODO: may be remove duplicated code from previous method
+        if let user = UserTmp.findUser(with: userID, in: StorageManager.sharedCoreDataStack.mainContext) {
+            user.online = false
+        }
+//        updateViewFromModel()
+        updateOnlineStatusOnChatView()
     }
     
     func failedToStartBrowsingForUsers(error: Error) {
@@ -333,11 +242,18 @@ extension ConversationsListViewController: CommunicatorDelegate {
             assert(false, "_ receiving message error")
             return
         }
-        let newMessage = Message(text: text, isIncoming: isIncoming)
-        conversations[userName]?.messages?.append(newMessage)
-        DispatchQueue.main.async {
-            self.updateViewFromModel()
-            self.updateChatViewFromModel()
+        let dateNow = Date(timeIntervalSinceNow: 0)
+        if let user = UserTmp.findOrInsertUser(with: userName, in: StorageManager.sharedCoreDataStack.mainContext),
+            let newMessage = MessageTmp.insertMessage(from: user,
+                                                      with: text,
+                                                      which: isIncoming,
+                                                      at: dateNow,
+                                                      in: StorageManager.sharedCoreDataStack.mainContext) {
+            user.conversation?.addToMessages(newMessage)
+            user.conversation?.lastMessageDate = dateNow
+            user.conversation?.hasUnreadMessages = true  // TODO: update unread messages info
         }
+        // TODO: it is unnecessary only because the attribute lastMessageDate is changed when a new nessage is received
+//        self.updateViewFromModel()
     }
 }

@@ -20,19 +20,13 @@ class ConversationCell: UITableViewCell, ConversationCellConfiguration {  // TOD
     var online: Bool = false
     var hasUnreadMessages: Bool = false
     
-//    func configureCell(from convPreview: Conversation) {
-//        self.name = convPreview.name
-//        self.message = convPreview.messages?.last?.textOfMessage
-//        self.date = convPreview.date
-//        self.online = convPreview.online
-//        self.hasUnreadMessages = convPreview.hasUnreadMessages
-//
-//        drawCell()
-//    }
-    
     func configureCell(from convPreview: ConversationTmp) {
+        print("_ configureCell")
         self.name = convPreview.user?.name
-        self.message = convPreview.lastMessageText
+        if let lastMessage = convPreview.messages?.sortedArray(using: [NSSortDescriptor(key: "date", ascending: true)]).last as? MessageTmp,
+            let lastMessageText = lastMessage.text {
+            self.message = lastMessageText
+        }
         self.date = convPreview.lastMessageDate
         self.online = convPreview.user?.online ?? false
         self.hasUnreadMessages = convPreview.hasUnreadMessages
@@ -58,14 +52,18 @@ class ConversationCell: UITableViewCell, ConversationCellConfiguration {  // TOD
         dateLabel.font = UIFont.preferredFont(forTextStyle: .body)
         let currentCalendar = Calendar.current
         let dateFormatter = DateFormatter()
-        let isToday = currentCalendar.isDateInToday(date!)
-        if isToday {
-            dateFormatter.setLocalizedDateFormatFromTemplate("HH:mm")
+        if let dateValue = date {
+            let isToday = currentCalendar.isDateInToday(dateValue)
+            if isToday {
+                dateFormatter.setLocalizedDateFormatFromTemplate("HH:mm")
+            } else {
+                dateFormatter.setLocalizedDateFormatFromTemplate("dd MMM")
+            }
+            dateLabel.text = dateFormatter.string(from: dateValue)
         } else {
-            dateFormatter.setLocalizedDateFormatFromTemplate("dd MMM")
+            dateLabel.text = ""
         }
-        dateLabel.text = dateFormatter.string(from: date!)
-
+        
         backgroundColor = online ? #colorLiteral(red: 0.9882352941, green: 0.9058823529, blue: 0.3176470588, alpha: 0.5471693065) : #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
     }
     

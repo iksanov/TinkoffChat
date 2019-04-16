@@ -16,6 +16,8 @@ class ChatViewController: UIViewController {
     @IBOutlet var sendButton: UIButton!
     
     lazy var request: NSFetchRequest<MessageTmp> = {
+        // TODO: think about unfaulting, batchSize and other optimx=zations
+        // TODO: in other FRC too
         let returnRequest: NSFetchRequest<MessageTmp> = MessageTmp.fetchRequest()
         returnRequest.predicate = NSPredicate(format: "conversation.user.name == %@", userID)
         returnRequest.sortDescriptors = [NSSortDescriptor(key: "date", ascending: true)]
@@ -58,19 +60,6 @@ class ChatViewController: UIViewController {
         inputTextView.text = ""
     }
     
-////    let messagesList = MessagesList()
-////    lazy var messages = messagesList.messages
-//    var messages: [Message] {
-//        if let viewControllers = navigationController?.viewControllers,
-//            let convListVC = viewControllers[viewControllers.count - 2] as? ConversationsListViewController,
-//            let conv = convListVC.conversations[userID],
-//            let messages = conv.messages {
-//            return messages
-//        } else {
-//            return [Message]()
-//        }
-//    }
-    
     var userID = "username_here"
     var userIsOnline = true {
         didSet {
@@ -99,23 +88,6 @@ class ChatViewController: UIViewController {
 
 // TODO: not to copy/paste code from ConversationListVC
 extension ChatViewController: UITableViewDataSource {
-
-//    func numberOfSections(in tableView: UITableView) -> Int {
-//        return 1
-//    }
-//
-//    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        return messages.count
-//    }
-//
-//    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//        let message = messages[indexPath.row]
-//        let messageCellIdentifier = message.isIncoming ? "InMessageCell" : "OutMessageCell"
-//        let cell = tableView.dequeueReusableCell(withIdentifier: messageCellIdentifier, for: indexPath)
-//        let messageCell = cell as! MessageCell
-//        messageCell.configureCell(from: message)
-//        return messageCell
-//    }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         guard let sections = frc.sections else {
