@@ -30,6 +30,10 @@
 		20C4BBB7224105CA00A35537 /* Communicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20C4BBB6224105CA00A35537 /* Communicator.swift */; };
 		20C4BBBB2241069700A35537 /* MultipeerCommunicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20C4BBBA2241069700A35537 /* MultipeerCommunicator.swift */; };
 		20C4BBC1224191DB00A35537 /* MessageForJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20C4BBC0224191DB00A35537 /* MessageForJSON.swift */; };
+		20CE24E82267406000258B4D /* LoadedImagesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20CE24E72267406000258B4D /* LoadedImagesViewController.swift */; };
+		20CE24EA2267461500258B4D /* ImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20CE24E92267461500258B4D /* ImageCell.swift */; };
+		20CE24EC226747FB00258B4D /* ImageData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20CE24EB226747FB00258B4D /* ImageData.swift */; };
+		20CE24EE2267636800258B4D /* ImageLoadManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20CE24ED2267636800258B4D /* ImageLoadManager.swift */; };
 		20D38ECF224A650D001CC809 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 20D38ECD224A650D001CC809 /* Model.xcdatamodeld */; };
 		20D38ED3224A9C59001CC809 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20D38ED2224A9C59001CC809 /* CoreDataStack.swift */; };
 		20D38ED5224AAF92001CC809 /* ProfileInfoTmp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20D38ED4224AAF92001CC809 /* ProfileInfoTmp.swift */; };
@@ -70,6 +74,10 @@
 		20C4BBB6224105CA00A35537 /* Communicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Communicator.swift; sourceTree = "<group>"; };
 		20C4BBBA2241069700A35537 /* MultipeerCommunicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipeerCommunicator.swift; sourceTree = "<group>"; };
 		20C4BBC0224191DB00A35537 /* MessageForJSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageForJSON.swift; sourceTree = "<group>"; };
+		20CE24E72267406000258B4D /* LoadedImagesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadedImagesViewController.swift; sourceTree = "<group>"; };
+		20CE24E92267461500258B4D /* ImageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCell.swift; sourceTree = "<group>"; };
+		20CE24EB226747FB00258B4D /* ImageData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageData.swift; sourceTree = "<group>"; };
+		20CE24ED2267636800258B4D /* ImageLoadManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageLoadManager.swift; sourceTree = "<group>"; };
 		20D38ECE224A650D001CC809 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
 		20D38ED2224A9C59001CC809 /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
 		20D38ED4224AAF92001CC809 /* ProfileInfoTmp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileInfoTmp.swift; sourceTree = "<group>"; };
@@ -117,6 +125,7 @@
 				20D38ED4224AAF92001CC809 /* ProfileInfoTmp.swift */,
 				205813832261F69B00F55F93 /* MessageTmp.swift */,
 				205813812261EEA000F55F93 /* UserTmp.swift */,
+				20CE24EB226747FB00258B4D /* ImageData.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -131,6 +140,7 @@
 				20FB7EB6222D948800FBCB47 /* ThemesViewController.h */,
 				20FB7EB7222D948800FBCB47 /* ThemesViewController.m */,
 				20FB7EBD222EAC5200FBCB47 /* ThemesViewController.swift */,
+				20CE24E72267406000258B4D /* LoadedImagesViewController.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -147,6 +157,7 @@
 				20C4BBBA2241069700A35537 /* MultipeerCommunicator.swift */,
 				20D38ED2224A9C59001CC809 /* CoreDataStack.swift */,
 				20D38ED6224AB09F001CC809 /* StorageManager.swift */,
+				20CE24ED2267636800258B4D /* ImageLoadManager.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -207,6 +218,7 @@
 				2077BDA62227F3CE00B1CDB2 /* Model */,
 				2077BDAA2227F4B300B1CDB2 /* Protocols */,
 				2077BDA82227F3E800B1CDB2 /* Utils */,
+				20CE24E92267461500258B4D /* ImageCell.swift */,
 				20D38ECD224A650D001CC809 /* Model.xcdatamodeld */,
 				20EEAB2A2211CC6F007EE26A /* AppDelegate.swift */,
 				20EEAB2E2211CC6F007EE26A /* Main.storyboard */,
@@ -300,6 +312,7 @@
 			files = (
 				20B8759B22281E0800EE1DD6 /* MessageCell.swift in Sources */,
 				20D38ECF224A650D001CC809 /* Model.xcdatamodeld in Sources */,
+				20CE24EA2267461500258B4D /* ImageCell.swift in Sources */,
 				205813802261EB6E00F55F93 /* ConversationTmp.swift in Sources */,
 				20EEAB2D2211CC6F007EE26A /* ProfileViewController.swift in Sources */,
 				206AAABE22392D4B00B363C6 /* GCDDataManager.swift in Sources */,
@@ -316,6 +329,7 @@
 				20505D8022256CFD00E7729D /* Conversation.swift in Sources */,
 				20FB7EC6222EBFF300FBCB47 /* ThemeManager.swift in Sources */,
 				2023A811222474E700FCCAEB /* ConversationCell.swift in Sources */,
+				20CE24E82267406000258B4D /* LoadedImagesViewController.swift in Sources */,
 				205813842261F69B00F55F93 /* MessageTmp.swift in Sources */,
 				20B8759D2229434D00EE1DD6 /* Message.swift in Sources */,
 				20FB7EBB222D94F600FBCB47 /* Themes.m in Sources */,
@@ -325,10 +339,12 @@
 				20EEAB2B2211CC6F007EE26A /* AppDelegate.swift in Sources */,
 				207F0EE3223D1074006B0268 /* DataManager.swift in Sources */,
 				20FB7ECA222EE67200FBCB47 /* Theme.swift in Sources */,
+				20CE24EC226747FB00258B4D /* ImageData.swift in Sources */,
 				20C4BBB7224105CA00A35537 /* Communicator.swift in Sources */,
 				20D38ED5224AAF92001CC809 /* ProfileInfoTmp.swift in Sources */,
 				205813822261EEA000F55F93 /* UserTmp.swift in Sources */,
 				20D38ED3224A9C59001CC809 /* CoreDataStack.swift in Sources */,
+				20CE24EE2267636800258B4D /* ImageLoadManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

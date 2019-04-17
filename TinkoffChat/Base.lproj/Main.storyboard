@@ -307,11 +307,72 @@
                         <outlet property="operationButton" destination="LD9-Zl-Myi" id="4wm-Cx-vv9"/>
                         <outlet property="photoChooser" destination="xL1-go-cEk" id="xje-Fe-0xm"/>
                         <outlet property="photoImageView" destination="QZJ-sV-036" id="0to-QR-Vri"/>
+                        <segue destination="NJO-np-7Vi" kind="presentation" identifier="open loaded images" modalTransitionStyle="coverVertical" id="FN5-Pl-lU9"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aOV-wr-bdq" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2615.1999999999998" y="1406.8965517241379"/>
+        </scene>
+        <!--Loaded Images View Controller-->
+        <scene sceneID="0Fe-dn-2E1">
+            <objects>
+                <viewController id="NJO-np-7Vi" customClass="LoadedImagesViewController" customModule="TinkoffChat" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="yra-j1-UlT">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="mlo-TV-agL">
+                                <rect key="frame" x="0.0" y="44" width="375" height="734"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="pV3-P2-b3R">
+                                    <size key="itemSize" width="50" height="50"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="loaded image cell" id="pbG-xr-1x8" customClass="ImageCell" customModule="TinkoffChat" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
+                                            <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="NwE-3x-ew4">
+                                                    <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                                </imageView>
+                                            </subviews>
+                                        </view>
+                                        <constraints>
+                                            <constraint firstItem="NwE-3x-ew4" firstAttribute="top" secondItem="pbG-xr-1x8" secondAttribute="top" id="4Kb-Rb-JY9"/>
+                                            <constraint firstAttribute="bottom" secondItem="NwE-3x-ew4" secondAttribute="bottom" id="7RD-XH-CDR"/>
+                                            <constraint firstItem="NwE-3x-ew4" firstAttribute="leading" secondItem="pbG-xr-1x8" secondAttribute="leading" id="9yD-Qs-Six"/>
+                                            <constraint firstAttribute="trailing" secondItem="NwE-3x-ew4" secondAttribute="trailing" id="kL3-CA-FKs"/>
+                                        </constraints>
+                                        <connections>
+                                            <outlet property="imageView" destination="NwE-3x-ew4" id="eNz-fp-Q8Z"/>
+                                        </connections>
+                                    </collectionViewCell>
+                                </cells>
+                            </collectionView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="mlo-TV-agL" firstAttribute="top" secondItem="xT3-yO-7HN" secondAttribute="top" id="gnL-Or-mUX"/>
+                            <constraint firstItem="xT3-yO-7HN" firstAttribute="bottom" secondItem="mlo-TV-agL" secondAttribute="bottom" id="qfD-X3-bTP"/>
+                            <constraint firstItem="mlo-TV-agL" firstAttribute="leading" secondItem="xT3-yO-7HN" secondAttribute="leading" id="s6w-Re-Gwd"/>
+                            <constraint firstItem="xT3-yO-7HN" firstAttribute="trailing" secondItem="mlo-TV-agL" secondAttribute="trailing" id="um2-KG-iSv"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="xT3-yO-7HN"/>
+                    </view>
+                    <connections>
+                        <outlet property="loadedImagesCV" destination="mlo-TV-agL" id="g7r-NH-8vJ"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="JYn-jI-ykz" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2615" y="2133"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="B6R-RY-zAW">

@@ -131,6 +131,9 @@ class EditProfileViewController: UIViewController {
                 self.present(imagePicker, animated: true, completion: nil)
             }
         }))
+        actionSheet.addAction(UIAlertAction(title: "Load Image", style: .default, handler: { action in
+            self.performSegue(withIdentifier: "open loaded images", sender: nil)
+        }))
         actionSheet.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         
         self.present(actionSheet, animated: true, completion: nil)
