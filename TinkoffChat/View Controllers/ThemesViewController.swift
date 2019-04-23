@@ -15,6 +15,42 @@ class ThemesViewController: UIViewController {
         themeButton1.layer.cornerRadius = 8;
         themeButton2.layer.cornerRadius = 8;
         themeButton3.layer.cornerRadius = 8;
+        
+        let tap = UILongPressGestureRecognizer(target: self, action: #selector(touchedBy(recognizer:)))
+        view.addGestureRecognizer(tap)
+    }
+    
+    @objc private func touchedBy(recognizer: UILongPressGestureRecognizer) {
+        let touchLocation = recognizer.location(in: recognizer.view)
+        switch recognizer.state {
+        case .began:
+            DispatchQueue.main.async {
+                let image = UIImageView(image: UIImage(named: "gerb"))
+                image.frame = CGRect(x: touchLocation.x + CGFloat(arc4random_uniform(100)),
+                                     y: touchLocation.y,
+                                     width: 100,
+                                     height: 100)
+                self.view.addSubview(image)
+                print("began")
+                UIView.animate(withDuration: 2.0) {
+                    image.center.x += 50
+                }
+            }
+
+            
+        case .cancelled:
+            print("cancelled")
+        case .changed:
+            print("began")
+        case .ended:
+            print("ended")
+        case .failed:
+            print("began")
+        case .possible:
+            print("possible")
+        default:
+            print("default")
+        }
     }
     
     let model = Themes(colors:#colorLiteral(red: 1, green: 0.8409949541, blue: 0.8371030092, alpha: 1), #colorLiteral(red: 0.8323200345, green: 0.9884948134, blue: 0.6632229686, alpha: 1), #colorLiteral(red: 1, green: 0.8323456645, blue: 0.4732058644, alpha: 1));
